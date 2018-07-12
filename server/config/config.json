@@ -1,0 +1,12 @@
+{
+    "test": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://127.0.0.1:27017/TutorMeTest",
+        "JWT_SECRET": "2g04hg2G$$#H#Y455745hmw-+%#$^J$^J^%KJRGC!#($"
+    },
+    "development": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://127.0.0.1:27017/TutorMe",
+        "JWT_SECRET": "32g4h34H#J%$h33n64J#HG#5nb3v3Csx~~@!)(*&^%GR#B"
+    }
+}
