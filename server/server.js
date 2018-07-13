@@ -40,6 +40,19 @@ app.get('/tutors/:id', (req, res) => {
     })
 })
 
+app.post('/tutors', (req, res) => {
+    var body = _.pick(req.body, ['name', 'password']) // On sign-up, tutors will input name and password. Can add email support if needed
+    var tutor = new Tutor(body);
+
+    tutor.save().then(() => {
+        return tutor.generateAuthToken();
+    }).then((token) => {
+        res.header('x-auth', token).send(tutor);
+    }).catch((e) => {
+        res.status(400).send(e);
+    })
+})
+
 app.listen(port, () => {
     console.log(`Server open on port ${port}`);
 });
