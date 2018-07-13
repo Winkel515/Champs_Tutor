@@ -24,3 +24,5 @@ app.get('/tutors', (req, res) => {
 app.listen(port, () => {
     console.log(`Server open on port ${port}`);
 });
+
+module.exports = {app};
