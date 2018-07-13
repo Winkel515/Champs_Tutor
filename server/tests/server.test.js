@@ -19,3 +19,22 @@ describe('GET /tutors', () => {
             .end(done);
     })
 })
+
+describe('GET /tutors/:id', () => {
+    it('should get a tutor given an id', (done) => {
+        request(app)
+            .get(`/tutors/${tutors[0]._id}`)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.tutor.name).toBe(tutors[0].name);
+            })
+            .end(done);
+    });
+
+    it('should send 404 status if no tutor found', (done) => {
+        request(app)
+            .get(`/tutors/${new ObjectID().toHexString()}`)
+            .expect(404)
+            .end(done);
+    })
+})

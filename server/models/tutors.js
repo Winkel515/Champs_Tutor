@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+// Schema for tutors. Can add more such as description, ratings, etc.
 var TutorSchema = new mongoose.Schema({
     name: {
         required: true,
@@ -25,6 +26,14 @@ var TutorSchema = new mongoose.Schema({
         }
     }]
 })
+
+// When sending tutor, display only name and id. Can change later
+TutorSchema.methods.toJSON = function () {
+    var tutor = this;
+    var tutorObject = tutor.toObject();
+
+    return _.pick(tutor, ['name', '_id']); // Paramaters in array are the ones that will be displayed
+}
 
 var Tutor = mongoose.model('Tutor', TutorSchema);
 

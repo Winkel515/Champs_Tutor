@@ -13,6 +13,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
+// Process GET /tutors request and responds with an array of tutors objects
 app.get('/tutors', (req, res) => {
     Tutor.find().then((tutors) => {
         res.send({tutors});
@@ -20,6 +21,24 @@ app.get('/tutors', (req, res) => {
         res.status(400).send();
     });
 });
+
+// Process GET /tutors/:id request and responds with a single tutor object with a given id
+app.get('/tutors/:id', (req, res) => {
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id)) {
+        return res.status(400).send();
+    }
+    
+    Tutor.findOne({
+        _id: id
+    }).then((tutor) => {
+        if(!tutor){
+            return res.status(404).send();
+        }
+        res.send({tutor});
+    })
+})
 
 app.listen(port, () => {
     console.log(`Server open on port ${port}`);
