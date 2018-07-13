@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs')
 
 const secret = process.env.JWT_SECRET;
 
@@ -48,6 +49,20 @@ TutorSchema.methods.generateAuthToken = function() {
     tutor.save();
     return token;
 }
+
+TutorSchema.pre('save', function(next) { // Every time a tutor's profile is saved, check if the password was modified
+    const tutor = this;
+    if(tutor.isModified('password')) { // If modified, generate a new hashed password
+        bcrypt.genSalt(12, (err, salt) => {
+            bcrypt.hash(tutor.password, salt, (err, hash) => {
+                tutor.password = hash;
+                next();
+            })
+        })
+    } else { // Else do nothing
+        next();
+    }
+})
 
 var Tutor = mongoose.model('Tutor', TutorSchema);
 

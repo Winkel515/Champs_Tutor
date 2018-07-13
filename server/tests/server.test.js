@@ -63,7 +63,7 @@ describe('POST /tutors', () => {
 
                 Tutor.findOne({name: newTutor.name}).then((user) => { //Checking the database to see if tutor is saved properly
                     expect(user).toBeTruthy();
-                    // expect(user.password).not.toBe(password); // To check if properly hashed
+                    expect(user.password).not.toBe(newTutor.password); // To check if properly hashed
                     done();
                 }).catch(e => done(e));
             });

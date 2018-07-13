@@ -4,14 +4,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 const _ = require ('lodash');
+const path = require('path');
 
 const {Tutor} = require('./models/tutors');
 const {mongoose} = require('./db/mongoose');
+const publicPath = path.join(__dirname, '../public');
 
 var app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(express.static(publicPath));
 
 // Process GET /tutors request and responds with an array of tutors objects
 app.get('/tutors', (req, res) => {
