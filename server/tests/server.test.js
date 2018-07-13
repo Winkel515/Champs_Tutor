@@ -38,3 +38,34 @@ describe('GET /tutors/:id', () => {
             .end(done);
     })
 })
+
+describe('POST /tutors', () => {
+
+    const newTutor = {
+        name: 'Jesus',
+        password: 'godismydad'
+    }
+
+    it('should create a new tutor account with a token', (done) => {
+        request(app)
+            .post('/tutors')
+            .send(newTutor)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.name).toBe(newTutor.name);
+                expect(res.header['x-auth']).toBeTruthy();
+                expect(res.body._id).toBeTruthy();
+            })
+            .end((err) => {
+                if(err){
+                    return done(err);
+                }
+
+                Tutor.findOne({name: newTutor.name}).then((user) => { //Checking the database to see if tutor is saved properly
+                    expect(user).toBeTruthy();
+                    // expect(user.password).not.toBe(password); // To check if properly hashed
+                    done();
+                }).catch(e => done(e));
+            });
+    });
+});

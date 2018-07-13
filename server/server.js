@@ -22,7 +22,7 @@ app.get('/tutors', (req, res) => {
     });
 });
 
-// Process GET /tutors/:id request and responds with a single tutor object with a given id
+// Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
     var id = req.params.id;
 
@@ -40,6 +40,7 @@ app.get('/tutors/:id', (req, res) => {
     })
 })
 
+// Process POST /tutors requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors', (req, res) => {
     var body = _.pick(req.body, ['name', 'password']) // On sign-up, tutors will input name and password. Can add email support if needed
     var tutor = new Tutor(body);
