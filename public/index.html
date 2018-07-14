@@ -10,7 +10,7 @@
   </head>
   <body>
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand mr-0" href="#">Tutor Me</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,18 +25,54 @@
         </div>
         </nav> <!-- /NavBar -->
       <!-- JumboTron -->
-    <div class="jumbotron jumbotron-fluid bg-info text-white">
+    <div class="jumbotron text-white"  style="background: url(img/banner.jpg) no-repeat center /cover"> <!-- inserted backgroung img-->
+        
         <div class="container text-sm-center pt-5">  
-          <h1 class="display-2">Find a Tutor For You</h1>
-          <p class="lead">A platform to connect with tutors near you</p>
-          <div class="btn-group mt-4" role="group" aria-label="Callout Buttton">
-              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#register">Price</button>
-              <a class="btn btn-light btn-lg" href="#speakers">Topic</a>
-            </div>
+          <h1 class="display-3 text-light mt-0">Montreal Cegep Tutors</h1>
+          <p class="lead text-light">A platform to connect with your schools finest tutors</p>
+          <!-- Select the Subject -->
+          <select class="custom-select custom-select-lg mb-3">
+                <option selected>Subject</option>
+             <optgroup label="Mathematics">  
+                        <option value="1">Calculus I</option>
+                        <option value="2">Calculus II</option>
+                        <option value="3">Calculus III</option>
+                        <option value="4">Linear Algebra</option>
+                        <option value="5">Algebra</option>
+            </optgroup> 
+                 <optgroup label="Physics">
+                        <option value="6">Mechanics</option>
+                        <option value="7">Waves and Optics</option>
+                        <option value="8">Electricity and Magnetism</option>
+                        <option value="9">Astrophysics</option>
+                        <option value="10"></option>
+                 </optgroup>
+              </select>
+              
+              <!-- Select the Price Range  -->
+            <select class="custom-select custom-select-lg mb-3">
+                    <option selected>Price Range</option>
+                    <option value="1">0$-10$</option>
+                    <option value="2">10$-20$</option>
+                    <option value="3">20$-30$</option>
+                    <option value="4">30$-40$</option>
+                    <option value="5">40+/h</option>
+                  </select>   
+            <!-- School Selection -->
+            <select class="custom-select custom-select-lg mb-3">
+                    <option selected>School</option>
+                    <option value="1">Champlain College</option>
+                    <option value="2">Vanier College</option>
+                    <option value="3">Dawson College</option>
+                    <option value="4">Marianopolous College</option>
+                  </select>  
+               <!-- Find A tutor Button -->
+                  <button type="button" href="#tutorList" class="btn btn-outline-light">Find a Tutor</button>
         </div>  
         </div> <!-- /JumboTron -->
       <!-- List of Tutors -->
-      <h1 id="speakers" class="display-4 text-center my-5 text-muted">Speakers</h1>
+      <div class="container" id="tutorList">
+      <h2 id="tutors" class="display-4 text-center my-5 text-muted">Tutors</h2>
       <div class="row">
           <div class="col-md-6 col-lg-4">
               <div class="card mb-3">
@@ -44,16 +80,18 @@
                   <div class="card-body">
                       <h4 class="card-title">Vivianne McVue</h4>
                       <p class="card-text">Vivianne is a web developer and teacher who is passionate about building scalable, data-driven web apps, especially ones that address old problems with new tech!</p>
+                      <button type="button" class="btn btn-dark">View Profile</button>
                   </div>
                 </div>
           </div>
         
           <div class="col-md-6 col-lg-4">
                   <div class="card mb-3">
-                      <img class="card-img-top" src="img/nodestradamus.png" alt="NodeStradamus">
+                      <img class="card-img-top" src="img/jay.png" alt="NodeStradamus">
                       <div class="card-body">
-                          <h4 class="card-title">NodeStradamus</h4>
+                          <h4 class="card-title">Node Stradamus</h4>
                           <p class="card-text">"NodeStra" is a software engineer and philosopher trying to leave the world better than he found it. He codes for non-profits, eCommerce, and large-scale web apps.</p>
+                          <button type="button" class="btn btn-dark">View Profile</button>
                       </div>
                     </div>
           </div>
@@ -65,6 +103,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Robbie Redux</h4>
                           <p class="card-text">Robbie is a JavaScript developer working on large-scale applications. He's also a teacher who strives to support students in removing barriers to learning code.</p>
+                          <button type="button" class="btn btn-dark">View Profile</button>
                       </div>
                     </div>
           </div>
@@ -76,6 +115,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Ecma Scriptnstuff</h4>
                           <p class="card-text">Ecma found her passion for programming and teaching over 15 years ago. She is excited to introduce you to all of the wonders of JavaScript.</p>
+                          <button type="button" class="btn btn-dark">View Profile</button>
                       </div>
                     </div>
           </div>
@@ -87,6 +127,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Json Babel</h4>
                           <p class="card-text">All of his professional life, Json has worked with computers online; he is a polyglot programmer and likes using the right tools for the job.</p>
+                          <button type="button" class="btn btn-dark">View Profile</button>
                       </div>
                     </div>
           </div>
@@ -98,15 +139,17 @@
                       <div class="card-body">
                           <h4 class="card-title">Jay Query</h4>
                           <p class="card-text">Jay is a developer, author of CSS: The Missing Manual, JavaScript &amp; jQuery: The Missing Manual, and web development teacher.</p>
+                          <button type="button" class="btn btn-dark">View Profile</button>
                       </div>
                     </div>
           </div>
-        </div><!-- /speakers -->
-
+        </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+    <script src="app.js"></script>
+</body>
 </html>
