@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 const secret = process.env.JWT_SECRET;
 
@@ -19,6 +19,37 @@ var TutorSchema = new mongoose.Schema({
         trim: true,
         minlength: 8
     },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
+        default: 0
+    },
+    price: {
+        type: Number,
+        min: 0,
+        default: 0
+    },
+    shortDescription: { // Tutor can make a short description of themselves which will be visible on the main page
+        type: String,
+        maxlength: 100,
+        default: '',
+        trim: true
+    },
+    longDescription: {
+        type: String,
+        maxlength: 500,
+        default: '',
+        trim: true
+    },
+    program: { // Stores tutor's field of study (e.g. Pure & Applied)
+        // Should have to validate if program
+    },
+    subjects: {
+        type: Array,
+        of: String,
+        default: []
+    },
     tokens: [{
         access: {
             type: String,
@@ -31,12 +62,22 @@ var TutorSchema = new mongoose.Schema({
     }]
 })
 
-// When sending tutor, display only name and id. Can change later
-TutorSchema.methods.toJSON = function () {
+var sharedProperties = ['name', '_id', 'rating', 'price', 'subjects']; // Stores shared properties between main and profile.
+
+// When sending tutor response, return values picked using lodash
+TutorSchema.methods.toJSONMain = function () {
     var tutor = this;
     var tutorObject = tutor.toObject();
 
-    return _.pick(tutor, ['name', '_id']); // Paramaters in array are the ones that will be displayed
+    return _.pick(tutor, sharedProperties.concat(['shortDescription'])); // Paramaters in array are the ones that will be displayed
+}
+
+
+TutorSchema.methods.toJSONProfile = function() {
+    var tutor = this;
+    var tutorObject = tutor.toObject();
+
+    return _.pick(tutor, sharedProperties.concat(['longDescription']));
 }
 
 TutorSchema.methods.generateAuthToken = function() {

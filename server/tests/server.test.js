@@ -39,7 +39,7 @@ describe('GET /tutors/:id', () => {
     })
 })
 
-describe('POST /tutors', () => {
+describe('POST /tutors/signup', () => {
 
     const newTutor = {
         name: 'Jesus',
@@ -48,13 +48,13 @@ describe('POST /tutors', () => {
 
     it('should create a new tutor account with a token', (done) => {
         request(app)
-            .post('/tutors')
+            .post('/tutors/signup')
             .send(newTutor)
             .expect(200)
             .expect((res) => {
-                expect(res.body.name).toBe(newTutor.name);
+                expect(res.body.tutor.name).toBe(newTutor.name);
                 expect(res.header['x-auth']).toBeTruthy();
-                expect(res.body._id).toBeTruthy();
+                expect(res.body.tutor._id).toBeTruthy();
             })
             .end((err) => {
                 if(err){

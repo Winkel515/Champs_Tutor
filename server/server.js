@@ -13,15 +13,24 @@ const publicPath = path.join(__dirname, '../public');
 var app = express();
 const port = process.env.PORT || 3000;
 
+//Error message JSON
+const errorJSON = (status, message) => {
+    return {
+        status,
+        message
+    }
+}
+
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
 // Process GET /tutors request and responds with an array of tutors objects
 app.get('/tutors', (req, res) => {
     Tutor.find().then((tutors) => {
-        res.send({tutors});
+        tutors = tutors.map(tutor => tutor.toJSONMain());
+        res.json({tutors});
     }).catch((e) => {
-        res.status(400).send();
+        res.status(404).json(errorJSON(404, 'Could not connect to the database'));
     });
 });
 
@@ -30,30 +39,32 @@ app.get('/tutors/:id', (req, res) => {
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {
-        return res.status(400).send();
+        return res.status(400).json(errorJSON(400, 'ID is invalid'));
     }
     
     Tutor.findOne({
         _id: id
     }).then((tutor) => {
         if(!tutor){
-            return res.status(404).send();
+            return res.status(404).json(errorJSON(404, 'Tutor was not found'));
         }
+        tutor = tutor.toJSONProfile();
         res.send({tutor});
-    })
+    }).catch(e => res.status(400).json(errorJSON(400, 'Error')));
 })
 
 // Process POST /tutors requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
-app.post('/tutors', (req, res) => {
+app.post('/tutors/signup', (req, res) => {
     var body = _.pick(req.body, ['name', 'password']) // On sign-up, tutors will input name and password. Can add email support if needed
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
         return tutor.generateAuthToken();
     }).then((token) => {
-        res.header('x-auth', token).send(tutor);
+        tutor = tutor.toJSONProfile();
+        res.header('x-auth', token).send({tutor});
     }).catch((e) => {
-        res.status(400).send(e);
+        res.status(400).send(errorJSON(400, e.message));
     })
 })
 
