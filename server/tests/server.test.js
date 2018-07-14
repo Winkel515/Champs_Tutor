@@ -50,11 +50,9 @@ describe('POST /tutors/signup', () => {
         request(app)
             .post('/tutors/signup')
             .send(newTutor)
-            .expect(200)
+            .expect(201)
             .expect((res) => {
-                expect(res.body.tutor.name).toBe(newTutor.name);
                 expect(res.header['x-auth']).toBeTruthy();
-                expect(res.body.tutor._id).toBeTruthy();
             })
             .end((err) => {
                 if(err){

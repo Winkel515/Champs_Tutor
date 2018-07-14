@@ -62,24 +62,6 @@ var TutorSchema = new mongoose.Schema({
     }]
 })
 
-var sharedProperties = ['name', '_id', 'rating', 'price', 'subjects']; // Stores shared properties between main and profile.
-
-// When sending tutor response, return values picked using lodash
-TutorSchema.methods.toJSONMain = function () {
-    var tutor = this;
-    var tutorObject = tutor.toObject();
-
-    return _.pick(tutor, sharedProperties.concat(['shortDescription'])); // Paramaters in array are the ones that will be displayed
-}
-
-
-TutorSchema.methods.toJSONProfile = function() {
-    var tutor = this;
-    var tutorObject = tutor.toObject();
-
-    return _.pick(tutor, sharedProperties.concat(['longDescription']));
-}
-
 TutorSchema.methods.generateAuthToken = function() {
     var tutor = this;
     var access = 'auth';
@@ -89,6 +71,23 @@ TutorSchema.methods.generateAuthToken = function() {
 
     tutor.save();
     return token;
+}
+
+TutorSchema.statics.findByToken = function (token) {
+    const Tutor = this;
+    var decoded;
+    try{
+        decoded = jwt.verify(token, secret);
+    } catch(e){
+        console.log('Error in decoding JWT');
+        return Promise.reject();
+    }
+
+    return Tutor.findOne({
+        '_id': decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'auth'
+    });
 }
 
 TutorSchema.pre('save', function(next) { // Every time a tutor's profile is saved, check if the password was modified
