@@ -43,6 +43,7 @@ describe('GET /tutors/:id', () => {
 describe('POST /tutors/signup', () => {
 
     const newTutor = {
+        email: 'jesus12345@gmail.com',
         name: 'Jesus',
         password: 'godismydad'
     }
@@ -75,7 +76,7 @@ describe('PATCH /tutors/me', () => {
         longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
         price: 15
     }
-    
+
     it('should edit given properties when tutor has valid auth token', (done) => {
         const token = tutors[0].tokens[0].token;
 
@@ -114,17 +115,83 @@ describe('PATCH /tutors/me', () => {
         })
         .end(done);
     })
+});
+
+describe('DELETE /tutors/me', () => {
+    it('should delete tutor account given correct password', (done) => {
+        const tutorId = tutors[0]._id;
+        request(app)
+            .delete('/tutors/me')
+            .set('x-auth', tutors[0].tokens[0].token)
+            .send({
+                password: 'winkel123' // Know this password cause made it in the seed
+            })
+            .expect(200)
+            .end((err) => {
+                if(err){
+                    return done(err);
+                }
+
+                Tutor.findById(tutorId).then(tutor => {
+                    expect(tutor).toBeFalsy();
+                    done();
+                })
+            })
+    });
+
+    it('should NOT delete tutor account if wrong password', (done) => {
+        const tutorId = tutors[0]._id;
+        request(app)
+            .delete('/tutors/me')
+            .set('x-auth', tutors[0].tokens[0].token)
+            .send({
+                password: 'wrongpassword' // Know this password cause made it in the seed
+            })
+            .expect(400)
+            .end((err) => {
+                if(err){
+                    return done(err);
+                }
+
+                Tutor.findById(tutorId).then(tutor => {
+                    expect(tutor).toBeTruthy();
+                    done();
+                })
+            })
+    });
 })
 
 describe('POST /tutors/login', () => {
+    it('should give tutor a token if credentials are valid', (done) => {
+        const validCredentials = {
+            email: tutors[0].email,
+            name: tutors[0].name,
+            password: tutors[0].password
+        }
 
-    // FINISH THIS CODE SOON <3
+        request(app)
+            .post('/tutors/login')
+            .send(validCredentials)
+            .expect(200)
+            .expect(res => {
+                expect(res.header['x-auth']).toBeTruthy();
+            })
+            .end(done);
+    });
 
-    // it('should give tutor a token if credentials are valid', (done) => {
-    //     // INPUT TEST CODE HERE
-    // });
+    it('should NOT give token if credentials are NOT VALID', (done) => {
+        const invalidCredentials = {
+            name: tutors[0].name,
+            password: 'wrongpassword123'
+        }
 
-    // it('should NOT give token if credentials are NOT VALID', (done) => {
-    //     // INPUT TEST CODE HERE
-    // })
+        request(app)
+            .post('/tutors/login')
+            .send(invalidCredentials)
+            .expect(400)
+            .expect(res => {
+                expect(res.header['x-auth']).toBeFalsy();
+            })
+            .end(done);
+    })
 })
