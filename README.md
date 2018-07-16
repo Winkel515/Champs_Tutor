@@ -1,5 +1,5 @@
 # TutorMe
 
-TutorMe is a online platform who's goal is to help students find a tutor within their school community
+TutorMe is an online platform that aims to help students find a tutor within their school's community
 
 Link to our website: https://montrealtutors.herokuapp.com/

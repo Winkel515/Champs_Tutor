@@ -79,7 +79,6 @@ TutorSchema.statics.findByToken = function (token) {
     try{
         decoded = jwt.verify(token, secret);
     } catch(e){
-        console.log('Error in decoding JWT. Probably invalid secret');
         return Promise.reject();
     }
 

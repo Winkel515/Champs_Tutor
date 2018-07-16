@@ -117,14 +117,35 @@ describe('PATCH /tutors/me', () => {
 })
 
 describe('POST /tutors/login', () => {
+    it('should give tutor a token if credentials are valid', (done) => {
+        const validCredentials = {
+            name: tutors[0].name,
+            password: tutors[0].password
+        }
 
-    // FINISH THIS CODE SOON <3
+        request(app)
+            .post('/tutors/login')
+            .send(validCredentials)
+            .expect(200)
+            .expect(res => {
+                expect(res.header['x-auth']).toBeTruthy();
+            })
+            .end(done);
+    });
 
-    // it('should give tutor a token if credentials are valid', (done) => {
-    //     // INPUT TEST CODE HERE
-    // });
+    it('should NOT give token if credentials are NOT VALID', (done) => {
+        const invalidCredentials = {
+            name: tutors[0].name,
+            password: 'wrongpassword123'
+        }
 
-    // it('should NOT give token if credentials are NOT VALID', (done) => {
-    //     // INPUT TEST CODE HERE
-    // })
+        request(app)
+            .post('/tutors/login')
+            .send(invalidCredentials)
+            .expect(400)
+            .expect(res => {
+                expect(res.header['x-auth']).toBeFalsy();
+            })
+            .end(done);
+    })
 })
