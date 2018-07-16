@@ -15,7 +15,7 @@ var app = express();
 const port = process.env.PORT || 3000;
 
 //Error message JSON
-const errorJSON = (status, message) => {{status, message}};
+const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
 const sharedProperties = 'name _id rating price subjects '; // Edit shared properties here
@@ -53,7 +53,7 @@ app.get('/tutors/:id', (req, res) => {
     }).catch(e => res.status(400).json(errorJSON(400, 'Error')));
 })
 
-// Process POST /tutors requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
+// Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
     var body = _.pick(req.body, ['name', 'password']) // On sign-up, tutors will input name and password. Can add email support if needed
     var tutor = new Tutor(body);
@@ -80,6 +80,22 @@ app.patch('/tutors/me', authenticate, (req, res) => {
         res.status(400).send(errorJSON(400, 'Tutor was not found'));
     })
 })
+
+// ******************************** URGENT MUST FIX MUST FIX BELOW!!! *********************************************
+
+// Process POST /tutors/login. Takes in name and password (might have to add email to be unique) and sends back a token on 'x-auth' header property. Response body will be empty (Unless front-end needs it)
+app.post('/tutors/login', (req, res) => { // URGENT MUST FIX: will create second token in database
+    const loginCredentials = ['name', 'password'];
+    var body = _.pick(req.body, loginCredentials);
+
+    Tutor.findByCredentials(body.name, body.password).then(tutor => {
+        res.header('x-auth', tutor.generateAuthToken()).send(); //Not sending any response body
+    }).catch(e => {
+        res.status(400).send(errorJSON(400, 'Invalid login credentials'));
+    })
+})
+
+// ******************************* URGENT STOPS HERE :P *************************************
 
 app.listen(port, () => {
     console.log(`Server open on port ${port}`);

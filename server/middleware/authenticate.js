@@ -1,7 +1,7 @@
 var {Tutor} = require('./../models/tutors');
 
 //Error message JSON
-const errorJSON = (status, message) => {{status, message}};
+const errorJSON = (status, message) => {return {status, message}};
 
 var authenticate = (req, res, next) => {
     var token = req.header('x-auth');
@@ -16,7 +16,7 @@ var authenticate = (req, res, next) => {
         req.token = token;
         next();
     }).catch((e) => {
-        res.status(401).send(errorJSON(401, 'Unauthorized access'))
+        res.status(401).send(errorJSON(401, 'Unauthorized access'));
     })
 }
 

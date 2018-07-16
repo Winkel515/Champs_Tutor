@@ -62,14 +62,14 @@ var TutorSchema = new mongoose.Schema({
     }]
 })
 
-TutorSchema.methods.generateAuthToken = function() {
+TutorSchema.methods.generateAuthToken = function() { // Generated token gets saved in the databased. Can be problematic as it adds up. Could solved by deleting on closing app.
     var tutor = this;
     var access = 'auth';
     var token = jwt.sign({_id: tutor._id.toHexString(), access}, secret);
 
-    tutor.tokens.push({access, token});
+    tutor.tokens.push({access, token}); // Gets pushed in the tutor object...
+    tutor.save(); // Then it gets saved. Might want to change that!
 
-    tutor.save();
     return token;
 }
 
@@ -79,7 +79,7 @@ TutorSchema.statics.findByToken = function (token) {
     try{
         decoded = jwt.verify(token, secret);
     } catch(e){
-        console.log('Error in decoding JWT');
+        console.log('Error in decoding JWT. Probably invalid secret');
         return Promise.reject();
     }
 
@@ -88,6 +88,24 @@ TutorSchema.statics.findByToken = function (token) {
         'tokens.token': token,
         'tokens.access': 'auth'
     });
+}
+
+TutorSchema.statics.findByCredentials = function(name, password) {
+    return Tutor.findOne({name}).then(tutor => {
+        if(!tutor) {
+            return Promise.reject();
+        }
+
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, tutor.password, (err, res) => {
+                if(res){
+                    resolve(tutor);
+                } else {
+                    reject();
+                }
+            })
+        })
+    })
 }
 
 TutorSchema.pre('save', function(next) { // Every time a tutor's profile is saved, check if the password was modified

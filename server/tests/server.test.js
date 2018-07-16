@@ -1,6 +1,7 @@
 const request = require('supertest');
 const expect = require('expect');
 const {ObjectID} = require('mongodb');
+const jwt = require('jsonwebtoken');
 
 const {app} = require('./../server');
 const {Tutor} = require('./../models/tutors');
@@ -67,3 +68,63 @@ describe('POST /tutors/signup', () => {
             });
     });
 });
+
+describe('PATCH /tutors/me', () => {
+    const updateBody = { // This is what is sent as the body in the PATCH request
+        shortDescription: "Testing short description",
+        longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
+        price: 15
+    }
+    
+    it('should edit given properties when tutor has valid auth token', (done) => {
+        const token = tutors[0].tokens[0].token;
+
+        request(app)
+        .patch('/tutors/me')
+        .set('x-auth', token)
+        .send(updateBody)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.tutor.shortDescription).toBe(updateBody.shortDescription);
+            expect(res.body.tutor.longDescription).toBe(updateBody.longDescription);
+            expect(res.body.tutor.price).toBe(updateBody.price);
+        })
+        .end(err => {
+            if(err){
+                return done(err);
+            }
+
+            Tutor.findByToken(token).then(tutor => {
+                expect(tutor.shortDescription).toBe(updateBody.shortDescription);
+                expect(tutor.longDescription).toBe(updateBody.longDescription);
+                expect(tutor.price).toBe(updateBody.price);
+                done();
+            }).catch(e => done(e));
+        })
+    })
+
+    it('should respond with 401 Unauthorized status and not modify properties when not authorized', (done) => {
+        request(app)
+        .patch('/tutors/me')
+        .send(updateBody)
+        .expect(401)
+        .expect(res => {
+            expect(res.body.status).toBe(401)
+            expect(res.body.message).toBe('Unauthorized access');
+        })
+        .end(done);
+    })
+})
+
+describe('POST /tutors/login', () => {
+
+    // FINISH THIS CODE SOON <3
+
+    // it('should give tutor a token if credentials are valid', (done) => {
+    //     // INPUT TEST CODE HERE
+    // });
+
+    // it('should NOT give token if credentials are NOT VALID', (done) => {
+    //     // INPUT TEST CODE HERE
+    // })
+})
