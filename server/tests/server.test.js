@@ -76,7 +76,7 @@ describe('PATCH /tutors/me', () => {
         longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
         price: 15
     }
-    
+
     it('should edit given properties when tutor has valid auth token', (done) => {
         const token = tutors[0].tokens[0].token;
 
@@ -115,6 +115,50 @@ describe('PATCH /tutors/me', () => {
         })
         .end(done);
     })
+});
+
+describe('DELETE /tutors/me', () => {
+    it('should delete tutor account given correct password', (done) => {
+        const tutorId = tutors[0]._id;
+        request(app)
+            .delete('/tutors/me')
+            .set('x-auth', tutors[0].tokens[0].token)
+            .send({
+                password: 'winkel123' // Know this password cause made it in the seed
+            })
+            .expect(200)
+            .end((err) => {
+                if(err){
+                    return done(err);
+                }
+
+                Tutor.findById(tutorId).then(tutor => {
+                    expect(tutor).toBeFalsy();
+                    done();
+                })
+            })
+    });
+
+    it('should NOT delete tutor account if wrong password', (done) => {
+        const tutorId = tutors[0]._id;
+        request(app)
+            .delete('/tutors/me')
+            .set('x-auth', tutors[0].tokens[0].token)
+            .send({
+                password: 'wrongpassword' // Know this password cause made it in the seed
+            })
+            .expect(400)
+            .end((err) => {
+                if(err){
+                    return done(err);
+                }
+
+                Tutor.findById(tutorId).then(tutor => {
+                    expect(tutor).toBeTruthy();
+                    done();
+                })
+            })
+    });
 })
 
 describe('POST /tutors/login', () => {

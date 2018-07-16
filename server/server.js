@@ -18,7 +18,7 @@ const port = process.env.PORT || 3000;
 const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
-const sharedProperties = 'name _id rating price subjects '; // Edit shared properties here
+const sharedProperties = 'email name _id rating price subjects '; // Edit shared properties here
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -70,7 +70,7 @@ app.post('/tutors/signup', (req, res) => {
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
     const editList = ['password', 'price', 'subjects', 'shortDescription', 'longDescription']; // Array to store properies that can be edited by the tutor
-    var body = _.pick(req.body, editList);
+    const body = _.pick(req.body, editList);
 
     Tutor.findOneAndUpdate({
         _id: req.tutor._id
@@ -80,6 +80,24 @@ app.patch('/tutors/me', authenticate, (req, res) => {
         res.status(400).send(errorJSON(400, 'Tutor was not found'));
     })
 })
+
+app.delete('/tutors/me', authenticate, (req, res) => {
+    const body = _.pick(req.body, ['password']);
+
+    Tutor.findOne({_id: req.tutor._id}).then(tutor => {
+        tutor.verifyTutor(body.password).then(() => {
+            Tutor.deleteOne({_id: req.tutor._id}).then(() => {
+                res.status(200).send();
+            }).catch(e => {
+                res.status(400).send(errorJSON(400, 'Unexpected error'));
+            })
+        }).catch(e => {
+            res.status(400).send(errorJSON(400, 'Incorrect Password'));
+        })
+    }).catch(e => {
+        res.status(401).send(errorJSON(401, 'Unauthorized access'));
+    })
+});
 
 // ******************************** URGENT MUST FIX MUST FIX BELOW!!! *********************************************
 
@@ -93,7 +111,7 @@ app.post('/tutors/login', (req, res) => { // URGENT MUST FIX: will create second
     }).catch(e => {
         res.status(400).send(errorJSON(400, 'Invalid login credentials'));
     })
-})
+});
 
 // ******************************* URGENT STOPS HERE :P *************************************
 

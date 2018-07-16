@@ -85,6 +85,20 @@ TutorSchema.methods.generateAuthToken = function() { // Generated token gets sav
     return token;
 }
 
+TutorSchema.methods.verifyTutor = function (password) { // Checks if input password is valid
+    const tutor = this;
+
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, tutor.password, (err, res) => {
+            if(res){
+                resolve();
+            } else {
+                reject();
+            }
+        });
+    });
+}
+
 TutorSchema.statics.findByToken = function (token) {
     const Tutor = this;
     var decoded;
