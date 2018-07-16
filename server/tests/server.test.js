@@ -43,6 +43,7 @@ describe('GET /tutors/:id', () => {
 describe('POST /tutors/signup', () => {
 
     const newTutor = {
+        email: 'jesus12345@gmail.com',
         name: 'Jesus',
         password: 'godismydad'
     }
@@ -119,6 +120,7 @@ describe('PATCH /tutors/me', () => {
 describe('POST /tutors/login', () => {
     it('should give tutor a token if credentials are valid', (done) => {
         const validCredentials = {
+            email: tutors[0].email,
             name: tutors[0].name,
             password: tutors[0].password
         }

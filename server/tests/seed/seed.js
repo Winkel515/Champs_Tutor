@@ -8,6 +8,7 @@ const userTwoId = new ObjectID();
 
 const tutors = [{
     _id: userOneId,
+    email: 'winky@hotmail.com',
     name: 'Winkel',
     password: 'winkel123',
     tokens: [{
@@ -16,6 +17,7 @@ const tutors = [{
     }]
 }, {
     _id: userTwoId,
+    email: 'daniel@gmail.com',
     name: 'Daniel',
     password: 'daniel123',
     tokens: [{

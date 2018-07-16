@@ -2,11 +2,23 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
 const secret = process.env.JWT_SECRET;
 
 // Schema for tutors. Can add more such as description, ratings, etc.
 var TutorSchema = new mongoose.Schema({
+    email: {
+        required: true,
+        trim: true,
+        type: String,
+        unique: true,
+        minlength: 1,
+        validate: {
+            validator: validator.isEmail,
+            message: '{VALUE} is not a valid email'
+        }
+    },
     name: {
         required: true,
         trim: true,
@@ -89,8 +101,8 @@ TutorSchema.statics.findByToken = function (token) {
     });
 }
 
-TutorSchema.statics.findByCredentials = function(name, password) {
-    return Tutor.findOne({name}).then(tutor => {
+TutorSchema.statics.findByCredentials = function(email, password) {
+    return Tutor.findOne({email}).then(tutor => {
         if(!tutor) {
             return Promise.reject();
         }

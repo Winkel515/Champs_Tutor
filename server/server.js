@@ -55,13 +55,13 @@ app.get('/tutors/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
-    var body = _.pick(req.body, ['name', 'password']) // On sign-up, tutors will input name and password. Can add email support if needed
+    var body = _.pick(req.body, ['email', 'name', 'password']) // On sign-up, tutors will input email, name and password.
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
         return tutor.generateAuthToken();
     }).then((token) => {
-        res.status(201).header('x-auth', token).send(); // Sending back everything about a tutor when sign
+        res.status(201).header('x-auth', token).send(); // Sending back nothing in response body
     }).catch((e) => {
         res.status(400).send(errorJSON(400, e.message));
     })
@@ -85,10 +85,10 @@ app.patch('/tutors/me', authenticate, (req, res) => {
 
 // Process POST /tutors/login. Takes in name and password (might have to add email to be unique) and sends back a token on 'x-auth' header property. Response body will be empty (Unless front-end needs it)
 app.post('/tutors/login', (req, res) => { // URGENT MUST FIX: will create second token in database
-    const loginCredentials = ['name', 'password'];
+    const loginCredentials = ['email', 'password'];
     var body = _.pick(req.body, loginCredentials);
 
-    Tutor.findByCredentials(body.name, body.password).then(tutor => {
+    Tutor.findByCredentials(body.email, body.password).then(tutor => {
         res.header('x-auth', tutor.generateAuthToken()).send(); //Not sending any response body
     }).catch(e => {
         res.status(400).send(errorJSON(400, 'Invalid login credentials'));
