@@ -51,65 +51,39 @@
 //   }
 //   ];
 
+document.addEventListener("DOMContentLoaded", getTutors());
 
-// *************************************** GET REQUEST TO /tutors ROUTE ****************************
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.open("GET", "/tutors", true);
-xmlhttp.send();
-
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-        var tutors = (JSON.parse(this.responseText).tutors); // Setting up the tutors array
-
-        // ********** USING YOUR VUE.JS CODE HERE. I HATE THIS SOLUTION BUT IT WORKS ****************
-        const app = new Vue({
-          el: '#tutorList',
-          data: {
-            title: 'Tutor Me',
-            tutorList: tutors,
-            subject: ''
-          },
-          methods: {
-            filterList: function(){
-                
-              console.log(event);
-              this.subject = event.target.value;
-            }
-          }, 
-          computed: {
-              subjectList:function() {
-                  return  ['Calculus I', 'Calculus II', 'Calculus III', 'Mechanics', 'Waves and Optics', 'Electricity']
-              }
-          }
-      });
-
-      // *********** VUE.JS STOPS HERE!!! ************************
-      
-    }
+function getTutors(){ // Gets tutors from /tutors and sets it up for Vue
+  // *************************************** GET REQUEST TO /tutors ROUTE ****************************
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", "/tutors", true);
+  xmlhttp.send();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var tutors = JSON.parse(this.responseText).tutors; // Setting up the tutors array
+          tutorsVue(tutors) // Injects the tutors array into the Vue object
+      };
+  };
 };
 
-// *************************************** STOPS HERE GET REQUEST TO /tutors ROUTE ****************************
-
-// const app = new Vue({
-//     el: '#tutorList',
-//     data: {
-//       title: 'Tutor Me',
-//       tutorList: tutors,
-//       subject: ''
-//     },
-//     methods: {
-//       filterList: function(){
-          
-//         console.log(event);
-//         this.subject = event.target.value;
-//       }
-//     }, 
-//     computed: {
-//         subjectList:function() {
-//             return  ['Calculus I', 'Calculus II', 'Waves and Optics']
-//         }
-//     }
-// });
-
+function tutorsVue(tutors){
+  const app = new Vue({
+      el: '#tutorList',
+      data: {
+        tutorList: tutors,
+        subject: ''
+      },
+      methods: {
+        filterList: function(){
+            
+          console.log(event);
+          this.subject = event.target.value;
+        }
+      }, 
+      computed: {
+          subjectList:function() {
+              return  ['Calculus I', 'Calculus II', 'Waves and Optics']
+          }
+      }
+  });
+}
