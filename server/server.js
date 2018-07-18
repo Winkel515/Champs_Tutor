@@ -18,7 +18,7 @@ const port = process.env.PORT || 3000;
 const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
-const sharedProperties = 'email name _id rating price subjects '; // Edit shared properties here
+const sharedProperties = 'name _id rating price subjects '; // Edit shared properties here
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -44,7 +44,7 @@ app.get('/:id', (req, res) => {
 
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'longDescription';
+    const profileProperties = 'longDescription email';
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {
@@ -77,7 +77,7 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['password', 'price', 'subjects', 'shortDescription', 'longDescription']; // Array to store properies that can be edited by the tutor
+    const editList = ['password', 'price', 'subjects', 'shortDescription', 'longDescription', 'showTutor']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     Tutor.findOneAndUpdate({

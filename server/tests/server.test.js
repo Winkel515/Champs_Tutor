@@ -15,7 +15,7 @@ describe('GET /tutors', () => {
             .get('/tutors')
             .expect(200)
             .expect((res) => {
-                expect(res.body.tutors.length).toBe(2);
+                expect(res.body.tutors.length).toBe(5);
             })
             .end(done);
     })
@@ -74,7 +74,8 @@ describe('PATCH /tutors/me', () => {
     const updateBody = { // This is what is sent as the body in the PATCH request
         shortDescription: "Testing short description",
         longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
-        price: 15
+        price: 15,
+        showTutor: false
     }
 
     it('should edit given properties when tutor has valid auth token', (done) => {
@@ -124,7 +125,7 @@ describe('DELETE /tutors/me', () => {
             .delete('/tutors/me')
             .set('x-auth', tutors[0].tokens[0].token)
             .send({
-                password: 'winkel123' // Know this password cause made it in the seed
+                password: 'password123' // Know this password cause made it in the seed
             })
             .expect(200)
             .end((err) => {
