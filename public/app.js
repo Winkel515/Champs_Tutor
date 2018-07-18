@@ -1,37 +1,65 @@
 
-console.log('hello');
-$(document).ready(function(){
+const tutors = [
+    {
+        name: 'Daniel Bucci', 
+       
+        description: "I am a Waves and Modern Physics tutor with an R-Score of 34",
+        subject: 'Waves and Modern Physics',
+        price: '10$/h',
+        showTutor: false,
+      },
+      {
+        name: 'Winkel Yin', 
+        
+        description: "I am a Cal 2 tutor with an R-Score of 35",
+        subject: 'Calculus 2',
+        price: '15$/h',
+        showTutor: false,
+      },
+      {
+        name: 'Daniel Bucci', 
+        
+        description: "I am a Waves and Modern Physics tutor with an R-Score of 34",
+        subject: 'Waves and Modern Physics',
+        price: '10$/h',
+        showTutor: false,
+      },
+      {
+        name: 'Winkel Yin', 
+        
+        description: "I am a Cal 2 tutor with an R-Score of 35",
+        subject: 'Calculus 2',
+        price: '15$/h',
+        showTutor: false,
+      },
+      {
+        name: 'Daniel Bucci', 
+       
+        description: "I am a Waves and Modern Physics tutor with an R-Score of 34",
+        subject: 'Waves and Modern Physics',
+        price: '10$/h',
+        showTutor: false,
+      },
+]
 
-    var list = ['John', 'Sam', 'Jake', 'Dan'];
-    console.log('hello');
 
-    var appendDiv = ''; 
-    
-    function randomPicture() {
-        var pics = ['ecma.png', 'jay.png', 'json.png', 'robbie.png', 'vivianne.png'];
-        let index = Math.random()*4;
-        console.log(index);
-        return pics[index];
-    }
-    
 
-for(let i = 0; i<list.length-1; i++){
- 
-    appendDiv += 
-   ` <div class="col-md-6 col-lg-4">
-        <div class="card mb-3">
-            <img class="card-img-top" src="img/json.png" alt="${list[i]}">
-            <div class="card-body">
-                <h4 class="card-title">${list[i]}</h4>
-                <p class="card-text">Vivianne is a web developer and teacher who is passionate about building scalable, data-driven web apps, especially ones that address old problems with new tech!</p>
-                <button type="button" class="btn btn-dark">View Profile</button>
-            </div>
-          </div>
-    </div>`;
-    
-}
+const app = new Vue({
+    el: '#tutorList',
+    data: {
+      title: 'Tutor Me',
+      tutorList: tutors,
+      type: ''
+    },
+    methods: {
+      toggleDetails: function(media){
+        media.showDetail = !media.showDetail
+      },
+      filterList: function(){
+        this.type = event.target.value;
+      }
+    },
 
-$('.row').append(appendDiv);
 
 });
 
