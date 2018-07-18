@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
+    <div id="tutorList">
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -31,22 +32,18 @@
           <h1 class="display-3 text-light mt-0">Montreal Cegep Tutors</h1>
           <p class="lead text-light">A platform to connect with your school's finest tutors</p>
           <!-- Select the Subject -->
-          <select class="custom-select custom-select-lg mb-3">
-                <option selected>Subject</option>
-             <optgroup label="Mathematics">  
-                        <option value="1">Calculus I</option>
-                        <option value="2">Calculus II</option>
-                        <option value="3">Calculus III</option>
-                        <option value="4">Linear Algebra</option>
-                        <option value="5">Algebra</option>
-            </optgroup> 
-                 <optgroup label="Physics">
+          <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
+            <option selected>Subjects</option>
+                <optgroup label="Mathematics">
+                  <option v-for="item in subjectList">{{ item }}</option>
+                </optgroup> 
+                <optgroup label="Physics">
                         <option value="6">Mechanics</option>
                         <option value="7">Waves and Optics</option>
                         <option value="8">Electricity and Magnetism</option>
                         <option value="9">Astrophysics</option>
                         <option value="10"></option>
-                 </optgroup>
+                </optgroup>
               </select>
               
               <!-- Select the Price Range  -->
@@ -67,16 +64,16 @@
                     <option value="4">Marianopolis College</option>
                   </select>  
                <!-- Find A tutor Button -->
-                  <button type="button" href="#tutorList" class="btn btn-outline-light">Find a Tutor</button>
+          <button type="button" href="#tutorList" class="btn btn-outline-light">Find a Tutor</button>
         </div>  
         </div> <!-- /JumboTron -->
       <!-- List of Tutors -->
-      <div class="container" id="tutorList">
+      <div class="container">
       <h2 id="tutors" class="display-4 text-center my-5 text-muted">{{title}}</h2>
       
       <div id="tutorList" class="row">
         
-          <div class="col-md-6 col-lg-4" v-for="tutor in tutorList">
+          <div class="col-md-6 col-lg-4" v-for="tutor in tutorList" v-show="subject === tutor.subject || subject === ''" >
               <div class="card mb-3">
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
@@ -90,7 +87,7 @@
          
         </div>
     </div> <!--End of Tutor List -->
-
+ </div>
     <!-- Optional JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -2,9 +2,9 @@
 const tutors = [
     {
         name: 'Daniel Bucci', 
-       
+        
         description: "I am a Waves and Modern Physics tutor with an R-Score of 34",
-        subject: 'Waves and Modern Physics',
+        subject: 'Waves and Optics',
         price: '10$/h',
         showTutor: false,
       },
@@ -12,7 +12,7 @@ const tutors = [
         name: 'Winkel Yin', 
         
         description: "I am a Cal 2 tutor with an R-Score of 35",
-        subject: 'Calculus 2',
+        subject: 'Calculus II',
         price: '15$/h',
         showTutor: false,
       },
@@ -28,7 +28,7 @@ const tutors = [
         name: 'Winkel Yin', 
         
         description: "I am a Cal 2 tutor with an R-Score of 35",
-        subject: 'Calculus 2',
+        subject: 'Calculus II',
         price: '15$/h',
         showTutor: false,
       },
@@ -49,19 +49,21 @@ const app = new Vue({
     data: {
       title: 'Tutor Me',
       tutorList: tutors,
-      type: ''
+      subject: ''
     },
     methods: {
-      toggleDetails: function(media){
-        media.showDetail = !media.showDetail
-      },
       filterList: function(){
-        this.type = event.target.value;
+          
+        console.log(event);
+        this.subject = event.target.value;
       }
-    },
+    }, 
+    computed: {
+        subjectList:function() {
+            return  ['Calculus I', 'Calculus II', 'Waves and Optics']
+        }
+    }
 
 
 });
-
-
 
