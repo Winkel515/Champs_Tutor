@@ -52,6 +52,8 @@
 //   ];
 
 
+// *************************************** GET REQUEST TO /tutors ROUTE ****************************
+
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET", "/tutors", true);
 xmlhttp.send();
@@ -87,6 +89,8 @@ xmlhttp.onreadystatechange = function() {
       
     }
 };
+
+// *************************************** STOPS HERE GET REQUEST TO /tutors ROUTE ****************************
 
 // const app = new Vue({
 //     el: '#tutorList',
