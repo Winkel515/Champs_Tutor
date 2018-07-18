@@ -34,6 +34,14 @@ app.get('/tutors', (req, res) => {
     });
 });
 
+app.get('/:id', (req, res) => {
+    Tutor.findById(req.params.id).then(() => {
+        res.sendFile(path.join(__dirname + '/../public/tutor.html'));
+    }).catch(e => {
+        res.send(`Could not find ${req.params.id}`);
+    })
+});
+
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
     const profileProperties = 'longDescription';
@@ -63,7 +71,7 @@ app.post('/tutors/signup', (req, res) => {
     }).then((token) => {
         res.status(201).header('x-auth', token).send(); // Sending back nothing in response body
     }).catch((e) => {
-        res.status(400).send(errorJSON(400, e.message));
+        res.status(400).send(errorJSON(400, 'Invalid signup credentials'));
     })
 });
 
