@@ -34,6 +34,10 @@ app.get('/tutors', (req, res) => {
     });
 });
 
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../public/signUp.html'));
+});
+
 app.get('/:id', (req, res) => {
     Tutor.findById(req.params.id).then(() => {
         res.sendFile(path.join(__dirname + '/../public/tutor.html'));
