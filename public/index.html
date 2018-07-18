@@ -19,8 +19,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-item nav-link text-right" href="/signUp.html">Tutor Sign In <span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link text-right" href="#reviews">Become a Tutor</a>
+              <a class="nav-item nav-link text-right" href="/signUp.html">Become a Tutor <span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link text-right" href="#reviews">Tutor Sign In</a>
             </div>
           </div>
         </div>
@@ -35,14 +35,10 @@
           <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
             <option selected>Subjects</option>
                 <optgroup label="Mathematics">
-                  <option v-for="item in subjectList">{{ item }}</option>
+                  <option v-for="(item,index) in subjectList" v-if="index < 3">{{ item }}</option>
                 </optgroup> 
                 <optgroup label="Physics">
-                        <option value="6">Mechanics</option>
-                        <option value="7">Waves and Optics</option>
-                        <option value="8">Electricity and Magnetism</option>
-                        <option value="9">Astrophysics</option>
-                        <option value="10"></option>
+                    <option v-for="item in subjectList.slice(3)">{{ item }}</option>
                 </optgroup>
               </select>
               

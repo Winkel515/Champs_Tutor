@@ -36,7 +36,7 @@ const tutors = [
         name: 'Daniel Bucci', 
        
         description: "I am a Waves and Modern Physics tutor with an R-Score of 34",
-        subject: 'Waves and Modern Physics',
+        subject: 'Mechanics',
         price: '10$/h',
         showTutor: false,
       },
@@ -60,7 +60,7 @@ const app = new Vue({
     }, 
     computed: {
         subjectList:function() {
-            return  ['Calculus I', 'Calculus II', 'Waves and Optics']
+         return  ['Calculus I', 'Calculus II', 'Calculus III','Mechanics', 'Waves and Optics', 'Electricity & Magnetism']
         }
     }
 
