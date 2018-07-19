@@ -32,7 +32,7 @@
           <h1 class="display-3 text-light mt-0">Montreal Cegep Tutors</h1>
           <p class="lead text-light">A platform to connect with your school's finest tutors</p>
           <!-- Select the Subject -->
-          <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
+          <select v-on:change="filterSubject" class="custom-select custom-select-lg mb-3">
             <option selected>All Subjects</option>
                 <optgroup label="Mathematics">
                   <option v-for="(item,index) in subjectList" v-if="index < 3">{{ item }}</option>
@@ -43,7 +43,7 @@
               </select>
               
               <!-- Select the Price Range  -->
-            <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
+            <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3">
                     <option selected>All Prices</option>
                     <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$ /h"}}</option>
 
@@ -59,11 +59,10 @@
       <div id="tutorList" class="row">
         
           <div class="col-md-6 col-lg-4" v-for="tutor in tutorList" 
-          v-show="tutor.subjects.indexOf(subject) > -1 
-                      || subject === '' 
-                      || subject === 'All Subjects'
-                      || price >= tutor.price
-                      || price === 'All Prices'">
+          v-show="(tutor.subjects.indexOf(subject) > -1 
+                      || subject === 'All Subjects')
+                      && (price >= tutor.price
+                      || price === 'All Prices')">
               <div class="card mb-3">
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">

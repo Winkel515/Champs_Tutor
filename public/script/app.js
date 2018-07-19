@@ -18,24 +18,28 @@ function tutorsVue(tutors){
       el: '#tutorList',
       data: {
         tutorList: tutors,
-        subject: '',
-        price: '',
+        subject: 'All Subjects',
+        price: 'All Prices',
       },
       methods: {
-        filterList: function(){
+        filterSubject: function(){
            /* Filter Subjects */ 
           console.log(event);
           this.subject = event.target.value;
 
-           /* Filter Prices */
+          console.log("Subject:", this.subject);
+          console.log("Price:", this.price);
+        },
+        filterPrice: function(){
+          /* Filter Prices */
           var priceIndex = event.target.value;
-          console.log(priceIndex)
           const prices = [10,20,30,40,50];
-         if (priceIndex != "All Prices") 
+          if (priceIndex != "All Prices") 
           this.price = prices[priceIndex];
-         else 
+          else 
           this.price = priceIndex;
-         
+          console.log("Subject:", this.subject);
+          console.log("Price:", this.price);
         }
       }, 
       computed: {
