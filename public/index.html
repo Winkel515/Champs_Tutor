@@ -44,8 +44,8 @@
               
               <!-- Select the Price Range  -->
             <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
-                    <option selected>Max Hourly Rate</option>
-                    <option v-for="item in priceList">{{ item + "$ /h"}}</option>
+                    <option selected>All Prices</option>
+                    <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$ /h"}}</option>
 
                   </select>   
             <!-- School Selection -->
@@ -70,14 +70,15 @@
           v-show="tutor.subjects.indexOf(subject) > -1 
                       || subject === '' 
                       || subject === 'All Subjects'
-                      || price === tutor.price">
+                      || price >= tutor.price
+                      || price === 'All Prices'">
               <div class="card mb-3">
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
                       <h5 class="card-title">{{tutor.name}}</h5>
                       <h6 class="card-subtitle mb-1 text-muted">{{tutor.price + "$/h for   " + tutor.subjects}}</h6>
                       <p class="card-text">{{tutor.shortDescription}}</p>
-                      <button type="button" class="btn btn-dark">View Profile</button>
+                      <a v-bind:href="'/' + tutor._id"><button type="button" class="btn btn-dark">View Profile</button></a>
                   </div>
                 </div>
           </div>
@@ -95,6 +96,6 @@
     
     <!-- Essential Scripts -->
     <script src="script/vue.js"></script>
-    <script src="app.js"></script>
+    <script src="script/app.js"></script>
 </body>
 </html>

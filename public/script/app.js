@@ -23,13 +23,19 @@ function tutorsVue(tutors){
       },
       methods: {
         filterList: function(){
-            
+           /* Filter Subjects */ 
           console.log(event);
           this.subject = event.target.value;
 
-          console.log(this.price)
-          this.price = event.target.value;
-          console.log(this.price)
+           /* Filter Prices */
+          var priceIndex = event.target.value;
+          console.log(priceIndex)
+          const prices = [10,20,30,40,50];
+         if (priceIndex != "All Prices") 
+          this.price = prices[priceIndex];
+         else 
+          this.price = priceIndex;
+         
         }
       }, 
       computed: {

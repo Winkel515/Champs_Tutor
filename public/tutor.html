@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <div id="tutorList">
+    <div>
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -29,13 +29,13 @@
        <div class="container">
       <h2 class="display-4 text-center mt-5 my-5 text-muted">Tutor Profile</h2>
       
-      <div id="tutorList" class="row">
+      <div id="tutorProfile" class="row">
         <!-- Picture Card -->
           <div class="col-md-4 col-lg-4">
               <div class="card mb-3">
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
-                      <h5 class="card-title">Jay Query</h5>
+                      <h5 class="card-title">{{tutor.name}}</h5>
                       <h6 class="card-subtitle mb-1 text-muted">Mechanics for 10$/h </h6>
                       <p class="card-text">*First Lesson Free*</p>
                       
@@ -82,6 +82,6 @@
     <script src="script/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="script/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="script/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <script src="script/tutor.js"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ const tutors = [
         email: 'email123@example.com',
         password: "password123",
         shortDescription: "Hi...",
-        price: 10,
+        price: 50,
         showTutor: true,
         _id: userOneId,
         subjects: ['Waves and Optics'],
@@ -36,7 +36,7 @@ const tutors = [
         password: "password123",
         shortDescription: "I am a Waves and Modern Physics tutor with an R-Score of 34",
         subjects: ['Waves and Optics'],
-        price: 50,
+        price: 25,
         showTutor: true,
       },
       {
@@ -54,7 +54,7 @@ const tutors = [
         password: "password123",
         shortDescription: "Hello, my name is Francesco and I love teaching!!!",
         subjects: ['Waves and Optics'],
-        price: 20,
+        price: 5,
         showTutor: true,
       },
 ];
