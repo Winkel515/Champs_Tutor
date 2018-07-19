@@ -39,7 +39,10 @@ app.get('/signup', (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
-    Tutor.findById(req.params.id).then(() => {
+    Tutor.findById(req.params.id).then((tutor) => {
+        if(!tutor){
+            return Promise.reject();
+        }
         res.sendFile(path.join(__dirname + '/../public/tutor.html'));
     }).catch(e => {
         res.send(`Could not find ${req.params.id}`);
