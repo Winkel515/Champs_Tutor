@@ -45,7 +45,7 @@
               <!-- Select the Price Range  -->
             <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
                     <option selected>Max Hourly Rate</option>
-                    <option v-for="(item in priceList">{{ item + "$ /h"}}</option>
+                    <option v-for="item in priceList">{{ item + "$ /h"}}</option>
 
                   </select>   
             <!-- School Selection -->
@@ -62,7 +62,7 @@
         </div> <!-- /JumboTron -->
       <!-- List of Tutors -->
       <div class="container">
-      <h2 id="tutors" class="display-4 text-center my-5 text-muted">{{title}}</h2>
+      <h2 id="tutors" class="display-4 text-center my-5 text-muted">Tutors</h2>
       
       <div id="tutorList" class="row">
         
@@ -85,12 +85,16 @@
         </div>
     </div> <!--End of Tutor List -->
  </div>
-    <!-- Optional JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- ******************* I don't know why we're using these scripts ***************************** -->
     <script src="script/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="script/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="script/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <!-- Essential Scripts -->
+    <script src="script/vue.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
