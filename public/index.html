@@ -43,13 +43,10 @@
               </select>
               
               <!-- Select the Price Range  -->
-            <select class="custom-select custom-select-lg mb-3">
-                    <option selected>Hourly Rate Range</option>
-                    <option value="1">$0-$10</option>
-                    <option value="2">$10-$20</option>
-                    <option value="3">$20-$30</option>
-                    <option value="4">$30-$40</option>
-                    <option value="5">$40+</option>
+            <select v-on:change="filterList" class="custom-select custom-select-lg mb-3">
+                    <option selected>Max Hourly Rate</option>
+                    <option v-for="(item in priceList">{{ item + "$ /h"}}</option>
+
                   </select>   
             <!-- School Selection -->
             <select class="custom-select custom-select-lg mb-3">
@@ -69,7 +66,11 @@
       
       <div id="tutorList" class="row">
         
-          <div class="col-md-6 col-lg-4" v-for="tutor in tutorList" v-show="tutor.subjects.indexOf(subject) > -1 || subject === '' || subject === 'All Subjects' " >
+          <div class="col-md-6 col-lg-4" v-for="tutor in tutorList" 
+          v-show="tutor.subjects.indexOf(subject) > -1 
+                      || subject === '' 
+                      || subject === 'All Subjects'
+                      || price === tutor.price">
               <div class="card mb-3">
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
