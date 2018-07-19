@@ -75,7 +75,9 @@ describe('PATCH /tutors/me', () => {
         shortDescription: "Testing short description",
         longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
         price: 15,
-        showTutor: false
+        showTutor: false,
+        oldPassword: "password123",
+        password: "newPassword123"
     }
 
     it('should edit given properties when tutor has valid auth token', (done) => {
@@ -86,20 +88,15 @@ describe('PATCH /tutors/me', () => {
         .set('x-auth', token)
         .send(updateBody)
         .expect(200)
-        .expect((res) => {
-            expect(res.body.tutor.shortDescription).toBe(updateBody.shortDescription);
-            expect(res.body.tutor.longDescription).toBe(updateBody.longDescription);
-            expect(res.body.tutor.price).toBe(updateBody.price);
-        })
         .end(err => {
             if(err){
                 return done(err);
             }
-
             Tutor.findByToken(token).then(tutor => {
                 expect(tutor.shortDescription).toBe(updateBody.shortDescription);
                 expect(tutor.longDescription).toBe(updateBody.longDescription);
                 expect(tutor.price).toBe(updateBody.price);
+                expect(tutor.password).not.toBe(updateBody.password)
                 done();
             }).catch(e => done(e));
         })

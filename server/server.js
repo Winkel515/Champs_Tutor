@@ -84,16 +84,33 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['password', 'price', 'subjects', 'shortDescription', 'longDescription', 'showTutor']; // Array to store properies that can be edited by the tutor
+    const editList = ['oldPassword','password', 'price', 'subjects', 'shortDescription', 'longDescription', 'showTutor']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
-    Tutor.findOneAndUpdate({
-        _id: req.tutor._id
-    }, {$set: body}, {new: true},).then((tutor) => {
-        res.send({tutor});
-    }).catch((e) => {
-        res.status(400).send(errorJSON(400, 'Tutor was not found'));
-    })
+    if(!body.password){
+        Tutor.findOneAndUpdate({
+            _id: req.tutor._id
+        }, {$set: body}, {new: true},).then(tutor => {
+            res.send();
+        }).catch((e) => {
+            res.status(400).send(errorJSON(400, 'Tutor was not found'));
+        })
+    } else{
+        Tutor.findOne({_id: req.tutor._id}).then(tutor => {
+            tutor.verifyTutor(body.oldPassword).then(() => {
+                for(let key in body){
+                    tutor[key] = body[key];
+                }
+                tutor.save().then(() => {
+                    res.send();
+                })
+            }).catch(e => {
+                res.status(400).send(errorJSON(400, 'Incorrect password'));
+            })
+        }).catch((e) => {
+            res.status(400).send(errorJSON(400, 'Tutor was not found'));
+        })
+    }
 })
 
 app.delete('/tutors/me', authenticate, (req, res) => {
