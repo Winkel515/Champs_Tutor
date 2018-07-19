@@ -48,16 +48,8 @@
                     <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$ /h"}}</option>
 
                   </select>   
-            <!-- School Selection -->
-            <select class="custom-select custom-select-lg mb-3">
-                    <option selected>School</option>
-                    <option value="1">Champlain College</option>
-                    <option value="2">Vanier College</option>
-                    <option value="3">Dawson College</option>
-                    <option value="4">Marianopolis College</option>
-                  </select>  
-               <!-- Find A tutor Button -->
-          <button type="button" href="#tutorList" class="btn btn-outline-light">Find a Tutor</button>
+            
+          <button type="button" onclick="location.reload()" class="btn btn-outline-light">Reset</button>
         </div>  
         </div> <!-- /JumboTron -->
       <!-- List of Tutors -->
