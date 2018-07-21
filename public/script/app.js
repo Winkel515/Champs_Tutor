@@ -17,7 +17,7 @@ function tutorsVue(tutors){
   const app = new Vue({
       el: '#tutorList',
       data: {
-        tutorList: tutors,
+        tutors,
         subject: 'All Subjects',
         price: 'All Prices',
       },
@@ -49,7 +49,6 @@ function tutorsVue(tutors){
           priceList:function() {
             return  [10,20,30,40,50];
         }
-
       }
   });
 }
