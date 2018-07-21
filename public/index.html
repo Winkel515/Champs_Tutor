@@ -10,7 +10,6 @@
   </head>
   <body>
     <div id="tutorList">
-    <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand mr-0" href="/">Tutor Me</a>
@@ -45,7 +44,7 @@
               <!-- Select the Price Range  -->
             <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3">
                     <option selected>All Prices</option>
-                    <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$ /h"}}</option>
+                    <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$/h"}}</option>
 
                   </select>   
             
@@ -58,16 +57,20 @@
       
       <div id="tutorList" class="row">
         
-          <div class="col-md-6 col-lg-4" v-for="tutor in tutorList" 
+          <div class="col-md-6 col-lg-4" v-for="tutor in tutors" 
           v-show="(tutor.subjects.indexOf(subject) > -1 
-                      || subject === 'All Subjects')
-                      && (price >= tutor.price
-                      || price === 'All Prices')">
+          || subject === 'All Subjects')
+          && (price >= tutor.price
+          || price === 'All Prices')">
+              <!-- DIV for the Tutors Cards -->
               <div class="card mb-3">
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
                       <h5 class="card-title">{{tutor.name}}</h5>
-                      <h6 class="card-subtitle mb-1 text-muted">{{tutor.price + "$/h for   " + tutor.subjects}}</h6>
+                      <!-- span tags used to format the way the array of subjects is displayed. (comma + space) -->
+                      <h6 class="card-subtitle mb-1 text-muted">
+                        {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
+                      </h6>
                       <p class="card-text">{{tutor.shortDescription}}</p>
                       <a v-bind:href="'/' + tutor._id"><button type="button" class="btn btn-dark">View Profile</button></a>
                   </div>
@@ -79,11 +82,9 @@
  </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-    <!-- ******************* I don't know why we're using these scripts ***************************** -->
-    <!-- <script src="script/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="script/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="script/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="script/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script src="script/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <!-- Essential Scripts -->
     <script src="script/vue.js"></script>
