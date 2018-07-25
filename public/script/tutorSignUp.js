@@ -5,19 +5,23 @@ sunmitButton.addEventListener('click', postData);
 function postData(e) {
     e.preventDefault(); 
     const name = document.getElementById('name').value;
-    const mail = document.getElementById('mail').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
      
      const config = {
     method: 'POST' ,
     headers: {'Content-type': 'application/json'},
-    body: JSON.stringify({name: name, mail: mail,password: password }) 
+    body: JSON.stringify({name, email,password}) 
    };
      
-   fetch('https://jsonplaceholder.typicode.com/comments', config)
+   fetch('/tutors/signup', config)
          .then(checkStatus)
-         .then(res => res.json())
-         .then(data => console.log(data))
+         .then(response => {
+               console.log('JSON Web Token:', response.headers.get('x-auth')); // Get the JWT from the response header (Used to identify user). Store it in localStorage/Cookie/idk you choose
+            //    location.href = '/' // Redirects the user upon successful signup. Link can be changed (currently redirects to main page)
+         }, e => {
+               console.log('Invalid inputs for signup') // Do something upon UNsuccessful signup (currently only logs in console)
+         })
    }
 
    function checkStatus(response){
