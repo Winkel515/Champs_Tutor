@@ -10,8 +10,8 @@ body {
   color: #384047;
 }
 
-form {
-  max-width: 300px;
+#form {
+  max-width: 500px;
   margin: 10px auto;
   padding: 10px 20px;
   background: #f4f7f8;

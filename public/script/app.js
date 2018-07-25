@@ -13,6 +13,37 @@ function getTutors(){ // Gets tutors from /tutors and sets it up for Vue
   };
 };
 
+// // ------------------------------------------
+// //  FETCH FUNCTIONS
+// // ------------------------------------------
+
+// function fetchData(url) {
+//   return fetch(url)
+//             .then(checkStatus)
+//             .then(response => JSON.parse(response).tutors)
+//             .catch(error => console.log('Looks like there was a problem', error))
+// }
+
+// fetchData('/tutors').then(tutors => 
+//   tutorsVue(tutors) // Injects the tutors array into the Vue object
+// )
+
+// // ------------------------------------------
+// //  HELPER FUNCTIONS
+// // ------------------------------------------
+
+// function checkStatus(response){
+//   if(response.ok){
+//      return Promise.resolve(response); 
+//   } else{
+//    return Promise.reject(new Error(response.statusText)); 
+//   }
+//  }
+
+// ------------------------------------------
+//  Vue.js template
+// ------------------------------------------
+
 function tutorsVue(tutors){
   const app = new Vue({
       el: '#tutorList',
@@ -52,3 +83,5 @@ function tutorsVue(tutors){
       }
   });
 }
+
+
