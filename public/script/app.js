@@ -1,17 +1,49 @@
-document.addEventListener("DOMContentLoaded", getTutors());
+// document.addEventListener("DOMContentLoaded", getTutors());
 
-function getTutors(){ // Gets tutors from /tutors and sets it up for Vue
-  // *************************************** GET REQUEST TO /tutors ROUTE ****************************
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", "/tutors", true);
-  xmlhttp.send();
-  xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          var tutors = JSON.parse(this.responseText).tutors; // Setting up the tutors array
-          tutorsVue(tutors) // Injects the tutors array into the Vue object
-      };
-  };
-};
+// function getTutors(){ // Gets tutors from /tutors and sets it up for Vue
+//   // *************************************** GET REQUEST TO /tutors ROUTE ****************************
+//   var xmlhttp = new XMLHttpRequest();
+//   xmlhttp.open("GET", "/tutors", true);
+//   xmlhttp.send();
+//   xmlhttp.onreadystatechange = function() {
+//       if (this.readyState == 4 && this.status == 200) {
+//           var tutors = JSON.parse(this.responseText).tutors; // Setting up the tutors array
+//           tutorsVue(tutors) // Injects the tutors array into the Vue object
+//       };
+//   };
+// };
+
+// // ------------------------------------------
+// //  FETCH FUNCTIONS
+// // ------------------------------------------
+
+function fetchData(url) {
+  return fetch(url)
+            .then(checkStatus)
+            .then(response => response.text())
+            .then(data => tutorsVue(JSON.parse(data).tutors))
+            .catch(error => console.log('Looks like there was a problem', error))
+}
+
+fetchData('/tutors').then(tutors => 
+  tutorsVue(tutors) // Injects the tutors array into the Vue object
+)
+
+// ------------------------------------------
+//  HELPER FUNCTIONS
+// ------------------------------------------
+
+function checkStatus(response){
+  if(response.ok){
+     return Promise.resolve(response); 
+  } else{
+   return Promise.reject(new Error(response.statusText)); 
+  }
+ }
+
+// ------------------------------------------
+//  Vue.js template
+// ------------------------------------------
 
 function tutorsVue(tutors){
   const app = new Vue({
@@ -52,3 +84,5 @@ function tutorsVue(tutors){
       }
   });
 }
+
+

@@ -8,3 +8,5 @@ const {Tutor} = require('./../models/tutors');
 const {tutors, populateTutor} = require('./seed/seed');
 
 beforeEach(populateTutor);
+
+it('Test server is ready to go', () => {})

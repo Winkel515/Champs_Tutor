@@ -13,12 +13,12 @@
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-0" href="/">Tutor Me</a>
+          <a class="navbar-brand mr-0" href="/index.html">Tutor Me</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav text-right">
               <a class="nav-item nav-link text-right" href="/signup">Become a Tutor<span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" href="#reviews">Tutor Sign In</a>
             </div>
@@ -27,7 +27,7 @@
         </nav> <!-- /NavBar -->
 
        <div class="container">
-      <h2 class="display-4 text-center mt-5 my-5 text-muted">Tutor Profile</h2>
+      <h2 class="display-4 text-center mt-5 mb-3 text-muted" v-show="false">Tutor Profile</h2>
       
       <div id="tutorProfile" class="row">
         <!-- Picture Card -->
@@ -36,7 +36,7 @@
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
                       <h5 class="card-title">{{tutor.name}}</h5>
-                      <h6 class="card-subtitle mb-1 text-muted">Mechanics for 10$/h </h6>
+                      <h6 class="card-subtitle mb-1 text-muted">{{tutor.subjects}}</h6>
                       <p class="card-text">*First Lesson Free*</p>
                       
                   </div>
