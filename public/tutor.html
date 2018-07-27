@@ -36,7 +36,9 @@
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
                       <h5 class="card-title">{{tutor.name}}</h5>
-                      <h6 class="card-subtitle mb-1 text-muted">{{tutor.subjects}}</h6>
+                      <h6 class="card-subtitle mb-1 text-muted">
+                          {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
+                        </h6>
                       <p class="card-text">*First Lesson Free*</p>
                       
                   </div>
@@ -44,24 +46,28 @@
           </div>
 
           <!-- Description Card -->
-
-          <div class="card border-dark mb-3 ml-5" style="max-width: 18rem;">
+          <div class="col-md-4 col-lg-4">
+          <div class="card border-dark mb-3" style="max-width: 18rem;">
               <div class="card-header">Credentials</div>
               <div class="card-body text-dark">
                
                 <p class="card-text">I have been tutoring fellow students in mechanics for around 2 semesters. I got a 92 avg and 36 r-score in mechanics, and an avg of 95 in Waves and Optics. I offer the first lesson for free. I can provide my own problem sets with solutions along with my old tests</p>
               </div>
             </div>
-         
-            <div class="card border-dark mb-3 ml-5" style="max-width: 18rem;">
-                <div class="card-header">Availabilities</div>
+           </div> 
+         <!-- Availabilities Card -->
+         <div class="col-md-4 col-lg-4">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Credentials</div>
                 <div class="card-body text-dark">
                  
-                  <p class="card-text">I can meet monday from 2p.m - 4p.m, any freeblock and Thurdays 10 a.m - 1p.m. I would be willing to meet on the weekends however it would be a 5$/h sur charge</p>
+                  <p class="card-text">I have been tutoring fellow students in mechanics for around 2 semesters. I got a 92 avg and 36 r-score in mechanics, and an avg of 95 in Waves and Optics. I offer the first lesson for free. I can provide my own problem sets with solutions along with my old tests</p>
                 </div>
               </div>
+             </div> 
               <!-- Contact Info Card -->
-              <div class="card ml-3" style="width: 18rem;">
+            <div class="col-md-4 col-lg-4">
+              <div class="card " style="width: 18rem;">
                   <div class="card-header">
                     Contact Info
                   </div>
@@ -70,10 +76,11 @@
                     <li class="list-group-item">450-930-3993</li>
                     <li class="list-group-item">facebook: Daniel Bucci</li>
                   </ul>
-                </div> <!--/Contact Info Card-->
+                </div>
+              </div>   <!--/Contact Info Card-->
 
                 
-
+              
         </div>
     </div> <!--End of Tutor List -->
     <!-- Optional JavaScript -->
