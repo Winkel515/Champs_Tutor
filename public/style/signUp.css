@@ -109,6 +109,13 @@ label.light {
   border-radius: 100%;
 }
 
+#errorMessage {
+  display: block;
+  margin: -30px auto 0px; 
+  color: #d9534f;
+  text-align: center;
+}
+
 @media screen and (min-width: 480px) {
 
   form {

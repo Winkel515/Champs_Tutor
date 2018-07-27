@@ -2,21 +2,9 @@
 const sunmitButton = document.getElementById('submitButton');
 sunmitButton.addEventListener('click', postData);
 
-function postData(e) {
+function postData(e, config) {
     e.preventDefault(); 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const credentials = document.getElementById('credentialsInput').value;
-    const availabilities = document.getElementById('availabilitiesInput').value;
-    const subjects = document.getElementById('subjects').value;
-     
-     const config = {
-    method: 'POST' ,
-    headers: {'Content-type': 'application/json'},
-    body: JSON.stringify({name, email, password, credentials, availabilities, subjects}) 
-   };
-     
+    
    fetch('/tutors/signup', config)
          .then(checkStatus)
          .then(response => {
@@ -52,19 +40,31 @@ const app = new Vue({
       passwordError:false
     },
     methods: {
-      checkForm: function (e) {
+      submitForm: function (e) {
          
         this.nameError = this.name.length === 0;
     
+        
         this.emailError = !this.validEmail(this.email);
         
+
+
         this.passwordError = this.password.length < 8;
         
         e.preventDefault();
+
+        if(!(this.nameError && this.passwordError && this.emailError)){
+            const config = {
+                method: 'POST' ,
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({name : this.name, email : this.email, password : this.password}) 
+               };
+              postData(e, config); 
+        }
       },
       validEmail: function (email) {
          console.log(email); 
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var re = /^(?:[a-z0-9!#$%&amp;'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
         console.log(re.test(email));
         return re.test(email);
         

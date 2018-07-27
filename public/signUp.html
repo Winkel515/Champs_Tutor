@@ -18,15 +18,16 @@
           <legend><span class="number">1</span> Your Basic Info</legend>
           
               <label for="name">Name:</label>
-              <input v-model="name" type="text" id="name">
-              
-              <label for="email">Email Address:</label>
-              <input v-model="email" type="email" id="email" >
-              <p v-show="emailError">Error</p>
+              <input v-model="name" type="text" id="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
+              <p v-show="nameError" id="errorMessage">Please insert Name</p>
+
+              <label for="email">Email Address :</label>
+              <input v-model="email" type="email" id="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
+              <p v-show="emailError" id="errorMessage">Invalid Email</p>
             
               <label for="password">Password:</label>
-              <input v-model="password" type="password" id="password" placeholder="8 to 12 characters">
-          
+              <input v-model="password" type="password" id="password" placeholder="8 to 12 characters" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
+              <p v-show="passwordError" id="errorMessage">Invalid Password (Must have at least 8 characters)</p>
           
         </fieldset>
          
@@ -44,7 +45,7 @@
            
           
           </fieldset>
-             <button v-on:click="checkForm" v-on:click="validEmail(email)" id="submitButton">Sign Up</button>
+             <button v-on:click="submitForm" id="submitButton">Sign Up</button>
         
             </div>
       
