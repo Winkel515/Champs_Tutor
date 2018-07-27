@@ -34,3 +34,38 @@ function postData(e) {
      return Promise.reject(response.text());
     }
    }
+
+//    -------------------
+//    TUTOR VUE.JS FOR FORM VALIDATION
+// ----------------------
+
+const app = new Vue({
+    el: '#form',
+    data: {
+      name: "",
+      nameError: false,
+      email: "",
+      emailError: false,
+      password: "",
+      passwordError:false
+    },
+    methods: {
+      checkForm: function (e) {
+         
+        this.nameError = this.name.length === 0;
+    
+        this.emailError = !this.validEmail(this.email);
+        
+        this.passwordError = this.password.length < 8;
+        
+        e.preventDefault();
+      },
+      validEmail: function (email) {
+         console.log(email); 
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        console.log(re.test(email));
+        return re.test(email);
+        
+      }
+    }
+  })

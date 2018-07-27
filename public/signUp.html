@@ -18,13 +18,14 @@
           <legend><span class="number">1</span> Your Basic Info</legend>
           
               <label for="name">Name:</label>
-              <input type="text" id="name">
+              <input v-model="name" type="text" id="name">
               
               <label for="email">Email Address:</label>
-              <input type="email" id="email" >
+              <input v-model="email" type="email" id="email" >
+              <p v-show="emailError">Error</p>
             
               <label for="password">Password:</label>
-              <input type="password" id="password" placeholder="8 to 12 characters">
+              <input v-model="password" type="password" id="password" placeholder="8 to 12 characters">
           
           
         </fieldset>
@@ -43,7 +44,7 @@
            
           
           </fieldset>
-             <button id="submitButton">Sign Up</button>
+             <button v-on:click="checkForm" v-on:click="validEmail(email)" id="submitButton">Sign Up</button>
         
             </div>
       
