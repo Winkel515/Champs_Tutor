@@ -1,21 +1,7 @@
+function postData(config) {
 
-const sunmitButton = document.getElementById('submitButton');
-sunmitButton.addEventListener('click', postData);
-
-function postData(e, config) {
-    e.preventDefault(); 
-    
-   fetch('/tutors/signup', config)
-         .then(checkStatus)
-         .then(response => {
-               console.log('JSON Web Token:', response.headers.get('x-auth')); // Get the JWT from the response header (Used to identify user). Store it in localStorage/Cookie/idk you choose
-            //    location.href = '/' // Redirects the user upon successful signup. Link can be changed (currently redirects to main page)
-         }).catch(e => {
-            e.then(err => {
-                  console.log(JSON.parse(err));
-            }) // Do something upon UNsuccessful signup (currently only logs in console)
-      })
-   }
+   return fetch('/tutors/signup', config)
+}
 
    function checkStatus(response){
     if(response.ok){
@@ -36,6 +22,7 @@ const app = new Vue({
       nameError: false,
       email: "",
       emailError: false,
+      emailDuplicate: false,
       password: "",
       passwordError:false
     },
@@ -43,31 +30,32 @@ const app = new Vue({
       submitForm: function (e) {
          
         this.nameError = this.name.length === 0;
-    
-        
         this.emailError = !this.validEmail(this.email);
-        
-
-
         this.passwordError = this.password.length < 8;
+        this.emailDuplicate = false;
         
         e.preventDefault();
-
-        if(!(this.nameError && this.passwordError && this.emailError)){
+        if(!(this.nameError || this.passwordError || this.emailError)){
             const config = {
                 method: 'POST' ,
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({name : this.name, email : this.email, password : this.password}) 
                };
-              postData(e, config); 
+            postData(config).then(checkStatus)
+               .then(response => { // Runs when all inputs are good
+                     console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
+               }).catch(response => { // Runs when there's an invalid input
+                  response.then(e => {
+                        console.log(JSON.parse(e));
+                        if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
+                              this.emailDuplicate = true; // Boolean used to show error message on signUp page
+                        }
+                  })
+               })
         }
       },
       validEmail: function (email) {
-         console.log(email); 
-        var re = /^(?:[a-z0-9!#$%&amp;'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-        console.log(re.test(email));
-        return re.test(email);
-        
+        return validator.isEmail(email);
       }
     }
   })

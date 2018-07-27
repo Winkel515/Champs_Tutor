@@ -78,6 +78,9 @@ app.post('/tutors/signup', (req, res) => {
     }).then((token) => {
         res.status(201).header('x-auth', token).send(); // Sending back nothing in response body
     }).catch((e) => {
+        if(e.message === `E11000 duplicate key error collection: TutorMeTest.tutors index: email_1 dup key: { : "${body.email}" }`){
+            e.message = 'Email is already in use';
+        }
         res.status(400).send(errorJSON(400, e.message));
     })
 });

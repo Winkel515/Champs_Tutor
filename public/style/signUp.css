@@ -109,7 +109,7 @@ label.light {
   border-radius: 100%;
 }
 
-#errorMessage {
+.errorMessage {
   display: block;
   margin: -30px auto 0px; 
   color: #d9534f;
