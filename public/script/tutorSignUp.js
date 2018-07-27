@@ -23,7 +23,9 @@ function postData(e) {
                console.log('JSON Web Token:', response.headers.get('x-auth')); // Get the JWT from the response header (Used to identify user). Store it in localStorage/Cookie/idk you choose
             //    location.href = '/' // Redirects the user upon successful signup. Link can be changed (currently redirects to main page)
          }).catch(e => {
-            console.log(e) // Do something upon UNsuccessful signup (currently only logs in console)
+            e.then(err => {
+                  console.log(JSON.parse(err));
+            }) // Do something upon UNsuccessful signup (currently only logs in console)
       })
    }
 

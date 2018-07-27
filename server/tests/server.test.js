@@ -15,7 +15,7 @@ describe('GET /tutors', () => {
             .get('/tutors')
             .expect(200)
             .expect((res) => {
-                expect(res.body.tutors.length).toBe(5);
+                expect(res.body.tutors.length).toBe(tutors.length);
             })
             .end(done);
     })
@@ -61,9 +61,9 @@ describe('POST /tutors/signup', () => {
                     return done(err);
                 }
 
-                Tutor.findOne({name: newTutor.name}).then((user) => { //Checking the database to see if tutor is saved properly
-                    expect(user).toBeTruthy();
-                    expect(user.password).not.toBe(newTutor.password); // To check if properly hashed
+                Tutor.findOne({name: newTutor.name}).then((tutor) => { //Checking the database to see if tutor is saved properly
+                    expect(tutor).toBeTruthy();
+                    expect(tutor.password).not.toBe(newTutor.password); // To check if properly hashed
                     done();
                 }).catch(e => done(e));
             });
@@ -75,7 +75,6 @@ describe('PATCH /tutors/me', () => {
         shortDescription: "Testing short description",
         longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
         price: 15,
-        showTutor: false,
         oldPassword: "password123",
         password: "newPassword123"
     }
