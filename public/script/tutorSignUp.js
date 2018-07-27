@@ -7,11 +7,14 @@ function postData(e) {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const credentials = document.getElementById('credentialsInput').value;
+    const availabilities = document.getElementById('availabilitiesInput').value;
+    const subjects = document.getElementById('subjects').value;
      
      const config = {
     method: 'POST' ,
     headers: {'Content-type': 'application/json'},
-    body: JSON.stringify({name, email,password}) 
+    body: JSON.stringify({name, email, password, credentials, availabilities, subjects}) 
    };
      
    fetch('/tutors/signup', config)
