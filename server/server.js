@@ -78,7 +78,7 @@ app.post('/tutors/signup', (req, res) => {
     }).then((token) => {
         res.status(201).header('x-auth', token).send(); // Sending back nothing in response body
     }).catch((e) => {
-        res.status(400).send(errorJSON(400, e));
+        res.status(400).send(errorJSON(400, e.message));
     })
 });
 
