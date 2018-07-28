@@ -47,7 +47,7 @@
               <!-- Select the Price Range  -->
             <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3">
                     <option selected>All Prices</option>
-                    <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$/h"}}</option>
+                    <option v-for="(price, index) in priceList" v-bind:value="index">{{ price + "$/h"}}</option>
 
                   </select>   
             
