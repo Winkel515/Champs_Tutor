@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Form</title>
         <link rel="stylesheet" href="style/normalize.css">
-        <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="style/signUp.css">
     </head>
     <body>
@@ -17,7 +17,7 @@
            
           <legend><span class="number">1</span> Your Basic Info</legend>
           
-              <label for="name">Name:</label>
+              <label for="name">Full Name:</label>
               <input v-model="name" type="text" id="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
               <p v-show="nameError" class="errorMessage">Please insert Name</p>
 
@@ -40,7 +40,7 @@
                 <p v-show="shortDescriptionError" class="errorMessage">Maximum of 250 characters</p>
                 <p class="errorMessage" style="color: grey; text-align: right">{{shortDescRemaining}}</p>
             <label for="price">Hourly Rate:</label>
-                <input type='number' placeholder="nothing" v-model="price" min="0">
+                <input type='number' v-model="price" min="0">
             <!-- <label for="bio">Availabilities:</label>
                 <textarea id="availabilitiesInput"></textarea>    
            
