@@ -21,7 +21,8 @@ const app = new Vue({
       password: "",
       passwordError:false,
       shortDescription: '',
-      shortDescriptionError: false
+      shortDescriptionError: false,
+      price: 0
     },
     methods: {
       submitForm: function (e) {
@@ -42,7 +43,8 @@ const app = new Vue({
                 name : this.name,
                 email : this.email,
                 password : this.password,
-                shortDescription: this.shortDescription
+                shortDescription: this.shortDescription,
+                price: this.price
               }) 
           };
           fetch('/tutors/signup', config).then(checkStatus)
@@ -62,6 +64,11 @@ const app = new Vue({
       },
       validEmail: function (email) {
         return validator.isEmail(email);
+      }
+    },
+    computed: {
+      shortDescRemaining: function() {
+        return 250 - this.shortDescription.length;
       }
     }
   })

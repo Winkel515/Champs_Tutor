@@ -37,7 +37,10 @@
               
             <label for="shortDescription">Short Description:</label>
                 <textarea placeholder="Your short description will be visible on the main page" v-model="shortDescription" v-bind:style="shortDescriptionError ? 'border: 2px solid #d9534f' : ''"></textarea>
-                <p v-show="shortDescriptionError" class="errorMessage">Maximum of 200 characters</p>
+                <p v-show="shortDescriptionError" class="errorMessage">Maximum of 250 characters</p>
+                <p class="errorMessage" style="color: grey; text-align: right">{{shortDescRemaining}}</p>
+            <label for="price">Hourly Rate:</label>
+                <input type='number' placeholder="nothing" v-model="price" min="0">
             <!-- <label for="bio">Availabilities:</label>
                 <textarea id="availabilitiesInput"></textarea>    
            
