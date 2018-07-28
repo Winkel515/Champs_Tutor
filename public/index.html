@@ -47,7 +47,7 @@
               <!-- Select the Price Range  -->
             <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3">
                     <option selected>All Prices</option>
-                    <option v-for="(item, index) in priceList" v-bind:value="index">{{ item + "$/h"}}</option>
+                    <option v-for="(price, index) in priceList" v-bind:value="index">{{ price + "$/h"}}</option>
 
                   </select>   
             
@@ -121,13 +121,12 @@
  </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="script/jquery-3.2.1.slim.min.js"></script>
-    <script src="script/jquery-3.3.1.min 2.js"></script>
-    <script src="script/popper.min.js"></script>
-    <script src="script/bootstrap.min.js"></script>
+    <script src="script/libs/jquery-3.3.1.min.js"></script>
+    <script src="script/libs/popper.min.js"></script>
+    <script src="script/libs/bootstrap.min.js"></script>
     
     <!-- Essential Scripts -->
-    <script src="script/vue.js"></script>
+    <script src="script/libs/vue.js"></script>
     <script src="script/app.js"></script>
 </body>
 </html>

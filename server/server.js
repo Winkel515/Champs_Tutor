@@ -70,7 +70,7 @@ app.get('/tutors/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
-    var body = _.pick(req.body, ['email', 'name', 'password', 'credentials', 'availabilities', 'subjects']) // On sign-up, tutors will input email, name and password.
+    var body = _.pick(req.body, ['email', 'name', 'password', 'shortDescription', 'price']) // On sign-up, tutors will input email, name and password.
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
@@ -78,6 +78,9 @@ app.post('/tutors/signup', (req, res) => {
     }).then((token) => {
         res.status(201).header('x-auth', token).send(); // Sending back nothing in response body
     }).catch((e) => {
+        if(e.message === `E11000 duplicate key error collection: TutorMeTest.tutors index: email_1 dup key: { : "${body.email}" }`){
+            e.message = 'Email is already in use';
+        }
         res.status(400).send(errorJSON(400, e.message));
     })
 });

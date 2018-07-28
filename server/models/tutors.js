@@ -44,7 +44,7 @@ var TutorSchema = new mongoose.Schema({
     },
     shortDescription: { // Tutor can make a short description of themselves which will be visible on the main page
         type: String,
-        maxlength: 200,
+        maxlength: 250,
         default: '',
         trim: true
     },

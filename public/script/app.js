@@ -17,17 +17,11 @@
 // //  FETCH FUNCTIONS
 // // ------------------------------------------
 
-function fetchData(url) {
-  return fetch(url)
-            .then(checkStatus)
-            .then(response => response.text())
-            .then(data => tutorsVue(JSON.parse(data).tutors))
-            .catch(error => console.log('Looks like there was a problem', error))
-}
-
-fetchData('/tutors').then(tutors => 
-  tutorsVue(tutors) // Injects the tutors array into the Vue object
-)
+  fetch('/tutors')
+    .then(checkStatus)
+    .then(response => response.json())
+    .then(data => tutorsVue(data.tutors)) // Injects tutors array into the Vue object
+    .catch(error => console.log('Looks like there was a problem', error))
 
 // ------------------------------------------
 //  HELPER FUNCTIONS

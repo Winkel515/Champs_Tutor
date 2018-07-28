@@ -109,11 +109,30 @@ label.light {
   border-radius: 100%;
 }
 
-#errorMessage {
+.errorMessage {
   display: block;
   margin: -30px auto 0px; 
   color: #d9534f;
   text-align: center;
+}
+
+textarea{
+  resize: none;
+  height: 200px;
+  color: #555;
+}
+
+::placeholder {
+  color: gray;
+  opacity: 0.7; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: lightgray;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: lightgray;
 }
 
 @media screen and (min-width: 480px) {

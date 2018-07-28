@@ -19,29 +19,33 @@
           
               <label for="name">Name:</label>
               <input v-model="name" type="text" id="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
-              <p v-show="nameError" id="errorMessage">Please insert Name</p>
+              <p v-show="nameError" class="errorMessage">Please insert Name</p>
 
               <label for="email">Email Address :</label>
-              <input v-model="email" type="email" id="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
-              <p v-show="emailError" id="errorMessage">Invalid Email</p>
+              <input v-model="email" type="email" id="email" v-bind:style="emailError||emailDuplicate ? 'border: 2px solid #d9534f' : ''">
+              <p v-show="emailError" class="errorMessage">Invalid Email</p>
+              <p v-show="emailDuplicate" class="errorMessage">Email is already in use</p>
             
               <label for="password">Password:</label>
-              <input v-model="password" type="password" id="password" placeholder="8 to 12 characters" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
-              <p v-show="passwordError" id="errorMessage">Invalid Password (Must have at least 8 characters)</p>
+              <input v-model="password" type="password" id="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
+              <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
           
         </fieldset>
          
         <fieldset>
             <legend><span class="number">2</span> Your Profile</legend>
               
-            <label for="bio">Credentials:</label>
-                <textarea id="credentialsInput"></textarea>
-
-            <label for="bio">Availabilities:</label>
+            <label for="shortDescription">Short Description:</label>
+                <textarea placeholder="Your short description will be visible on the main page" v-model="shortDescription" v-bind:style="shortDescriptionError ? 'border: 2px solid #d9534f' : ''"></textarea>
+                <p v-show="shortDescriptionError" class="errorMessage">Maximum of 250 characters</p>
+                <p class="errorMessage" style="color: grey; text-align: right">{{shortDescRemaining}}</p>
+            <label for="price">Hourly Rate:</label>
+                <input type='number' placeholder="nothing" v-model="price" min="0">
+            <!-- <label for="bio">Availabilities:</label>
                 <textarea id="availabilitiesInput"></textarea>    
            
              <label for="subjects">Subjects:</label>
-                <textarea id="subjects" name="user_subjects"></textarea>
+                <textarea id="subjects" name="user_subjects"></textarea> -->
            
           
           </fieldset>
@@ -49,7 +53,8 @@
         
             </div>
       
-      <script src="script/vue.js"></script>
-      <script src="script/tutorSignUp.js"></script>
+      <script src="script/libs/vue.js"></script>
+      <script type="text/javascript" src="script/libs/validator.min.js"></script>
+      <script src="script/signUp.js"></script>
     </body>
 </html>
