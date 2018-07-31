@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", getTutor());
 
 function getTutor(){ // Gets tutor from /tutors and sets it up for Vue

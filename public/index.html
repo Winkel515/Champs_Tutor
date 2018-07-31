@@ -101,18 +101,18 @@
               </div>
               <div class="modal-body">
                 <!-- Form -->
-                  <form>
+                  
                       <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" v-model="email" class="form-control" id="email">
                       </div>
                       <div class="form-group">
                           <label for="password">Password:</label>
-                          <input type="password" class="form-control" id="passwordInput">
+                          <input type="password" v-model="password" class="form-control" id="passwordInput">
                         </div>
-                        <button type="button" class="btn text-center btn-dark">Sign In:</button>
+                        <button type="button" v-on:click="signIn" class="btn text-center btn-dark">Sign In</button>
                       
-                    </form>
+                    
                 <!-- /Form -->
               </div>
             </div>
