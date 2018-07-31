@@ -1,95 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Tutor Name </title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TutorMe</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style/tutor.css" rel="stylesheet">
+
   </head>
+
   <body>
-    <div>
-    <!-- NavBar -->
+    <div id="tutorProfile">
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
-        <div class="container">
-          <a class="navbar-brand mr-0" href="/">Tutor Me</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav text-right">
-              <a class="nav-item nav-link text-right" href="/signup">Become a Tutor<span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link text-right" href="#reviews">Tutor Sign In</a>
-            </div>
+      <div class="container">
+        <a class="navbar-brand mr-0" href="/">Tutor Me</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav navbar-right">
+            <a class="nav-item nav-link text-right" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link text-right" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
           </div>
         </div>
-        </nav> <!-- /NavBar -->
+      </div>
+      </nav> <!-- /NavBar -->
 
-       <div class="container">
-      <h2 class="display-4 text-center mt-5 mb-3 text-muted" v-show="false">Tutor Profile</h2>
-      
-      <div id="tutorProfile" class="row">
-        <!-- Picture Card -->
-          <div class="col-md-4 col-lg-4">
-              <div class="card mb-3">
-                  <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
-                  <div class="card-body">
-                      <h5 class="card-title">{{tutor.name}}</h5>
-                      <h6 class="card-subtitle mb-1 text-muted">
-                          {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
-                        </h6>
-                      <p class="card-text">*First Lesson Free*</p>
-                      
-                  </div>
-                </div>
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+    
+        <div class="mx-auto">
+          <div class="card-deck i-am-centered">
+
+          <div class="card border-secondary col-lg-5 mt-4">
+            <img class="card-img-top img-fluid" src="img/jay.png" alt="">
+            <div class="card-body">
+              <h3 class="card-title">{{tutor.name}}</h3>
+              <h4>
+                  {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
+              </h4>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              4.0 stars
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+            </div>
           </div>
 
-          <!-- Description Card -->
-          <div class="col-md-4 col-lg-4">
-          <div class="card border-dark mb-3" style="max-width: 18rem;">
-              <div class="card-header">Credentials</div>
-              <div class="card-body text-dark">
-               
-                <p class="card-text">I have been tutoring fellow students in mechanics for around 2 semesters. I got a 92 avg and 36 r-score in mechanics, and an avg of 95 in Waves and Optics. I offer the first lesson for free. I can provide my own problem sets with solutions along with my old tests</p>
-              </div>
+          <div class="card border-secondary mt-4" >
+              <ul class="list-group list-group-flush">
+                  <div class="card-header">Credentials</div>
+                <li class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</li>
+                <div class="card-header">Availabilities </div>
+                <li class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</li>
+                <div class="card-header">Contact Info</div>
+                <li class="list-group-item">email: danielbucci2@gmail.com </br> or cellular: 514-943-3845 </br> or facebook at https://www.facebook.com/daniel.bucci.125</li>
+              </ul>
             </div>
-           </div> 
-         <!-- Availabilities Card -->
-         <div class="col-md-4 col-lg-4">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-                <div class="card-header">Credentials</div>
-                <div class="card-body text-dark">
-                 
-                  <p class="card-text">I have been tutoring fellow students in mechanics for around 2 semesters. I got a 92 avg and 36 r-score in mechanics, and an avg of 95 in Waves and Optics. I offer the first lesson for free. I can provide my own problem sets with solutions along with my old tests</p>
-                </div>
-              </div>
-             </div> 
-              <!-- Contact Info Card -->
-            <div class="col-md-4 col-lg-4">
-              <div class="card " style="width: 18rem;">
-                  <div class="card-header">
-                    Contact Info
-                  </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">danielbucci@gmail.com</li>
-                    <li class="list-group-item">450-930-3993</li>
-                    <li class="list-group-item">facebook: Daniel Bucci</li>
-                  </ul>
-                </div>
-              </div>   <!--/Contact Info Card-->
 
-                
-              
+          </div> <!-- /row -->
+          <!-- /.card -->
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header text-center font-weight-bold">
+              Tutor Reviews
+            </div>
+            <div class="card-body">
+                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                4.0 stars
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              4.0 stars
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              4.0 stars
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <a href="#" class="btn btn-outline-dark mx-auto">Leave a Review</a>
+            </div>
+          </div>
+          <!-- /.card -->
+
         </div>
-    </div> <!--End of Tutor List -->
+        <!-- /.col-lg-6 -->
+
+      </div> <!-- /row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; TutorMe 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
     <!-- Optional JavaScript -->
     <script src="script/libs/vue.js"></script>
     <script src="script/libs/jwt-decode.min.js"></script>
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="script/libs/jquery-3.3.1.min.js"></script>
     <script src="script/libs/popper.min.js"></script>
     <script src="script/libs/bootstrap.min.js"></script>
     <script src="script/tutor.js"></script>
-</body>
+   </div>
+  </body>
+
 </html>

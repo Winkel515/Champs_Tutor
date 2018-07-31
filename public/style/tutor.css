@@ -1,0 +1,15 @@
+body {
+    padding-top: 54px;
+  }
+  .i-am-centered { 
+    margin: auto;
+      width: 90%;
+      
+  }
+  
+  @media (min-width: 992px) {
+    body {
+      padding-top: 56px;
+    }
+  }
+  
