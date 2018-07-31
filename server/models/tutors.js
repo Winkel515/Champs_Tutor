@@ -66,25 +66,24 @@ var TutorSchema = new mongoose.Schema({
         of: String,
         default: []
     },
-    tokens: [{
-        access: {
-            type: String,
-            required: true
-        },
-        token: {
-            type: String,
-            required: true
-        }
-    }]
+    // tokens: [{
+    //     access: {
+    //         type: String,
+    //         required: true
+    //     },
+    //     token: {
+    //         type: String,
+    //         required: true
+    //     }
+    // }]
 })
 
 TutorSchema.methods.generateAuthToken = function() { // Generated token gets saved in the databased. Can be problematic as it adds up. Could solved by deleting on closing app.
     var tutor = this;
-    var access = 'auth';
-    var token = jwt.sign({_id: tutor._id.toHexString(), access}, secret);
+    var token = jwt.sign({_id: tutor._id.toHexString(), name: tutor.name}, secret);
 
-    tutor.tokens.push({access, token}); // Gets pushed in the tutor object...
-    tutor.save(); // Then it gets saved. Might want to change that!
+    // tutor.tokens.push({access, token}); // Gets pushed in the tutor object...
+    // tutor.save(); // Then it gets saved. Might want to change that!
 
     return token;
 }
@@ -114,8 +113,8 @@ TutorSchema.statics.findByToken = function (token) {
 
     return Tutor.findOne({
         '_id': decoded._id,
-        'tokens.token': token,
-        'tokens.access': 'auth'
+        // 'tokens.token': token,
+        // 'tokens.access': 'auth'
     });
 }
 

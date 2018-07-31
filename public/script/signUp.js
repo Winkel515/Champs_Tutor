@@ -49,6 +49,7 @@ const app = new Vue({
           };
           fetch('/tutors/signup', config).then(checkStatus)
           .then(response => { // Runs when all inputs are good
+            localStorage.setItem('token', response.headers.get('x-auth'));
             console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
             location.href = '/';
           }).catch(response => { // Runs when there's an invalid input

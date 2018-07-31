@@ -31,7 +31,7 @@ function checkStatus(response){
   if(response.ok){
      return Promise.resolve(response); 
   } else{
-   return Promise.reject(new Error(response.statusText)); 
+   return Promise.reject(response.text()); 
   }
  }
 
@@ -46,8 +46,31 @@ function tutorsVue(tutors){
         tutors,
         subject: 'All Subjects',
         price: 'All Prices',
+        email:"",
+        password:"",
       },
       methods: {
+        signIn: function (e) {
+          e.preventDefault();
+          
+            const config = {
+                method: 'POST' ,
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({ 
+                  email : this.email,
+                  password : this.password, 
+                }) 
+            };
+            fetch('/tutors/login', config).then(checkStatus)
+            .then(response => { // Runs when all inputs are good
+              localStorage.setItem('token', response.headers.get('x-auth'));
+              console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
+            }).catch(response => { // Runs when there's an invalid input
+              response.then(e => {
+                console.log(JSON.parse(e));
+              })
+            });
+        },
         filterSubject: function(){
            /* Filter Subjects */ 
           console.log(event);
