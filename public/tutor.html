@@ -38,7 +38,7 @@
     <!-- Page Content -->
     <div class="container">
 
-      <div class="row">
+      
     
         <div class="mx-auto">
           <div class="card-deck i-am-centered">
@@ -90,7 +90,7 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
-              <a href="#" class="btn btn-outline-dark mx-auto">Leave a Review</a>
+              <a href="#" class="btn btn-outline-dark mx-auto leave-review">Leave a Review</a>
             </div>
           </div>
           <!-- /.card -->
@@ -98,9 +98,39 @@
         </div>
         <!-- /.col-lg-6 -->
 
-      </div> <!-- /row -->
+        <!-- Modal -->
+        <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="register form" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Sign In to Tutor Account</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Form -->
+                    
+                        <div class="form-group">
+                          <label for="email">Email:</label>
+                          <input type="email" v-model="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" v-model="password" class="form-control" id="passwordInput">
+                          </div>
+                          <button type="button" v-on:click="signIn" class="btn text-center btn-dark">Sign In</button>
+                        
+                      
+                  <!-- /Form -->
+                </div>
+              </div>
+            </div>
+          </div>
 
-    </div>
+      </div> 
+       
+</div>
     <!-- /.container -->
 
     <!-- Footer -->
@@ -120,7 +150,7 @@
     <script src="script/libs/popper.min.js"></script>
     <script src="script/libs/bootstrap.min.js"></script>
     <script src="script/tutor.js"></script>
-   </div>
+ 
   </body>
 
 </html>
