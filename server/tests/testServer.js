@@ -5,8 +5,10 @@ const jwt = require('jsonwebtoken');
 
 const {app} = require('./../server');
 const {Tutor} = require('./../models/tutors');
+const {Review} = require('./../models/reviews');
 const {tutors, populateTutor} = require('./seed/seed');
 
 beforeEach(populateTutor);
+// beforeEach(console.log('hi'))
 
 it('Test server is ready to go', () => {})

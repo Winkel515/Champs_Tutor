@@ -7,6 +7,7 @@ const _ = require ('lodash');
 const path = require('path');
 
 const {Tutor} = require('./models/tutors');
+const {Review} = require('./models/reviews')
 const {mongoose} = require('./db/mongoose');
 const publicPath = path.join(__dirname, '../public');
 const {authenticate} = require('./middleware/authenticate')
@@ -134,10 +135,8 @@ app.delete('/tutors/me', authenticate, (req, res) => {
     })
 });
 
-// ******************************** URGENT MUST FIX MUST FIX BELOW!!! *********************************************
-
-// Process POST /tutors/login. Takes in name and password (might have to add email to be unique) and sends back a token on 'x-auth' header property. Response body will be empty (Unless front-end needs it)
-app.post('/tutors/login', (req, res) => { // URGENT MUST FIX: will create second token in database
+// Process POST /tutors/login. Takes email and password and sends back a token on 'x-auth' header property. Response body will be empty (Unless front-end needs it)
+app.post('/tutors/login', (req, res) => {
     const loginCredentials = ['email', 'password'];
     var body = _.pick(req.body, loginCredentials);
 
@@ -148,7 +147,42 @@ app.post('/tutors/login', (req, res) => { // URGENT MUST FIX: will create second
     })
 });
 
-// ******************************* URGENT STOPS HERE :P *************************************
+app.get('/reviews/:tutorId', (req, res) => {
+    var tutorId = req.params.tutorId;
+    
+    Tutor.findById(tutorId).then(tutor => {
+        if(!tutor){
+            return Promise.reject("Invalid Tutor ID")
+        }
+        Review.find({tutorId}).then((reviews) => {
+            res.send({reviews});
+        })
+    }).catch(e => {
+        res.status(400).send(errorJSON(400, "Invalid Tutor ID"));
+    })
+});
+
+app.post('/reviews', (req, res) => { // Work in progress
+    var body = _.pick(req.body, ["reviewer", "rating", "text", "tutorId"]);
+    var review = new Review(body);
+
+    if(!ObjectID.isValid(body.tutorId)){
+        return res.status(400).send(errorJSON(400, "Invalid Tutor ID"));
+    }
+
+    Tutor.findById(body.tutorId).then(tutor => {
+        if(!tutor){
+            return Promise.reject({
+                message: "Invalid Tutor ID"
+            });
+        }
+        review.save().then(review => {
+            res.send();
+        })
+    }).catch(e => {
+        res.status(400).send(errorJSON(400, e.message));
+    })
+})
 
 app.listen(port, () => {
     console.log(`Server open on port ${port}`);
