@@ -2,6 +2,7 @@ const {ObjectID} = require('mongodb');
 const jwt = require('jsonwebtoken');
 
 const {Tutor} = require('./../../models/tutors');
+const {Review} = require('./../../models/reviews')
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -67,6 +68,8 @@ const populateTutor = (done) => {
         }
         return Promise.all(savedTutors);
     }).then(() => done());
+
+    Review.remove({}).then();
 }
 
 module.exports = {tutors, populateTutor};
