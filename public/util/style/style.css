@@ -2,3 +2,12 @@
     background: url("./../img/banner.jpg") no-repeat center;
     background-size: cover;
 }
+
+@media screen and (max-width: 480px) {
+
+    #mainImage{
+        background: url("./../img/mobileBanner.jpg") no-repeat center;
+        background-size: cover;
+    }
+  
+  }
