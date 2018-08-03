@@ -3,7 +3,7 @@
     background-size: cover;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1000px) {
 
     #mainImage{
         background: url("./../img/mobileBanner.jpg") no-repeat center;
