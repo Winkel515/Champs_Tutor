@@ -9,7 +9,7 @@ const path = require('path');
 const {Tutor} = require('./models/tutors');
 const {Review} = require('./models/reviews')
 const {mongoose} = require('./db/mongoose');
-const publicPath = path.join(__dirname, '../public');
+const publicPath = path.join(__dirname, '../public/util');
 const {authenticate} = require('./middleware/authenticate')
 
 var app = express();
@@ -35,6 +35,10 @@ app.get('/tutors', (req, res) => {
     });
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../public/index.html'))
+})
+
 app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname + '/../public/signUp.html'));
 });
@@ -52,7 +56,7 @@ app.get('/:id', (req, res) => {
 
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'longDescription email';
+    const profileProperties = 'longDescription email _reviews';
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {
@@ -61,7 +65,9 @@ app.get('/tutors/:id', (req, res) => {
     
     Tutor.findOne({
         _id: id
-    }, `${sharedProperties + profileProperties}`).then((tutor) => {
+    }, `${sharedProperties + profileProperties}`)
+        .populate('reviews')
+        .then((tutor) => {
         if(!tutor){
             return res.status(404).json(errorJSON(404, 'Tutor was not found'));
         }
@@ -147,30 +153,23 @@ app.post('/tutors/login', (req, res) => {
     })
 });
 
-app.get('/reviews/:tutorId', (req, res) => {
+app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
+    var body = _.pick(req.body, ["reviewer", "rating", "text"]);
     var tutorId = req.params.tutorId;
-    
-    Tutor.findById(tutorId).then(tutor => {
-        if(!tutor){
-            return Promise.reject("Invalid Tutor ID")
-        }
-        Review.find({tutorId}).then((reviews) => {
-            res.send({reviews});
-        })
-    }).catch(e => {
-        res.status(400).send(errorJSON(400, "Invalid Tutor ID"));
-    })
-});
-
-app.post('/reviews', (req, res) => { // Work in progress
-    var body = _.pick(req.body, ["reviewer", "rating", "text", "tutorId"]);
+    body._id = ObjectID();
     var review = new Review(body);
 
-    if(!ObjectID.isValid(body.tutorId)){
+    console.log(body);
+
+    if(!ObjectID.isValid(tutorId)){
         return res.status(400).send(errorJSON(400, "Invalid Tutor ID"));
     }
 
-    Tutor.findById(body.tutorId).then(tutor => {
+    Tutor.findByIdAndUpdate(
+        tutorId,
+        {$push: {'reviews': body._id}},
+        {new: true}
+    ).then(tutor => {
         if(!tutor){
             return Promise.reject({
                 message: "Invalid Tutor ID"

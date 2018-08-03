@@ -31,12 +31,6 @@ var TutorSchema = new mongoose.Schema({
         trim: true,
         minlength: 8
     },
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5,
-        default: 0
-    },
     price: {
         type: Number,
         min: 0,
@@ -66,6 +60,10 @@ var TutorSchema = new mongoose.Schema({
         of: String,
         default: []
     },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
     // tokens: [{
     //     access: {
     //         type: String,
