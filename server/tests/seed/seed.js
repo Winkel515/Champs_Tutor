@@ -10,15 +10,18 @@ const userTwoId = new ObjectID();
 const reviewId = [];
 const reviewers = ['John', 'Sam', 'Steven', 'Stephanie', 'Jimmy', 'Billy']
 const reviews = []
+var danielRatingAvrg = 0;
 for(var i = 0; i < reviewers.length; i++){
     reviewId[i] = new ObjectID();
     reviews[i] = {
         reviewer: reviewers[i],
         text: "Lorem ipsum dolor sit amet, in vix ubique dissentiet adversarium. Vis alia brute et, vocent gloriatur ea per. Quo falli.",
-        rating: Math.floor(Math.random()*5),
+        rating: Math.floor(Math.random()*6),
         _id: reviewId[i]
     }
+    danielRatingAvrg += reviews[i].rating;
 }
+danielRatingAvrg = (danielRatingAvrg / reviewers.length);
 
 const tutors = [
     {
@@ -30,7 +33,8 @@ const tutors = [
         showTutor: true,
         _id: userOneId,
         subjects: ['Calculus I', 'Waves and Optics'],
-        reviews: reviewId
+        reviews: reviewId,
+        rating: danielRatingAvrg
       },
       {
         name: 'Winkel Yin', 
