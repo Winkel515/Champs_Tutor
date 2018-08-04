@@ -74,7 +74,7 @@ function tutorsVue(tutor){
                 method: 'POST' ,
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({ 
-                  reviewer : this.reviwer,
+                  reviewer : this.reviewer,
                   rating: this.rating, 
                   text: this.ratingComments
                 }) 
@@ -87,7 +87,7 @@ function tutorsVue(tutor){
                 console.log(JSON.parse(e));
               })
             });
-
+            this.reviewPosted = false;
         }
       }
       
