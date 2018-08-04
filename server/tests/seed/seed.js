@@ -4,8 +4,24 @@ const jwt = require('jsonwebtoken');
 const {Tutor} = require('./../../models/tutors');
 const {Review} = require('./../../models/reviews')
 
-const userOneId = new ObjectID();
+const userOneId = new ObjectID('5b660ec56cd13a2b98cebeb0');
 const userTwoId = new ObjectID();
+
+const reviewId = [];
+const reviewers = ['John', 'Sam', 'Steven', 'Stephanie', 'Jimmy', 'Billy']
+const reviews = []
+var danielRatingAvrg = 0;
+for(var i = 0; i < reviewers.length; i++){
+    reviewId[i] = new ObjectID();
+    reviews[i] = {
+        reviewer: reviewers[i],
+        text: "Lorem ipsum dolor sit amet, in vix ubique dissentiet adversarium. Vis alia brute et, vocent gloriatur ea per. Quo falli.",
+        rating: 0,
+        _id: reviewId[i]
+    }
+    danielRatingAvrg += reviews[i].rating;
+}
+danielRatingAvrg = (danielRatingAvrg / reviewers.length);
 
 const tutors = [
     {
@@ -17,10 +33,8 @@ const tutors = [
         showTutor: true,
         _id: userOneId,
         subjects: ['Calculus I', 'Waves and Optics'],
-        tokens: [{
-            access: 'auth',
-            token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET)
-        }]
+        reviews: reviewId,
+        rating: danielRatingAvrg
       },
       {
         name: 'Winkel Yin', 
@@ -67,9 +81,17 @@ const populateTutor = (done) => {
             savedTutors.push(new Tutor(tutors[i]).save());
         }
         return Promise.all(savedTutors);
-    }).then(() => done());
+    }).then(() => seedTutor());
 
-    Review.remove({}).then();
+    function seedTutor(){
+        Review.remove({}).then(() => {
+            var savedReviews = [];
+            for(var i = 0; i < reviews.length; i++){
+                savedReviews.push(new Review(reviews[i]).save());
+            }
+            return Promise.all(savedReviews)
+        }).then(() => done());
+    }
 }
 
 module.exports = {tutors, populateTutor};

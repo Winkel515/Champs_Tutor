@@ -7,10 +7,6 @@ ReviewSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    tutorId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
     text: {
         type: String,
         maxlength: 250,
@@ -22,12 +18,9 @@ ReviewSchema = new mongoose.Schema({
         required: true,
         min: 0,
         max: 5
-    },
-    date: {
-        type: Number,
-        required: true,
-        default: new Date().getTime()
     }
+}, {
+    timestamps: {}
 })
 
 var Review = mongoose.model("Review", ReviewSchema);
