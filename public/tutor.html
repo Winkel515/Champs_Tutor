@@ -54,7 +54,7 @@
             </div>
           </div>
 
-          <div class="card border-secondary mt-4" >
+          <div class="card border-secondary mt-4 " >
               <ul class="list-group list-group-flush">
                   <div class="card-header">Credentials</div>
                 <li class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</li>
@@ -68,7 +68,7 @@
           </div> <!-- /row -->
           <!-- /.card -->
 
-          <div class="card card-outline-secondary border-secondary my-4">
+          <div class="card card-outline-secondary border-secondary my-4 mx-5">
             <div class="card-header text-center font-weight-bold">
               Tutor Reviews
             </div>
@@ -88,7 +88,7 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
-              <a href="#" class="btn btn-outline-dark mx-auto leave-review">Leave a Review</a>
+              <a href="#" class="btn btn-outline-dark mx-auto leave-review" data-toggle="modal" data-target="#postReview">Leave a Review</a>
             </div>
           </div>
           <!-- /.card -->
@@ -96,7 +96,7 @@
         </div>
         <!-- /.col-lg-6 -->
 
-        <!-- Modal -->
+        <!-- Modal for tutor Sign In-->
         <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="register form" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -120,6 +120,56 @@
                           <button type="button" v-on:click="signIn" class="btn text-center btn-dark">Sign In</button>
                         
                       
+                  <!-- /Form -->
+                </div>
+              </div>
+            </div>
+          </div> <!-- /Modal for tutor Sign In-->
+
+          <!-- Modal to post and array -->
+        <div class="modal fade" id="postReview" tabindex="-1" role="dialog" aria-labelledby="register form" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Post a Review</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div  class="modal-body">
+                  <!-- Form -->
+                    <div v-show="reviewPosted">
+                     
+                        <div class="form-group" >
+                          <input type="text" placeholder="Enter Your Name" v-model="reviewer" class="form-control" id="name">
+                          <p class="text-muted text-center">*Your name will remain anonymous*</p>
+                          
+                        </div>
+                        
+                        <div class="form-group">
+                          
+                            <fieldset class="rating" >
+                                <input v-model="rating" type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input v-model="rating" type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                <input v-model="rating" type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input v-model="rating" type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                <input v-model="rating" type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input v-model="rating" type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                <input v-model="rating" type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input v-model="rating" type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                <input v-model="rating" type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                                <input v-model="rating" type="radio" id="starhalf" name="rating" value=".5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                            </fieldset>
+                        </div>
+
+                          <div class="form-group">
+                              <input type="text" v-model="ratingComments" placeholder="Additional Comments" class="form-control" id="comments">
+                          </div>
+                        
+                          <button type="button" v-on:click="postReview" class="btn btn-dark">Post Review</button>
+                        </div>
+                      </div>   
+                      <h4 v-show="reviewPosted === false" class="text-center text-muted">Your Review Has Been Submitted</h4>
                   <!-- /Form -->
                 </div>
               </div>

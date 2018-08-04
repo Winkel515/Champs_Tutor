@@ -1,8 +1,10 @@
-document.addEventListener("DOMContentLoaded", getTutor());
+const pathName = window.location.pathname;
+document.addEventListener("DOMContentLoaded", getTutor(pathName));
 
-function getTutor(){ // Gets tutor from /tutors and sets it up for Vue
+
+function getTutor(pathName){ // Gets tutor from /tutors and sets it up for Vue
   // *************************************** GET REQUEST TO /tutors ROUTE ****************************
-  let pathName = window.location.pathname;
+  
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", '/tutors' + pathName, true);
   xmlhttp.send();
@@ -13,7 +15,7 @@ function getTutor(){ // Gets tutor from /tutors and sets it up for Vue
       };
   };
 };
-
+// btw were using fetch and ajax requests in same file, is that good practice???
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
@@ -37,7 +39,11 @@ function tutorsVue(tutor){
       data: {
         tutor: tutor,
         email: "",
-        password: ""
+        password: "",
+        reviewer: "",
+        rating: null,
+        ratingComments: "",
+        reviewPosted: true,
       },
       methods: {
         signIn: function (e) {
@@ -60,6 +66,28 @@ function tutorsVue(tutor){
                 console.log(JSON.parse(e));
               })
             });
+        },
+        postReview: function(e){
+          e.preventDefault();
+          
+            const config = {
+                method: 'POST' ,
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({ 
+                  reviewer : this.reviwer,
+                  rating: this.rating, 
+                  text: this.ratingComments
+                }) 
+            };
+            fetch(`/tutors${pathName}/reviews`, config).then(checkStatus)
+            .then(response => { // Runs when all inputs are good
+                console.log(response);
+            }).catch(response => { // Runs when there's an invalid input
+              response.then(e => {
+                console.log(JSON.parse(e));
+              })
+            });
+
         }
       }
       
