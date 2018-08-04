@@ -167,20 +167,27 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
         tutorId,
         {$push: {'reviews': body._id}},
         {new: true}
-    ).then(tutor => {
+    )
+    .populate('reviews')
+    .then(tutor => {
         if(!tutor){
             return Promise.reject({
                 message: "Invalid Tutor ID"
             });
         }
-        
-        var currentRating = tutor.rating * tutor.reviews.length;
-        var updatedRating = (currentRating + review.rating) / (tutor.reviews.length + 1)
-        tutor.rating = updatedRating;
+        console.log(tutor.reviews.length)
+        var rating = review.rating;
+        for(var i = 0; i < tutor.reviews.length; i++){
+            rating += tutor.reviews[i].rating;
+        }
+        rating /= tutor.reviews.length + 1;
+        tutor.rating = rating
 
-        tutor.save().then(() =>
+        return tutor.save().then(() =>
             review.save().then(review => {
                 res.send();
+            }).catch(e => {
+                return Promise.reject(e);
             })
         )
     }).catch(e => {

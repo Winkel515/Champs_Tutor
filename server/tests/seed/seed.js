@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const {Tutor} = require('./../../models/tutors');
 const {Review} = require('./../../models/reviews')
 
-const userOneId = new ObjectID();
+const userOneId = new ObjectID('5b660ec56cd13a2b98cebeb0');
 const userTwoId = new ObjectID();
 
 const reviewId = [];
@@ -16,7 +16,7 @@ for(var i = 0; i < reviewers.length; i++){
     reviews[i] = {
         reviewer: reviewers[i],
         text: "Lorem ipsum dolor sit amet, in vix ubique dissentiet adversarium. Vis alia brute et, vocent gloriatur ea per. Quo falli.",
-        rating: Math.floor(Math.random()*6),
+        rating: 0,
         _id: reviewId[i]
     }
     danielRatingAvrg += reviews[i].rating;
