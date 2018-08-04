@@ -175,7 +175,6 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
                 message: "Invalid Tutor ID"
             });
         }
-        console.log(tutor.reviews.length)
         var rating = review.rating;
         for(var i = 0; i < tutor.reviews.length; i++){
             rating += tutor.reviews[i].rating;
@@ -183,13 +182,13 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
         rating /= tutor.reviews.length + 1;
         tutor.rating = rating
 
-        return tutor.save().then(() =>
-            review.save().then(review => {
+        return review.save().then(review => {
+            tutor.save().then(() => {
                 res.send();
-            }).catch(e => {
-                return Promise.reject(e);
             })
-        )
+        }).catch(e => {
+            return Promise.reject(e);
+        })
     }).catch(e => {
         res.status(400).send(errorJSON(400, e.message));
     })
