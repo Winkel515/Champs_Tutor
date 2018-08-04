@@ -1,3 +1,7 @@
+// axios.get("/tutors")
+//   .then(response => tutorsVue(response.data.tutors))
+//   .catch(e => console.log(e))
+
 // document.addEventListener("DOMContentLoaded", getTutors());
 
 // function getTutors(){ // Gets tutors from /tutors and sets it up for Vue
