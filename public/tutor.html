@@ -9,6 +9,7 @@
     <title>Tutor Profile</title>
 
     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="style/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -48,7 +49,7 @@
               <h4>
                   {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
               </h4>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              <i v-for='n in Math.trunc(Math.round(tutor.rating*2)/2)' class="fas fa-star"></i><i v-if='Math.round(tutor.rating*2)/2 % 1 === 0.5' class="fas fa-star-half-alt"></i><i v-for='n in 5-Math.round(Math.round(tutor.rating*2)/2)' class="far fa-star"></i>
               {{tutor.rating.toFixed(1)}} stars
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
             </div>
@@ -75,11 +76,10 @@
             <div class="card-body">
               <h3 v-show="tutor.reviews.length === 0" class="text-center text-muted" >This Tutor Currently Has No Reviews</h3>
               <div v-for="review in tutor.reviews">
-                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              
-                <p>{{review.rating}} stars</p>
+                <i v-for='n in Math.trunc(Math.round(review.rating*2)/2)' class="fas fa-star"></i><i v-if='Math.round(review.rating*2)/2 % 1 === 0.5' class="fas fa-star-half-alt"></i><i v-for='n in 5-Math.round(Math.round(review.rating*2)/2)' class="far fa-star"></i>
+                {{review.rating}} stars
               <p>{{review.text}}</p>
-              <small class="text-muted">Posted by {{review.reviewer}} on {{review.createdAt}}</small>
+              <small class="text-muted">Posted by {{review.reviewer}} on {{formatDate(new Date(review.createdAt))}}</small>
               <hr>
               </div>
               <a href="#" class="btn btn-outline-dark mx-auto leave-review" data-toggle="modal" data-target="#postReview">Leave a Review</a>
@@ -160,7 +160,8 @@
                         </div>
                         
                           <div class="form-group">
-                              <input type="text" v-model="ratingComments" placeholder="Additional Comments" class="form-control" id="comments">
+                              <textarea v-model="ratingComment" placeholder="Enter comment here..." class="form-control" id="comments" v-bind:style="commentError ? 'border: 2px solid #d9534f' : ''"></textarea>
+                              <p style="text-align: right" v-bind:style="ratingComment.length > 200 ? 'color: red' : ''">{{remainingComment}}</p>
                           </div>
                         
                           <button type="button" v-on:click="postReview" class="btn btn-dark">Post Review</button>

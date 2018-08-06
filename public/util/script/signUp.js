@@ -72,7 +72,11 @@ const app = new Vue({
     },
     computed: {
       descRemaining: function() {
-        return 250 - this.description.length;
+        var remaining = 250 - this.description.length;
+          if(remaining < 0)
+            return "Exceeded character limit"
+          else 
+            return remaining;
       }
     }
   })

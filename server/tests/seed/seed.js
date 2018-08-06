@@ -8,7 +8,7 @@ const userOneId = new ObjectID('5b660ec56cd13a2b98cebeb0');
 const userTwoId = new ObjectID();
 
 const reviewId = [];
-const reviewers = ['John', 'Sam', 'Steven', 'Stephanie', 'Jimmy', 'Billy']
+const reviewers = ['John', 'Sam', 'Stephanie']
 const reviews = []
 var danielRatingAvrg = 0;
 for(var i = 0; i < reviewers.length; i++){
@@ -16,7 +16,7 @@ for(var i = 0; i < reviewers.length; i++){
     reviews[i] = {
         reviewer: reviewers[i],
         text: "Lorem ipsum dolor sit amet, in vix ubique dissentiet adversarium. Vis alia brute et, vocent gloriatur ea per. Quo falli.",
-        rating: 0,
+        rating: Math.round(Math.random()*10)/2,
         _id: reviewId[i]
     }
     danielRatingAvrg += reviews[i].rating;

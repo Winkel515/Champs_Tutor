@@ -9,7 +9,7 @@ ReviewSchema = new mongoose.Schema({
     },
     text: {
         type: String,
-        maxlength: 250,
+        maxlength: 200,
         trim: true,
         default: ""
     },

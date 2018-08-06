@@ -42,9 +42,10 @@ function tutorsVue(tutor){
         password: "",
         reviewer: "",
         rating: null,
-        ratingComments: "",
+        ratingComment: "",
         reviewPosted: true,
-        ratingError: false
+        ratingError: false,
+        commentError: false,
       },
       methods: {
         signIn: function (e) {
@@ -70,18 +71,21 @@ function tutorsVue(tutor){
         },
         postReview: function(e){
           e.preventDefault();
-
-          if(this.reviewer === "") this.reviewer = "Anonymous";
-          this.ratingError = this.rating === null; 
           
-          if (this.ratingError === false) {
+          this.ratingError = this.rating === null;
+          this.commentError = this.ratingComment.length > 200;
+          
+          if (!(this.ratingError || this.commentError)) {
+            if(this.reviewer.trim() === ""){
+              this.reviewer = "Anonymous";
+            }
             const config = {
                 method: 'POST' ,
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({ 
                   reviewer : this.reviewer,
                   rating: this.rating, 
-                  text: this.ratingComments
+                  text: this.ratingComment
                 }) 
             };
             fetch(`/tutors${pathName}/reviews`, config).then(checkStatus)
@@ -98,9 +102,34 @@ function tutorsVue(tutor){
             
              
           }
+        },
+
+        formatDate: function(date){        
+          var day = date.getDate();
+          var month = date.getMonth()+1;
+          var year = date.getFullYear();
+
+          if(day < 10){
+            day = '0' + day;
+          }
+
+          if(month < 10){
+            month = '0' + month;
+          }
+        
+          return day + '/' + month + '/' + year;
+        }
+      },
+      
+      computed: {
+        remainingComment: function(){
+          var remaining = 200 - this.ratingComment.length;
+          if(remaining < 0)
+            return "Exceeded character limit"
+          else 
+            return remaining;
         }
       }
-      
   });
 }
 

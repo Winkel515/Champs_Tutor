@@ -30,6 +30,11 @@ fieldset, label { margin: 0; padding: 0; }
  float: right; 
 }
 
+textarea{
+  resize: none;
+  height: 130px;
+}
+
 /***** CSS Magic to Highlight Stars on Hover *****/
 
 .rating > input:checked ~ label, /* show gold star when clicked */
