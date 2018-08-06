@@ -48,10 +48,10 @@
         <fieldset>
             <legend><span class="number">2</span> Your Profile</legend>
               
-            <label for="shortDescription">Short Description:</label>
-                <textarea placeholder="Your short description will be visible on the main page" v-model="shortDescription" v-bind:style="shortDescriptionError ? 'border: 2px solid #d9534f' : ''"></textarea>
-                <p v-show="shortDescriptionError" class="errorMessage">Maximum of 250 characters</p>
-                <p class="errorMessage" style="color: grey; text-align: right">{{shortDescRemaining}}</p>
+            <label for="description">Description:</label>
+                <textarea v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''"></textarea>
+                <p v-show="descriptionError" class="errorMessage">Maximum of 250 characters</p>
+                <p class="errorMessage" style="color: grey; text-align: right">{{descRemaining}}</p>
             <label for="price">Hourly Rate:</label>
                 <input type='number' v-model="price" min="0">
             <!-- <label for="bio">Availabilities:</label>

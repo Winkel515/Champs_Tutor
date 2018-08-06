@@ -74,7 +74,7 @@
                       <h6 class="card-subtitle mb-1 text-muted">
                         {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
                       </h6>
-                      <p class="card-text">{{tutor.shortDescription}}</p>
+                      <p class="card-text">{{tutor.description}}</p>
                       <a v-bind:href="'/' + tutor._id"><button type="button" class="btn btn-dark">View Profile</button></a>
                   </div>
                 </div>

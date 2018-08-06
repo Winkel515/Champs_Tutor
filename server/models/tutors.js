@@ -36,21 +36,15 @@ var TutorSchema = new mongoose.Schema({
         min: 0,
         default: 0
     },
-    shortDescription: { // Tutor can make a short description of themselves which will be visible on the main page
+    description: { // Tutor can make a short description of themselves which will be visible on the main page
         type: String,
         maxlength: 250,
-        default: '',
-        trim: true
-    },
-    longDescription: {
-        type: String,
-        maxlength: 500,
-        default: '',
+        required: true,
         trim: true
     },
     showTutor: {
         type: Boolean,
-        default: false
+        default: true
     },
     program: { // Stores tutor's field of study (e.g. Pure & Applied)
         // Should have to validate if program

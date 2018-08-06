@@ -20,9 +20,11 @@ const app = new Vue({
       emailDuplicate: false,
       password: "",
       passwordError:false,
-      shortDescription: '',
-      shortDescriptionError: false,
-      price: 0
+      description: '',
+      descriptionError: false,
+      price: 0,
+      subjects: [],
+      subjectsError: false
     },
     methods: {
       submitForm: function (e) {
@@ -31,11 +33,12 @@ const app = new Vue({
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
         this.passwordError = this.password.length < 8;
-        this.shortDescriptionError = this.shortDescription.length > 200;
+        this.descriptionError = this.description.length > 250;
+        this.subjectsError = this.subjects.length === 0;
         
         e.preventDefault();
         // Checks for error before actually making the POST request
-        if(!(this.nameError || this.passwordError || this.emailError || this.shortDescriptionError)){
+        if(!(this.nameError || this.passwordError || this.emailError || this.descriptionError)){
           const config = {
               method: 'POST' ,
               headers: {'Content-type': 'application/json'},
@@ -68,8 +71,8 @@ const app = new Vue({
       }
     },
     computed: {
-      shortDescRemaining: function() {
-        return 250 - this.shortDescription.length;
+      descRemaining: function() {
+        return 250 - this.description.length;
       }
     }
   })

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 const _ = require ('lodash');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 const {Tutor} = require('./models/tutors');
 const {Review} = require('./models/reviews')
@@ -19,16 +20,15 @@ const port = process.env.PORT || 3000;
 const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
-const sharedProperties = 'name _id rating price subjects '; // Edit shared properties here
+const sharedProperties = 'name _id rating price subjects description '; // Edit shared properties here
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
 // Process GET /tutors request and responds with an array of tutors objects
 app.get('/tutors', (req, res) => {
-    const mainProperties = 'shortDescription';
 
-    Tutor.find({}, `${sharedProperties + mainProperties}`).then((tutors) => {
+    Tutor.find({}, `${sharedProperties}`).then((tutors) => {
         res.json({tutors});
     }).catch((e) => {
         res.status(404).json(errorJSON(404, 'Could not connect to the database'));
@@ -56,7 +56,7 @@ app.get('/:id', (req, res) => {
 
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'longDescription email _reviews';
+    const profileProperties = 'email reviews';
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {
@@ -77,7 +77,7 @@ app.get('/tutors/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
-    var body = _.pick(req.body, ['email', 'name', 'password', 'shortDescription', 'price']) // On sign-up, tutors will input email, name and password.
+    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price']) // On sign-up, tutors will input email, name and password.
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
@@ -94,7 +94,7 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['oldPassword','password', 'price', 'subjects', 'shortDescription', 'longDescription', 'showTutor']; // Array to store properies that can be edited by the tutor
+    const editList = ['oldPassword','password', 'price', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){

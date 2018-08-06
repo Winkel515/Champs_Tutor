@@ -45,7 +45,8 @@ describe('POST /tutors/signup', () => {
     const newTutor = {
         email: 'jesus12345@gmail.com',
         name: 'Jesus',
-        password: 'godismydad'
+        password: 'godismydad',
+        description: 'Hi, I\'m a tutor'
     }
 
     it('should create a new tutor account with a token', (done) => {
@@ -72,15 +73,14 @@ describe('POST /tutors/signup', () => {
 
 describe('PATCH /tutors/me', () => {
     const updateBody = { // This is what is sent as the body in the PATCH request
-        shortDescription: "Testing short description",
-        longDescription: "Testing loooooooooooonnnnnnnnnnnnnggggggggggggggggg description",
+        description: "Testing modified description",
         price: 15,
         oldPassword: "password123",
         password: "newPassword123"
     }
 
     it('should edit given properties when tutor has valid auth token', (done) => {
-        const token = tutors[0].tokens[0].token;
+        const token = jwt.sign({_id: tutors[0]._id, name: tutors[0].name}, process.env.JWT_SECRET);
 
         request(app)
         .patch('/tutors/me')
@@ -119,7 +119,7 @@ describe('DELETE /tutors/me', () => {
         const tutorId = tutors[0]._id;
         request(app)
             .delete('/tutors/me')
-            .set('x-auth', tutors[0].tokens[0].token)
+            .set('x-auth', jwt.sign({_id: tutors[0]._id, name: tutors[0].name}, process.env.JWT_SECRET))
             .send({
                 password: 'password123' // Know this password cause made it in the seed
             })
@@ -140,7 +140,7 @@ describe('DELETE /tutors/me', () => {
         const tutorId = tutors[0]._id;
         request(app)
             .delete('/tutors/me')
-            .set('x-auth', tutors[0].tokens[0].token)
+            .set('x-auth', jwt.sign({_id: tutors[0]._id, name: tutors[0].name}, process.env.JWT_SECRET))
             .send({
                 password: 'wrongpassword' // Know this password cause made it in the seed
             })
