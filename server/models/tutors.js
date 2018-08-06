@@ -111,9 +111,7 @@ TutorSchema.statics.findByToken = function (token) {
     }
 
     return Tutor.findOne({
-        '_id': decoded._id,
-        // 'tokens.token': token,
-        // 'tokens.access': 'auth'
+        _id: decoded._id
     });
 }
 
