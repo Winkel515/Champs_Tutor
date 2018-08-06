@@ -22,8 +22,10 @@ const app = new Vue({
       passwordError:false,
       description: '',
       descriptionError: false,
-      price: 0,
+      price: null,
+      priceError: false,
       subjects: [],
+      subjectInput: "",
       subjectsError: false
     },
     methods: {
@@ -34,11 +36,14 @@ const app = new Vue({
         this.emailDuplicate = false;
         this.passwordError = this.password.length < 8;
         this.descriptionError = this.description.length > 250;
+        this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
         
+        var signupError = (this.nameError || this.emailError || this.emailDuplicate || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
+
         e.preventDefault();
         // Checks for error before actually making the POST request
-        if(!(this.nameError || this.passwordError || this.emailError || this.descriptionError)){
+        if(!signupError){
           const config = {
               method: 'POST' ,
               headers: {'Content-type': 'application/json'},
@@ -47,7 +52,8 @@ const app = new Vue({
                 email : this.email,
                 password : this.password,
                 description: this.description,
-                price: this.price
+                price: this.price,
+                subjects: this.subjects
               }) 
           };
           fetch('/tutors/signup', config).then(checkStatus)
@@ -68,6 +74,16 @@ const app = new Vue({
       },
       validEmail: function (email) {
         return validator.isEmail(email);
+      },
+      addSubject: function(){
+        var subject = this.subjectInput.trim()
+        if(subject !== ""){
+          this.subjects.push(subject)
+          this.subjectInput = "";
+        }
+      },
+      deleteSubject: function(index){
+        this.subjects.splice(index, 1);
       }
     },
     computed: {

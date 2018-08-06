@@ -6,6 +6,7 @@
         <title>Tutor Sign Up</title>
         <link rel="shortcut icon" href="img/logo.png" />
         <link rel="stylesheet" href="style/normalize.css">
+        <link rel="stylesheet" href="style/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="style/signUp.css">
         
@@ -53,12 +54,17 @@
                 <p v-show="descriptionError" class="errorMessage">Maximum of 250 characters</p>
                 <p class="errorMessage" style="color: grey; text-align: right">{{descRemaining}}</p>
             <label for="price">Hourly Rate:</label>
-                <input type='number' v-model="price" min="0">
-            <!-- <label for="bio">Availabilities:</label>
-                <textarea id="availabilitiesInput"></textarea>    
+                <input type='number' placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
+                <p v-show="priceError" class="errorMessage">Please input a price</p>
            
              <label for="subjects">Subjects:</label>
-                <textarea id="subjects" name="user_subjects"></textarea> -->
+             <input class="btn btn-primary" type="button" value="Add Subject" style="float: right; height: 53px" v-on:click="addSubject">
+             <div style="overflow: hidden">
+                <input type="text" v-model="subjectInput">
+            </div>
+                <ul>
+                    <li v-for="(subject, index) in subjects">{{subject}} <span v-on:click="deleteSubject(index)" style="float: right; padding-right: 20px;">❌</span></li>
+                </ul>
            
           
           </fieldset>

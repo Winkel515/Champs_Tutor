@@ -77,7 +77,7 @@ app.get('/tutors/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
-    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price']) // On sign-up, tutors will input email, name and password.
+    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects']) // On sign-up, tutors will input email, name and password.
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
