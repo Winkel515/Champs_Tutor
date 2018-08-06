@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Tutor Me</title>
     <link rel="shortcut icon" href="img/logo.png" />
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="style/bootstrap.min.css">
     <link rel="stylesheet" href="style/style.css">
   </head>
@@ -24,7 +23,7 @@
             <div class="navbar-nav navbar-right">
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
-              <a class="nav-item nav-link text-right" v-show="isSignedIn" href="">Edit Profile<span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link text-right" v-show="isSignedIn" href="editProfile.html">Edit Profile<span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
             </div>
           </div>
@@ -73,8 +72,6 @@
                   <img class="card-img-top" src="img/jay.png" alt="Profile Pic">
                   <div class="card-body">
                       <h5 class="card-title">{{tutor.name}}</h5>
-                      <span v-if="tutor.reviews.length !== 0"><i v-for='n in Math.trunc(Math.round(tutor.rating*2)/2)' class="fas fa-star"></i><i v-if='Math.round(tutor.rating*2)/2 % 1 === 0.5' class="fas fa-star-half-alt"></i><i v-for='n in 5-Math.round(Math.round(tutor.rating*2)/2)' class="far fa-star"></i>
-                      {{tutor.rating.toFixed(1)}} stars</span>
                       <!-- span tags used to format the way the array of subjects is displayed. (comma + space) -->
                       <h6 class="card-subtitle mb-1 text-muted">
                         {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
