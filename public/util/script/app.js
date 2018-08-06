@@ -52,6 +52,7 @@ function tutorsVue(tutors){
         price: 'All Prices',
         email:"",
         password:"",
+        isSignedIn: false
       },
       methods: {
         signIn: function (e) {
@@ -74,6 +75,8 @@ function tutorsVue(tutors){
                 console.log(JSON.parse(e));
               })
             });
+            this.isSignedIn = true;
+            $('#signIn').modal('hide');
         },
         filterSubject: function(){
            /* Filter Subjects */ 
@@ -94,6 +97,12 @@ function tutorsVue(tutors){
           console.log("Subject:", this.subject);
           console.log("Price:", this.price);
         }
+      },
+      beforeMount() { // Called right before the mounting begins: the render function is about to be called for the first time.this checks local storage
+          if (localStorage.getItem('token')!= "") this.isSignedIn = true;
+          console.log(localStorage.getItem('token'));
+          console.log(this.isSignedIn);
+      
       }, 
       computed: {
           subjectList:function() {

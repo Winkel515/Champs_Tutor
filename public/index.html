@@ -21,8 +21,10 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav navbar-right">
-              <a class="nav-item nav-link text-right" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link text-right" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
+              <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
+              <a class="nav-item nav-link text-right" v-show="isSignedIn" href="">Edit Profile<span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign Out</a>
             </div>
           </div>
         </div>
