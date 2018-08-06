@@ -44,7 +44,7 @@ function tutorInfo(tutor){
             emailError: false,
             emailDuplicate : false,
             oldPassword: "",
-            OldpasswordError: false,
+            oldPasswordError: false,
             password: "",
             passwordError: false,
             description: tutor.description,
@@ -85,7 +85,8 @@ function tutorInfo(tutor){
         this.descriptionError = this.description.length > 250;
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
-        
+        console.log(this.passwordError);
+        console.log(this.password.length);
         var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
         
         e.preventDefault();

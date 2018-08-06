@@ -46,21 +46,21 @@
                                       </div>
                                       <div class="form-group">
                                           <div class="input-group">
-                                              <input type="password" class="form-control" placeholder="Type your old password" v-model="oldPassword" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
-                                              <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
+                                              <input type="password" class="form-control" placeholder="Type your old password" v-model="oldPassword" v-bind:style="oldPasswordError ? 'border: 2px solid #d9534f' : ''">
                                               <span class="input-group-addon clickable">
                                                  <span class="glyphicon glyphicon-lock"></span>
                                               </span>
                                           </div>
+                                          <p v-show="oldPasswordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
                                       </div>
                                       <div class="form-group">
                                             <div class="input-group">
-                                                <input type="password" class="form-control" placeholder="Type your new password" v-model="password">
-                                                
+                                                <input type="password" class="form-control" placeholder="Type your new password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
                                                 <span class="input-group-addon">
                                                     <i class="glyphicon glyphicon-lock"></i>
                                                 </span>
                                             </div>
+                                            <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
                                         </div>
                                         <div class="form-group">
                                                 <div class="input-group">
