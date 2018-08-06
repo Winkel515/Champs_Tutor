@@ -98,7 +98,7 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['name', 'price', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
+    const editList = ['name', 'price', 'subjects', 'password', 'oldPassword','description', 'showTutor']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){

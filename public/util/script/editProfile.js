@@ -42,6 +42,9 @@ function tutorInfo(tutor){
             nameError: false,
             email: tutor.email,
             emailError: false,
+            emailDuplicate : false,
+            oldPassword: "",
+            OldpasswordError: false,
             password: "",
             passwordError: false,
             description: tutor.description,
@@ -54,7 +57,27 @@ function tutorInfo(tutor){
         }, 
         methods: {    
         submitChanges: function (e) {
-        
+            
+        if(this.password.trim() === "" && this.oldPassword.trim() === ""){
+            var body = JSON.stringify({
+                name : this.name,
+                email : this.email,
+                description: this.description,
+                price: this.price,
+                subjects: this.subjects
+              }) 
+        } else {
+            var body = JSON.stringify({
+                name : this.name,
+                email : this.email,
+                description: this.description,
+                oldPassword: this.oldPassword,
+                password: this.password,
+                price: this.price,
+                subjects: this.subjects
+              }) 
+        }
+        console.log(body);
         this.nameError = this.name.length === 0;
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
@@ -63,33 +86,25 @@ function tutorInfo(tutor){
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
         
-        var signupError = (this.nameError || this.emailError || this.emailDuplicate || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
-        console.log("here"); 
+        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
+        
         e.preventDefault();
         // Checks for error before actually making the POST request
-        if(!signupError){
+        if(true){
           const config = {
               method: 'PATCH' ,
-              headers: {'Content-type': 'application/json', 'x-auth': localStore.getItem('token')},
-              body: JSON.stringify({
-                name : this.name,
-                email : this.email,
-                password : this.password,
-                oldPassword: this.oldPassword,
-                description: this.description,
-                price: this.price,
-                subjects: this.subjects
-              }) 
+              headers: {'Content-type': 'application/json', 'x-auth': localStorage.getItem('token')},
+              body
               
           }; 
           fetch('/tutors/me', config).then(checkStatus)
           .then(response => { // Runs when all inputs are good
-            localStorage.setItem('token', response.headers.get('x-auth'));
-            console.log("here");
-            //console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
-            location.href = '/';
-          }).catch(response => { // Runs when there's an invalid input
-            response.then(e => {
+            console.log("he");
+            response.text().then(message => {console.log(message)})
+            //location.href = '/';
+          }).catch(response => { // Runs when there's an invalid input 
+            
+            response.then(e => { 
               console.log(JSON.parse(e));
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
                     this.emailDuplicate = true; // Boolean used to show error message on signUp page

@@ -39,7 +39,7 @@ const app = new Vue({
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
         
-        var signupError = (this.nameError || this.emailError || this.emailDuplicate || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
+        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
 
         e.preventDefault();
         // Checks for error before actually making the POST request
