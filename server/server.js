@@ -43,6 +43,10 @@ app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname + '/../public/signUp.html'));
 });
 
+app.get('/editProfile', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../public/editProfile.html'))
+})
+
 app.get('/:id', (req, res) => {
     Tutor.findById(req.params.id).then((tutor) => {
         if(!tutor){
