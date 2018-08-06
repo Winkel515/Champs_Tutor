@@ -46,7 +46,7 @@ const app = new Vue({
                 name : this.name,
                 email : this.email,
                 password : this.password,
-                shortDescription: this.shortDescription,
+                description: this.description,
                 price: this.price
               }) 
           };
