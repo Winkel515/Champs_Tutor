@@ -98,7 +98,7 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['name', 'price', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
+    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){
@@ -115,11 +115,13 @@ app.patch('/tutors/me', authenticate, (req, res) => {
                 for(let key in body){
                     tutor[key] = body[key];
                 }
-                tutor.save().then(() => {
+                return tutor.save().then(() => {
                     res.send();
+                }).catch(e => {
+                    return Promise.reject(e)
                 })
             }).catch(e => {
-                res.status(400).send(errorJSON(400, 'Incorrect password'));
+                res.status(400).send(errorJSON(400, e.message));
             })
         }).catch((e) => {
             res.status(400).send(errorJSON(400, e.message));
