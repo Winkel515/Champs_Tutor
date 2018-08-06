@@ -98,7 +98,7 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['name', 'oldPassword','password', 'price', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
+    const editList = ['name', 'price', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){
@@ -107,7 +107,7 @@ app.patch('/tutors/me', authenticate, (req, res) => {
         }, {$set: body}, {new: true},).then(tutor => {
             res.send();
         }).catch((e) => {
-            res.status(400).send(errorJSON(400, 'Tutor was not found'));
+            res.status(400).send(errorJSON(400, e.message));
         })
     } else{
         Tutor.findOne({_id: req.tutor._id}).then(tutor => {
@@ -122,7 +122,7 @@ app.patch('/tutors/me', authenticate, (req, res) => {
                 res.status(400).send(errorJSON(400, 'Incorrect password'));
             })
         }).catch((e) => {
-            res.status(400).send(errorJSON(400, 'Tutor was not found'));
+            res.status(400).send(errorJSON(400, e.message));
         })
     }
 })
