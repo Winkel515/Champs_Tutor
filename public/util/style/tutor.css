@@ -6,10 +6,9 @@ fieldset, label { margin: 0; padding: 0; }
 
 .rating { 
   margin: auto;
-  width: 80%;
+  width: 60%;
   margin-top: 2px;
-  padding-bottom: 1rem;
-  float: left;
+  padding-bottom: 0;
 }
 
 .rating > input { display: none; } 
@@ -47,7 +46,10 @@ body {
   }
 
 
-/* tutor profile page */
+/* -------------------
+tutor profile page 
+---------------------*/
+
   .i-am-centered { 
     margin: auto;
       width: 90%;
@@ -63,5 +65,49 @@ body {
     body {
       padding-top: 56px;
     }
+    
+  }
+
+  @media (max-width: 510px) {
+    .rating { 
+      margin: auto;
+      width: auto;
+      max-width: 300px;
+      margin-top: 2px;
+      padding-bottom: 0;
+    }
+    
+  }
+
+  @media (max-width: 450px) {
+    .rating { 
+      margin: auto;
+      width: auto;
+      max-width: 280px;
+      margin-top: 2px;
+      padding-bottom: 0;
+    }
+    
+  }
+
+  @media (max-width: 450px) {
+
+    .rating { 
+      margin: auto;
+      width: auto;
+      max-width: 258px;
+      margin-top: 2px;
+      padding-bottom: 0;
+    }
+
+    .rating > input { display: none; } 
+    .rating > label:before { 
+        margin: 5px;
+        font-size: 2.7em;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005";
+      }
+    
   }
   

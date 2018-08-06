@@ -44,6 +44,7 @@ function tutorsVue(tutor){
         rating: null,
         ratingComments: "",
         reviewPosted: true,
+        ratingError: false
       },
       methods: {
         signIn: function (e) {
@@ -69,7 +70,11 @@ function tutorsVue(tutor){
         },
         postReview: function(e){
           e.preventDefault();
+
+          if(this.reviewer === "") this.reviewer = "Anonymous";
+          this.ratingError = this.rating === null; 
           
+          if (this.ratingError === false) {
             const config = {
                 method: 'POST' ,
                 headers: {'Content-type': 'application/json'},
@@ -87,7 +92,12 @@ function tutorsVue(tutor){
                 console.log(JSON.parse(e));
               })
             });
-            this.reviewPosted = false;
+            
+            document.location.reload();
+
+            
+             
+          }
         }
       }
       

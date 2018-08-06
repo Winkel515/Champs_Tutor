@@ -49,7 +49,7 @@
                   {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
               </h4>
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
+              {{tutor.rating.toFixed(1)}} stars
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
             </div>
           </div>
@@ -68,27 +68,22 @@
           </div> <!-- /row -->
           <!-- /.card -->
 
-          <div class="card card-outline-secondary border-secondary my-4 mx-5">
+          <div class="card card-outline-secondary border-secondary my-4 mx-3">
             <div class="card-header text-center font-weight-bold">
               Tutor Reviews
             </div>
             <div class="card-body">
+              <h3 v-show="tutor.reviews.length === 0" class="text-center text-muted" >This Tutor Currently Has No Reviews</h3>
+              <div v-for="review in tutor.reviews">
                 <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                4.0 stars
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              
+                <p>{{review.rating}} stars</p>
+              <p>{{review.text}}</p>
+              <small class="text-muted">Posted by {{review.reviewer}} on {{review.createdAt}}</small>
               <hr>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
+              </div>
               <a href="#" class="btn btn-outline-dark mx-auto leave-review" data-toggle="modal" data-target="#postReview">Leave a Review</a>
+              
             </div>
           </div>
           <!-- /.card -->
@@ -137,12 +132,13 @@
                   </button>
                 </div>
                 <div  class="modal-body">
+                  
                   <!-- Form -->
                     <div v-show="reviewPosted">
                      
                         <div class="form-group" >
-                          <input type="text" placeholder="Enter Your Name" v-model="reviewer" class="form-control" id="name">
-                          <p class="text-muted text-center">*Optional*</p>
+                          <input type="text" placeholder="Enter Your Name (Optional)" v-model="reviewer" class="form-control" id="name">
+                          
                           
                         </div>
                         
@@ -160,8 +156,9 @@
                                 <input v-model="rating" type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                                 <input v-model="rating" type="radio" id="starhalf" name="rating" value=".5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                             </fieldset>
+                            <p class="text-danger text-center" v-show="ratingError">A Rating Is Required</p>
                         </div>
-
+                        
                           <div class="form-group">
                               <input type="text" v-model="ratingComments" placeholder="Additional Comments" class="form-control" id="comments">
                           </div>
