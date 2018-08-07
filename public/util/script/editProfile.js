@@ -1,4 +1,4 @@
-const pathName = jwt_decode(localStorage.getItem('token'))._id;
+const pathName = window.location.pathname.replace('/editProfile/', '')
 document.addEventListener("DOMContentLoaded", getTutor(pathName));
 
 function getTutor(pathName){ // Gets tutor from /tutors and sets it up for Vue
