@@ -1,4 +1,4 @@
-const pathName = window.location.pathname.replace('/editProfile/', '')
+const pathName = jwt_decode(localStorage.getItem('token'))._id;
 document.addEventListener("DOMContentLoaded", getTutor(pathName));
 
 function getTutor(pathName){ // Gets tutor from /tutors and sets it up for Vue
@@ -98,8 +98,7 @@ function tutorInfo(tutor){
           }; 
           fetch('/tutors/me', config).then(checkStatus)
           .then(response => { // Runs when all inputs are good
-            response.text().then(message => {console.log(message)})
-            //location.href = '/';
+            location.href = '/';
           }).catch(response => { // Runs when there's an invalid input 
             
             response.then(e => { 
