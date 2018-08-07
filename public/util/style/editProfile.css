@@ -44,7 +44,7 @@ a:hover, a:focus {
 }
 
 .form-control:focus {
-    border-color: #1b5a7c;
+    border-color: #fbfdfd;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(24, 204, 162, 0.6);
     outline: 0 none;
 }
@@ -79,7 +79,7 @@ a:hover, a:focus {
 }
 
 .login-center {
-    text-align: left;
+    text-align: center;
 }
 
 .login {
@@ -88,8 +88,12 @@ a:hover, a:focus {
 }
 
 .login .login-form {
-    text-align: left;
+    text-align: center;
+    margin: auto;
+    
 }
+/* i added this */
+
 
 .login label {
     color: #fff;
@@ -109,13 +113,8 @@ a:hover, a:focus {
 }
 
 .login-form .input-group .input-group-addon .glyphicon {
-    color: #1b5a7c;
+    color: #fbfdfd;
 }
-
-/* .login-form .input-group .clickable {
-    color: #1b5a7c;
-    background-color: greenyellow;
-} */
 
 .login-form .input-group .form-control::-moz-placeholder {
     color: #fff;

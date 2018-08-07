@@ -1,13 +1,36 @@
-#mainImage{
+/* #mainImage{
     background: url("./../img/banner.jpg") no-repeat center;
     background-size: cover;
+   
+} */
+.jumbotron{
+    height: 100vh;
+}
+.input-group {
+    background: linear-gradient(
+        rgba(175, 172, 172, 0.45), 
+        rgba(175, 172, 172, 0.45)
+      );
+    color: #ddd;
 }
 
+#tinted-image {
+    background: 
+      /* top, transparent red, faked with gradient */ 
+      linear-gradient(
+        rgba(0, 0, 0, 0.45), 
+        rgba(0, 0, 0, 0.45)
+      ),
+      /* bottom, image */
+      url("./../img/banner.jpg") no-repeat center;
+      background-size: cover;
+  }
 @media screen and (max-width: 1000px) {
 
     #mainImage{
         background: url("./../img/mobileBanner.jpg") no-repeat center;
         background-size: cover;
+        
     }
   
   }
