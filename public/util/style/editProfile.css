@@ -105,7 +105,8 @@ a:hover, a:focus {
     color: #ddd;
 }
 .login-form .input-group .tall {
-    height: 88px;
+    resize: none;
+    height: 170px;
 }
 
 .login-form .input-group .input-group-addon {
