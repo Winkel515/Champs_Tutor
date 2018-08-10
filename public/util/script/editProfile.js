@@ -56,8 +56,7 @@ function tutorInfo(tutor){
             subjectsError: false 
         }, 
         methods: {    
-        submitChanges: function (e) {
-            
+        submitChanges: function (e) { 
         if(this.password.trim() === "" && this.oldPassword.trim() === ""){
             var body = JSON.stringify({
                 name : this.name,
@@ -81,7 +80,7 @@ function tutorInfo(tutor){
         this.nameError = this.name.length === 0;
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
-        this.passwordError = this.password.length < 8;
+        this.passwordError = this.password.length < 8 && this.password.length != 0;
         this.descriptionError = this.description.length > 250;
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
@@ -136,7 +135,10 @@ function tutorInfo(tutor){
             return "Exceeded character limit"
           else 
             return remaining;
-      }
+      },
+      subjectList:function() {
+        return  ['Calculus I', 'Calculus II', 'Calculus III','Mechanics', 'Electricity & Magnetism','Waves and Optics']
+    },
     }
   })
 

@@ -1,143 +1,186 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
-
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-html, body {
-    height: 100%;
-    width: 100%;
-}
-
-body {
-    font-family: 'Raleway',sans-serif;
-    position: relative;
-}
-
-.in-page {
-    min-height: 520px;
-}
-
-.main {
-    position: relative;
-}
-
-a {
-    color: #1b5a7c;
-}
-
-a:hover, a:focus {
-    color: #1b5a7c;
-}
-
-.btn-cyan {
-    background-color: #1b5a7c;
-    color: #fff;
-}
-
-.btn-cyan:hover {
-    color: #fff;
-    opacity: 0.9;
-}
-
-.form-control:focus {
-    border-color: #fbfdfd;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(24, 204, 162, 0.6);
-    outline: 0 none;
-}
-
-.min-height {
-    min-height: 380px;
-}
-
-.login-screen {
-    background-image: url("./../img/mobileBanner.jpg");
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    background: 
+      /* top, transparent red, faked with gradient */ 
+      linear-gradient(
+        rgba(0, 0, 0, 0.6), 
+        rgba(0, 0, 0, 0.6)
+      ),  url("../img/banner.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-}
-
-.login-screen:before {
-    content: "";
-    background: rgba(0,0,0, 0.5);
-    position: absolute;
+  }
+  
+  #form {
+    max-width: 425px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: transparent;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    margin: 20px 0 30px 0;
+    text-align: center;
+  }
+  
+  .icon {
+    padding: 10px;
+    background: transparent;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+    border: 1px solid white;
+    border-left:none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="url"],
+  textarea,
+  select {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid white;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-size: 16px;
+    height: auto;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
+    background-color: transparent;
+    color: white;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 15px;
+  }
 
-.login-center {
+  
+  .input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+  }
+  
+  textarea {  
+    margin-bottom: 0;  
+    resize: none;
+    min-height: 80px;
+    margin-bottom: 15px;
+  }
+  
+  
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin: 0 4px 10px 0;
+  }
+  
+  ::placeholder { /* this works with Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* this is to override the Firefox opacity */
+  }
+  
+  select {
+    padding: 6px;
+    height: 32px;
+    border-radius: 2px;
+  }
+  
+  
+  .submitChangesButton {
+    margin: 0 auto;
+    padding: 10px 10px 10px 10px;
+    color: #FFF;
+    background-color: #555756;
+    font-size: 18px;
     text-align: center;
-}
-
-.login {
-    width: 320px;
+    font-style: normal;
+    border-radius: 5px;
+    border: 1px solid #616462;
+   
+  }
+  
+  .subjectButton {
+    text-align: left;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid white;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-size: 16px;
+    height: auto;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 15px;
+  }
+  
+  legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  label.light {
+    font-weight: 300;
+    display: inline;
+  }
+  
+  .number {
+    background-color: #434744;
     color: #fff;
-}
-
-.login .login-form {
-    text-align: center;
-    margin: auto;
-    
-}
-/* i added this */
-
-
-.login label {
-    color: #fff;
-}
-
-.login-form .input-group .form-control {
-    background: none;
-    height: 44px;
-    color: #ddd;
-}
-.login-form .input-group .tall {
-    height: 88px;
-}
-
-.login-form .input-group .input-group-addon {
-    background: none;
-}
-
-.login-form .input-group .input-group-addon .glyphicon {
-    color: #fbfdfd;
-}
-
-.login-form .input-group .form-control::-moz-placeholder {
-    color: #fff;
-    opacity: 0.3;
-}
-
-.login .sign-btn input.btn {
-    background: #1b5a7c;
-    border-color: #1b5a7c;
-    color: #fff;
-    width: 180px;
-}
-
-.login .sign-btn a {
-    text-decoration: none;
-}
-
-.login .checkbox {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.login .forgot {
+    height: 30px;
+    width: 30px;
     display: inline-block;
-    margin: 20px 0;
-}
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 100%;
+  }
+  
+  #subjectsModal {
+    color: black;
+  }
+
+  .errorMessage {
+      color: #d9534f;
+      margin-top: -10px;
+  }
+  
+  @media screen and (min-width: 480px) {
+  
+    #form {
+      max-width: 400px;
+    }
+  
+  }
+  

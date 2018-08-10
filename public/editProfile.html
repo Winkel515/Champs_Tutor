@@ -1,100 +1,102 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!DOCTYPE html>
+<html>
+    <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="img/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Edit Profile</title>
-    
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-        <link href="style/bootstrap.min.css" rel="stylesheet">
-        
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        
-        <!-- Custom styles for this template -->
-        <link href="style/editProfile.css" rel="stylesheet">
-  </head>
-  <body class="main">
-    <div id="editProfile">
-        <div class="login-screen"></div>
-            <div class="login-center">
-                <div class="container min-height" style="margin-top: 20px;">
-                    <div class="row">
-                        <div class="col-xs-4 col-md-offset-8">
-                            <div class="login" id="card">
-                                <div class="signin_form"> 
-                                <h2>Edit Your Tutor Account</h2>
-                                  <form class="login-form">
+        <link rel="shortcut icon" href="img/logo.png" />
+         <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="style/bootstrap.min.css">
+         <!-- Other CSS -->
+        <link rel="stylesheet" href="style/normalize.css">
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="style/editProfile.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                                     <div class="form-group">
-                                         <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Type your name" v-model="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
-                                                <span class="input-group-addon">
-                                                    <i class="glyphicon glyphicon-user"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                      
-                                    <div class="form-group">
-                                          <div class="input-group">
-                                              <input type="email" class="form-control" placeholder="Type your email" v-model="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
-                                              <span class="input-group-addon">
-                                                  <i class="glyphicon glyphicon-envelope"></i>
-                                              </span>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <div class="input-group">
-                                              <input type="password" class="form-control" placeholder="Type your old password" v-model="oldPassword" v-bind:style="oldPasswordError ? 'border: 2px solid #d9534f' : ''">
-                                              <span class="input-group-addon clickable">
-                                                 <span class="glyphicon glyphicon-lock"></span>
-                                              </span>
-                                          </div>
-                                          <p v-show="oldPasswordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
-                                      </div>
-                                      <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="password" class="form-control" placeholder="Type your new password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
-                                                <span class="input-group-addon">
-                                                    <i class="glyphicon glyphicon-lock"></i>
-                                                </span>
-                                            </div>
-                                            <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
-                                        </div>
-                                        <div class="form-group">
-                                                <div class="input-group">
-                                                        <textarea class="form-control tall" rows="4" cols="50" placeholder="Describe yourself here..." v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></textarea>
-                                                        <p v-show="descriptionError" class="errorMessage">Maximum of 250 characters</p>
-                                                    <span class="input-group-addon">
-                                                        <i class="glyphicon glyphicon-align-left"></i>
-                                                    </span>
-                                                </div>
-                                                <p class="errorMessage" style="color: grey; text-align: right">{{descRemaining}} characters remaining</p>
-                                            </div>
-                                            <div class="form-group">
-                                                    <div class="input-group">
-                                                            <input class="form-control" type='number' placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
-                                                         <p v-show="priceError" class="errorMessage">Please input a price</p>
-                                                        <span class="input-group-addon">
-                                                            <i class="glyphicon glyphicon-align-left"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                        
-                                      
-                                      <div class="form-group sign-btn">
-                                          <input v-on:click="submitChanges" class="btn" value="Save Changes">
-                                      </div>
-                                  </form>
-                                </div>
-                        </div>
+
+        
+    </head>
+    <body>
+     <div id="editProfile">
+      <div  id="form">
+          <h1>Edit Your Tutor Profile</h1>
+            
+          <!-- Name INPUT -->
+            <div class="input-container">        
+              
+              <input type="text" placeholder="Name" v-model="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
+              <i class="fa fa-user icon" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''" ></i>
+
+            </div>
+            <!-- EMAIL INPUT -->
+            <div class="input-container">                      
+                <input type="email" id="mail" placeholder="Email" v-model="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-envelope icon" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            
+            <!-- OLD PASSWORD INPUT -->
+            <div class="input-container">                      
+                <input type="password" placeholder="Enter Old Password" v-model="oldPassword" v-bind:style="oldPasswordError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="oldPasswordError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="oldPasswordError" class="errorMessage">Invalid Password</p>
+           
+            <!-- NEW PASSWORD INPUT -->
+            <div class="input-container">                      
+                <input type="password" placeholder="Type your new password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
+          
+            <!-- DESCRIPTION INPUT -->
+            <div class="input-container">                      
+                <textarea placeholder="Describe yourself here..." v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></textarea>
+                <i class="fa fa-align-left icon" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></i>  
+            </div>
+            <p class="errorMessage" style="color: grey; text-align: right; margin-top: -10px;">{{descRemaining}} characters remaining</p>
+            <p v-show="descriptionError" class="errorMessage">Maximum of 250 characters</p>
+
+            <!-- PRICE INPUT -->
+            <div class="input-container">                      
+                <input type="number"  placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-dollar icon"></i>  
+            </div>
+
+            <!-- SUBJECT INPUT / CALL TO MODAL -->
+            <div class="input-container">                      
+                <button type="button" class="subjectButton" data-toggle="modal" data-target="#subjectsModal">Choose Subjects</button>
+                <i class="fa fa-flask icon"></i>  
+            </div>
+            <p v-show="priceError" class="errorMessage">Please input a price</p>
+
+            <button v-on:click="submitChanges" class="submitChangesButton">Submit Changes</button>
+
+            <!-- Button trigger modal -->
+
+  
+            <!-- SUBJECT SELECTION MODAL -->
+            <div class="modal fade" id="subjectsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Choose Subjects</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     </div>
+                    <div class="modal-body">
+                        <input type="checkbox" name="vehicle1" value="Bike">Calculus II<br>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-dark">Save changes</button>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
-     </div>   
-   <!-- Optional JavaScript -->
+    </div>      
+
+      <!-- Optional JavaScript -->
    <script src="script/libs/vue.js"></script>
    <script src="script/libs/jwt-decode.min.js"></script>
 
@@ -104,5 +106,6 @@
    <script type="text/javascript" src="script/libs/validator.min.js"></script>
    <script src="script/libs/bootstrap.min.js"></script>
    <script src="script/editProfile.js"></script>
-  </body>
+
+    </body>
 </html>
