@@ -23,7 +23,7 @@
             <div class="navbar-nav navbar-right">
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
-              <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link text-right" v-show="isSignedIn" onclick="redirectEdit()">Edit Profile<span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
             </div>
           </div>
@@ -34,8 +34,8 @@
         
         <div class="container text-sm-center pt-5">  
           <h1 class="display-3 text-light mt-0">Champlain Tutors</h1>
-          <p class="lead text-light pb-5">A platform to connect with your school's finest tutors</p>
-          <div class="pt-5"> <!--wraps the sorting oprions-->
+          <p class="lead text-light pb-3">A platform to connect with your school's finest tutors</p>
+          <div class="pt-3"> <!--wraps the sorting options-->
           <!-- Select the Subject -->
           <select v-on:change="filterSubject" class="custom-select custom-select-lg mb-3 input-group">
             <option selected>All Subjects</option>
@@ -157,5 +157,6 @@
     <script src="script/libs/axios.min.js"></script>
     <script src="script/libs/vue.js"></script>
     <script src="script/app.js"></script>
+    <script src="script/navbar.js"></script>
 </body>
 </html>

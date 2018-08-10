@@ -6,11 +6,11 @@
         <title>Edit Profile</title>
         <link rel="shortcut icon" href="img/logo.png" />
          <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="style/bootstrap.min.css">
+        <link rel="stylesheet" href="../style/bootstrap.min.css">
          <!-- Other CSS -->
-        <link rel="stylesheet" href="style/normalize.css">
+        <link rel="stylesheet" href="../style/normalize.css">
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="style/editProfile.css">
+        <link rel="stylesheet" href="../style/editProfile.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -36,10 +36,10 @@
             
             <!-- OLD PASSWORD INPUT -->
             <div class="input-container">                      
-                <input type="password" placeholder="Enter Old Password" v-model="oldPassword" v-bind:style="oldPasswordError ? 'border: 2px solid #d9534f' : ''">
-                <i class="fa fa-lock icon" v-bind:style="oldPasswordError ? 'border: 2px solid #d9534f' : ''"></i>  
+                <input type="password" placeholder="Enter Old Password" v-model="oldPassword" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''"></i>  
             </div>
-            <p v-show="oldPasswordError" class="errorMessage">Invalid Password</p>
+            <p v-show="oldPasswordIncorrect" class="errorMessage">Invalid Password</p>
            
             <!-- NEW PASSWORD INPUT -->
             <div class="input-container">                      
@@ -85,27 +85,27 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <input type="checkbox" name="vehicle1" value="Bike">Calculus II<br>
+                        <div v-for="subject in subjectList">
+                        <input type="checkbox" value={{subject}}>{{subject}}<br>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">Save changes</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Save changes</button>
                     </div>
                 </div>
                 </div>
             </div>
         </div>
-    </div>      
-
-      <!-- Optional JavaScript -->
-   <script src="script/libs/vue.js"></script>
-   <script src="script/libs/jwt-decode.min.js"></script>
+     </div>   
+   <!-- Optional JavaScript -->
+   <script src="../script/libs/vue.js"></script>
 
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="script/libs/jquery-3.3.1.min.js"></script>
-   <script src="script/libs/popper.min.js"></script>
-   <script type="text/javascript" src="script/libs/validator.min.js"></script>
-   <script src="script/libs/bootstrap.min.js"></script>
-   <script src="script/editProfile.js"></script>
-
-    </body>
+   <script src="../script/libs/jquery-3.3.1.min.js"></script>
+   <script src="../script/libs/popper.min.js"></script>
+   <script src="../script/libs/jwt-decode.min.js"></script>
+   <script type="text/javascript" src="../script/libs/validator.min.js"></script>
+   <script src="../script/libs/bootstrap.min.js"></script>
+   <script src="../script/editProfile.js"></script>
+  </body>
 </html>

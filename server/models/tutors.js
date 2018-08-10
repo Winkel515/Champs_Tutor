@@ -95,7 +95,9 @@ TutorSchema.methods.verifyTutor = function (password) { // Checks if input passw
             if(res){
                 resolve();
             } else {
-                reject();
+                reject({
+                    message: "Wrong password"
+                });
             }
         });
     });

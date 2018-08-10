@@ -45,6 +45,7 @@ function tutorInfo(tutor){
             emailDuplicate : false,
             oldPassword: "",
             oldPasswordError: false,
+            oldPasswordIncorrect: false,
             password: "",
             passwordError: false,
             description: tutor.description,
@@ -76,21 +77,18 @@ function tutorInfo(tutor){
                 subjects: this.subjects
               }) 
         }
-        console.log(body);
         this.nameError = this.name.length === 0;
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
-        this.passwordError = this.password.length < 8 && this.password.length != 0;
+        this.passwordError = this.password.length < 8 && this.oldPassword.length !== 0;
         this.descriptionError = this.description.length > 250;
-        this.priceError = this.price === null;
-        this.subjectsError = this.subjects.length === 0;
-        console.log(this.passwordError);
-        console.log(this.password.length);
-        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
-        
+        this.priceError = this.price === "";
+        this.oldPasswordIncorrect = false;
+        // this.subjectsError = this.subjects.length === 0; // Set up later
+        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);  
         e.preventDefault();
         // Checks for error before actually making the POST request
-        if(true){
+        if(!signupError){
           const config = {
               method: 'PATCH' ,
               headers: {'Content-type': 'application/json', 'x-auth': localStorage.getItem('token')},
@@ -99,15 +97,16 @@ function tutorInfo(tutor){
           }; 
           fetch('/tutors/me', config).then(checkStatus)
           .then(response => { // Runs when all inputs are good
-            console.log("he");
-            response.text().then(message => {console.log(message)})
-            //location.href = '/';
+            location.href = '/';
           }).catch(response => { // Runs when there's an invalid input 
             
             response.then(e => { 
               console.log(JSON.parse(e));
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
                     this.emailDuplicate = true; // Boolean used to show error message on signUp page
+              }
+              if(JSON.parse(e).message === "Wrong password"){
+                this.oldPasswordIncorrect = true;
               }
             })
           });
@@ -132,7 +131,7 @@ function tutorInfo(tutor){
       descRemaining: function() {
         var remaining = 250 - this.description.length;
           if(remaining < 0)
-            return "Exceeded character limit"
+            return 0
           else 
             return remaining;
       },
