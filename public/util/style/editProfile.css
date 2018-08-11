@@ -28,9 +28,10 @@
   }
   
   h1 {
-    margin: 20px 0 30px 0;
+    margin: 35px 0 30px 0;
     text-align: center;
   }
+
   
   .icon {
     padding: 10px;
@@ -44,8 +45,6 @@
     border-bottom-right-radius: 4px;
     margin-bottom: 15px;
   }
-  
-  
   
   input[type="text"],
   input[type="password"],
@@ -75,7 +74,6 @@
     margin-bottom: 15px;
   }
 
-  
   .input-container {
     display: -ms-flexbox; /* IE10 */
     display: flex;
@@ -99,6 +97,17 @@
     color: white;
     opacity: 1; /* this is to override the Firefox opacity */
   }
+
+  input[type="password"] {
+    color: grey;
+}
+
+  input[type="password"],
+    ::placeholder { /* this works with Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(202, 201, 201);
+    opacity: 1; /* this is to override the Firefox opacity */
+ }
+
   
   select {
     padding: 6px;
@@ -175,6 +184,18 @@
       color: #d9534f;
       margin-top: -10px;
   }
+
+  .deleteButton {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+
+   .home-button {
+    position: absolute;
+    top: 8px;
+    left: 16px; 
+   }
   
   @media screen and (min-width: 480px) {
   
