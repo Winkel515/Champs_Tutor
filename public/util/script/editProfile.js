@@ -54,7 +54,9 @@ function tutorInfo(tutor){
             priceError: false,
             subjects: tutor.subjects,
             subjectInput: "",
-            subjectsError: false 
+            subjectsError: false ,
+            deletePassword: "",
+            deletePasswordError: false
         }, 
         methods: {    
         submitChanges: function (e) { 
@@ -116,15 +118,26 @@ function tutorInfo(tutor){
       validEmail: function (email) {
         return validator.isEmail(email);
       },
-      addSubject: function(){
-        var subject = this.subjectInput.trim()
-        if(subject !== ""){
-          this.subjects.push(subject)
-          this.subjectInput = "";
-        }
-      },
-      deleteSubject: function(index){
-        this.subjects.splice(index, 1);
+      deleteAccount: function(){
+        fetch('/tutors/me', {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+            'x-auth': localStorage.getItem('token')
+          },
+          body: JSON.stringify({
+            password: this.deletePassword
+          })
+        }).then(checkStatus)
+        .then(response => {
+          localStorage.removeItem('token');
+          location.href = '/';
+        }).catch(err => {
+          err.then(message =>{
+            this.deletePasswordError = true;
+            console.log(JSON.parse(message))
+          })
+        })
       }
     },
     computed: {
