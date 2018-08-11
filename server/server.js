@@ -144,6 +144,12 @@ app.delete('/tutors/me', authenticate, (req, res) => {
     const body = _.pick(req.body, ['password']);
 
     req.tutor.verifyTutor(body.password).then(() => {
+        var deletedReviews = [];
+        for(var _id of req.tutor.reviews){
+            deletedReviews.push(Review.deleteOne({_id}));
+        }
+        return Promise.all(deletedReviews);
+    }).then(() => {
         return Tutor.findByIdAndRemove(req.tutor._id)
     }).then(() => {
         res.send();
