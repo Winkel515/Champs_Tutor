@@ -25,6 +25,7 @@
       url("./../img/banner.jpg") no-repeat center;
       background-size: cover;
   }
+
 @media screen and (max-width: 1000px) {
 
     #mainImage{

@@ -52,7 +52,7 @@ function tutorInfo(tutor){
             descriptionError: false,
             price: tutor.price,
             priceError: false,
-            subjects: [],
+            subjects: tutor.subjects,
             subjectInput: "",
             subjectsError: false 
         }, 
