@@ -35,20 +35,6 @@
                 <input type="email" id="mail" placeholder="Email" v-model="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
                 <i class="fa fa-envelope icon" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''"></i>  
             </div>
-            
-            <!-- OLD PASSWORD INPUT -->
-            <div class="input-container">                      
-                <input type="password" placeholder="Enter Old Password" v-model="oldPassword" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''">
-                <i class="fa fa-lock icon" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''"></i>  
-            </div>
-            <p v-show="oldPasswordIncorrect" class="errorMessage">Invalid Password</p>
-           
-            <!-- NEW PASSWORD INPUT -->
-            <div class="input-container">                      
-                <input type="password" placeholder="Type your new password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
-                <i class="fa fa-lock icon" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''"></i>  
-            </div>
-            <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
           
             <!-- DESCRIPTION INPUT -->
             <div class="input-container">                      
@@ -63,13 +49,31 @@
                 <input type="number"  placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
                 <i class="fa fa-dollar icon"></i>  
             </div>
+            <p v-show="priceError" class="errorMessage">Please input a price</p>
 
             <!-- SUBJECT INPUT / CALL TO MODAL -->
             <div class="input-container">                      
                 <button type="button" class="subjectButton" data-toggle="modal" data-target="#subjectsModal">Choose Subjects</button>
                 <i class="fa fa-flask icon"></i>  
             </div>
-            <p v-show="priceError" class="errorMessage">Please input a price</p>
+            
+
+            
+            <!-- OLD PASSWORD INPUT -->
+            <br />
+            <label>Change your password:</label>
+            <div class="input-container">                      
+                <input type="password" placeholder="Enter Old Password" v-model="oldPassword" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="oldPasswordIncorrect" class="errorMessage">Incorrect Password</p>
+           
+            <!-- NEW PASSWORD INPUT -->
+            <div class="input-container">                      
+                <input type="password" placeholder="Type your new password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
 
             <div class="text-center">
             <button v-on:click="submitChanges" class="btn btn-lg mt-3 txt-center btn-light">Submit Changes</button>
@@ -109,16 +113,17 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
-                        <div class="modal-body">
-                            <p style="color: black">Deleting your tutor account will remove your profile and information from Tutor Me</p>
+                        <div class="modal-body" style="color: black;">
+                            <p>Deleting your tutor account will remove your profile and information from Tutor Me</p>
                             <div class="form-group">
-                                    <label for="password" style="color: black;">Password:</label>
-                                    <input type="password" style="border: 1px solid black;" v-model="password" class="form-control" id="passwordInput">
-                                  </div>
+                                    <label for="password">Password:</label>
+                                    <input type="password" style="border: 1px solid black;" v-on:click="deletePasswordError = false" v-model="deletePassword" class="form-control" id="passwordInput" v-bind:style="deletePasswordError ? 'border: 2px solid #d9534f' : ''">
+                            </div>
+                            <p v-show="deletePasswordError" style="text-align: center; color: red; margin-bottom: 0px;">Incorrect Password</p>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger">Delete Account</button>
+                        <button type="button" v-on:click="deleteAccount" class="btn btn-danger">Delete Account</button>
                         </div>
                     </div>
                     </div>

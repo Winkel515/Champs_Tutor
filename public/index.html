@@ -122,18 +122,16 @@
               </div>
               <div class="modal-body">
                 <!-- Form -->
-                  
-                      <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" v-model="email" class="form-control" id="email">
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Password:</label>
-                          <input type="password" v-model="password" class="form-control" id="passwordInput">
-                        </div>
-                        <button type="button" v-on:click="signIn" class="btn text-center btn-dark">Sign In</button>
-                      
-                    
+                <p v-show="invalidCredentials" style="color: red">Your username or password is incorrect.</p>
+                <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input type="email" v-on:click="invalidCredentials = false;" v-model="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" v-on:click="invalidCredentials = false;" v-model="password" class="form-control" id="passwordInput">
+                  </div>
+                  <button type="button" v-on:click="signIn" class="btn text-center btn-dark">Sign In</button>
                 <!-- /Form -->
               </div>
             </div>
