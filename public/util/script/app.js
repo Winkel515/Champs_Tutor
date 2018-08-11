@@ -52,11 +52,13 @@ function tutorsVue(tutors){
         price: 'All Prices',
         email:"",
         password:"",
-        isSignedIn: false
+        isSignedIn: false,
+        invalidCredentials: false
       },
       methods: {
         signIn: function (e) {
           e.preventDefault();
+          this.invalidCredentials = false;
           
             const config = {
                 method: 'POST' ,
@@ -75,6 +77,7 @@ function tutorsVue(tutors){
             }).catch(response => { // Runs when there's an invalid input
               response.then(e => {
                 console.log(JSON.parse(e));
+                this.invalidCredentials = true;
               })
             });
         },

@@ -143,18 +143,12 @@ app.patch('/tutors/me', authenticate, (req, res) => {
 app.delete('/tutors/me', authenticate, (req, res) => {
     const body = _.pick(req.body, ['password']);
 
-    Tutor.findOne({_id: req.tutor._id}).then(tutor => {
-        tutor.verifyTutor(body.password).then(() => {
-            Tutor.deleteOne({_id: req.tutor._id}).then(() => {
-                res.status(200).send();
-            }).catch(e => {
-                res.status(400).send(errorJSON(400, 'Unexpected error'));
-            })
-        }).catch(e => {
-            res.status(400).send(errorJSON(400, 'Incorrect Password'));
-        })
+    req.tutor.verifyTutor(body.password).then(() => {
+        return Tutor.findByIdAndRemove(req.tutor._id)
+    }).then(() => {
+        res.send();
     }).catch(e => {
-        res.status(401).send(errorJSON(401, 'Unauthorized access'));
+        res.status(400).send(errorJSON(400, 'Incorrect Password'));
     })
 });
 
