@@ -16,7 +16,7 @@
 
 #tinted-image {
     background: 
-      /* top, transparent red, faked with gradient */ 
+      /* top, transparent black, faked with gradient */ 
       linear-gradient(
         rgba(0, 0, 0, 0.45), 
         rgba(0, 0, 0, 0.45)
@@ -34,4 +34,4 @@
         
     }
   
-  }
+}

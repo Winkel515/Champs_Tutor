@@ -93,6 +93,9 @@ const app = new Vue({
             return "Exceeded character limit"
           else 
             return remaining;
-      }
+      },
+      subjectList:function() {
+        return  ['Calculus I', 'Calculus II', 'Calculus III','Mechanics', 'Electricity & Magnetism','Waves and Optics']
+    },
     }
   })

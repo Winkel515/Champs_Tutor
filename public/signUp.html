@@ -4,76 +4,106 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tutor Sign Up</title>
-        <link rel="shortcut icon" href="img/logo.png" />
-        <link rel="stylesheet" href="style/normalize.css">
-        <link rel="stylesheet" href="style/bootstrap.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="style/signUp.css">
-        
+        <link rel="shortcut icon" href="../img/logo.png" />
+        <!-- Bootstrap CSS -->
+       <link rel="stylesheet" href="../style/bootstrap.min.css">
+        <!-- Other CSS -->
+       <link rel="stylesheet" href="../style/normalize.css">
+       <link href='http://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
+       <link rel="stylesheet" href="../style/signUp.css">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-         <!-- Nav Bar -->
-         <nav>
-                <header class="main-header">
-                        <div class="container clearfix">
-                            <h1 class="name"><a href="/">Teach Me</a></h1>
+             
+                    <button  class="home-button btn btn-outline-light" onclick="location.href = '/'"> <i class="fa fa-home "></i></button>
+                  <div  id="form">
+                      <h1>Become A Tutor</h1>
+                        
+                      <!-- Name INPUT -->
+                        <div class="input-container">        
+                          
+                          <input type="text" placeholder="Name" v-model="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
+                          <i class="fa fa-user icon" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''" ></i>
+            
                         </div>
-                    </header><!--/.main-header-->   
-         </nav>
-         <!-- /NavBar -->
+                        <p v-show="nameError" class="errorMessage">Please enter a name</p>
 
-      <div id="form">
-          <h1>Tutor Registration</h1>
-        
-        <fieldset>
-
+                        <!-- EMAIL INPUT -->
+                        <div class="input-container">                      
+                            <input type="email" id="mail" placeholder="Email" v-model="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
+                            <i class="fa fa-envelope icon" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''"></i>  
+                        </div>
+                        <p v-show="emailError" class="errorMessage">Invalid Email</p>
+                        
+                        <!-- NEW PASSWORD INPUT -->
+                        <div class="input-container">                      
+                            <input type="password" placeholder="Type your password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
+                            <i class="fa fa-lock icon" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''"></i>  
+                        </div>
+                        <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
+                      
+                        <!-- DESCRIPTION INPUT -->
+                        <div class="input-container">                      
+                            <textarea placeholder="Describe yourself here..." v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></textarea>
+                            <i class="fa fa-align-left icon" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></i>  
+                        </div>
+                        <p class="errorMessage" style="color: grey; text-align: right; margin-top: -10px;">{{descRemaining}} characters remaining</p>
+                        <p v-show="descriptionError" class="errorMessage">Maximum of 250 characters</p>
             
-           
-          <legend><span class="number">1</span> Your Basic Info</legend>
-          
-              <label for="name">Full Name:</label>
-              <input v-model="name" type="text" id="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
-              <p v-show="nameError" class="errorMessage">Please insert Name</p>
-
-              <label for="email">Email Address :</label>
-              <input v-model="email" type="email" id="email" v-bind:style="emailError||emailDuplicate ? 'border: 2px solid #d9534f' : ''">
-              <p v-show="emailError" class="errorMessage">Invalid Email</p>
-              <p v-show="emailDuplicate" class="errorMessage">Email is already in use</p>
+                        <!-- PRICE INPUT -->
+                        <div class="input-container">                      
+                            <input type="number"  placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
+                            <i class="fa fa-dollar icon"  v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''"></i>  
+                        </div>
+                        <p v-show="priceError" class="errorMessage">Please input a price</p>
+                        
+                        <!-- SUBJECT INPUT / CALL TO MODAL -->
+                        <div class="input-container">                      
+                            <button type="button" class="subjectButton" data-toggle="modal" data-target="#subjectsModal" v-bind:style="subjectsError ? 'border: 2px solid #d9534f' : ''">Choose Subjects</button>
+                            <i class="fa fa-flask icon" v-bind:style="subjectsError ? 'border: 2px solid #d9534f' : ''"></i>  
+                        </div>
+                        <p v-show="subjectsError" class="errorMessage">Please choose a subject</p>
+                        
             
-              <label for="password">Password:</label>
-              <input v-model="password" type="password" id="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
-              <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
-          
-        </fieldset>
-         
-        <fieldset>
-            <legend><span class="number">2</span> Your Profile</legend>
+                        <div class="text-center">
+                        <button v-on:click="submitForm" class="btn btn-lg mt-3 txt-center btn-light">Create Account</button>
+                        </div>
+                        <!-- Button trigger modal -->
+            
               
-            <label for="description">Description:</label>
-                <textarea v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''"></textarea>
-                <p v-show="descriptionError" class="errorMessage">Maximum of 250 characters</p>
-                <p class="errorMessage" style="color: grey; text-align: right">{{descRemaining}}</p>
-            <label for="price">Hourly Rate:</label>
-                <input type='number' placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
-                <p v-show="priceError" class="errorMessage">Please input a price</p>
-           
-             <label for="subjects">Subjects:</label>
-             <input class="btn btn-primary" type="button" value="Add Subject" style="float: right; height: 53px" v-on:click="addSubject">
-             <div style="overflow: hidden">
-                <input type="text" v-model="subjectInput">
-            </div>
-                <ul>
-                    <li v-for="(subject, index) in subjects">{{subject}} <span v-on:click="deleteSubject(index)" style="float: right; padding-right: 20px;">❌</span></li>
-                </ul>
-           
-          
-          </fieldset>
-             <button v-on:click="submitForm" id="submitButton">Sign Up</button>
-        
-            </div>
-      
-      <script src="script/libs/vue.js"></script>
-      <script type="text/javascript" src="script/libs/validator.min.js"></script>
-      <script src="script/signUp.js"></script>
+                        <!-- SUBJECT SELECTION MODAL -->
+                        <div class="modal fade" id="subjectsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Choose Subjects</h5>
+                                
+                                </div>
+                                <div class="modal-body">
+                                  
+                                        <div v-for="subject in subjectList">
+                                            <input type="checkbox" v-model="subjects" :value="subject">{{subject}}<br>
+                                        </div>
+                                   
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>  
+       <!-- Optional JavaScript -->
+   <script src="../script/libs/vue.js"></script>
+
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="../script/libs/jquery-3.3.1.min.js"></script>
+   <script src="../script/libs/popper.min.js"></script>
+   <script src="../script/libs/jwt-decode.min.js"></script>
+   <script type="text/javascript" src="../script/libs/validator.min.js"></script>
+   <script src="../script/libs/bootstrap.min.js"></script>
+   <script src="../script/signUp.js"></script>
+
     </body>
 </html>

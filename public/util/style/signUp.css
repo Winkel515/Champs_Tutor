@@ -4,43 +4,46 @@
   box-sizing: border-box;
 }
 
-.main-header{
-  position: fixed;
-  background:#d9534f;
-  box-shadow:0 1px 4px rgba(0,0,0,.4);
-  width: 100%;
-  margin: 0 0 0 0;
-  top: 0;
-  z-index:1;
-}
-
-.main-header h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: white;
-}
-.main-header a {
-  color: white;
-  text-decoration: none;
-}
-
 body {
-  background-color: #37474F;
-  font-family: 'Nunito', sans-serif;
-  color: #384047;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  background: 
+    /* top, transparent red, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(0, 0, 0, 0.6)
+    ),  url("../img/banner.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 #form {
-  max-width: 500px;
-  margin: 85px auto;
+  max-width: 425px;
+  margin: 10px auto;
   padding: 10px 20px;
-  background: #f4f7f8;
+  background: transparent;
   border-radius: 8px;
 }
 
 h1 {
-  margin: 0 0 20px 0;
+  margin: 35px 0 30px 0;
   text-align: center;
+}
+
+
+.icon {
+  padding: 10px;
+  background: transparent;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+  border: 1px solid white;
+  border-left:none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  margin-bottom: 15px;
 }
 
 input[type="text"],
@@ -56,23 +59,55 @@ input[type="url"],
 textarea,
 select {
   background: rgba(255,255,255,0.1);
-  border: none;
+  border: 1px solid white;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   font-size: 16px;
   height: auto;
   margin: 0;
   outline: 0;
-  padding: 15px;
+  padding: 10px;
   width: 100%;
-  background-color: #e8eeef;
-  color: #8a97a0;
+  background-color: transparent;
+  color: white;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+}
+
+textarea {  
+  margin-bottom: 0;  
+  resize: none;
+  min-height: 80px;
+  margin-bottom: 15px;
+}
+
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 0 4px 8px 0;
+  margin: 0 4px 10px 0;
 }
+
+::placeholder { /* this works with Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* this is to override the Firefox opacity */
+}
+
+input[type="password"] {
+  color: grey;
+}
+
+input[type="password"],
+  ::placeholder { /* this works with Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(202, 201, 201);
+  opacity: 1; /* this is to override the Firefox opacity */
+}
+
 
 select {
   padding: 6px;
@@ -80,24 +115,36 @@ select {
   border-radius: 2px;
 }
 
-button {
-  padding: 19px 39px 18px 39px;
+
+.submitChangesButton {
+  margin: 0 auto;
+  padding: 10px 10px 10px 10px;
   color: #FFF;
-  background-color: #d9534f;
+  background-color: #555756;
   font-size: 18px;
   text-align: center;
   font-style: normal;
   border-radius: 5px;
-  width: 100%;
-  border: 1px solid #d9534f;
-  border-width: 1px 1px 3px;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-  margin-bottom: 10px;
+  border: 1px solid #616462;
+ 
 }
 
-fieldset {
-  margin-bottom: 30px;
-  border: none;
+.subjectButton {
+  text-align: left;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid white;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 15px;
 }
 
 legend {
@@ -116,7 +163,7 @@ label.light {
 }
 
 .number {
-  background-color: #d9534f;
+  background-color: #434744;
   color: #fff;
   height: 30px;
   width: 30px;
@@ -129,36 +176,32 @@ label.light {
   border-radius: 100%;
 }
 
+#subjectsModal {
+  color: black;
+}
+
 .errorMessage {
-  display: block;
-  margin: -30px auto 0px; 
-  color: #d9534f;
-  text-align: center;
+    color: #d9534f;
+    margin-top: -10px;
 }
 
-textarea{
-  resize: none;
-  height: 200px;
-  color: #555;
+.deleteButton {
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }
 
-::placeholder {
-  color: gray;
-  opacity: 0.7; /* Firefox */
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: lightgray;
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: lightgray;
-}
+ .home-button {
+  position: absolute;
+  top: 8px;
+  left: 16px; 
+ }
 
 @media screen and (min-width: 480px) {
 
-  form {
-    max-width: 480px;
+  #form {
+    max-width: 400px;
   }
 
 }
+
