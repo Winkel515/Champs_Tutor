@@ -4,6 +4,10 @@
    
 } */
 
+.dont-break-out {
+    word-wrap: break-word;
+}
+
 .input-group {
     background: linear-gradient(
         rgba(175, 172, 172, 0.45), 
@@ -30,12 +34,10 @@
     object-fit: cover;
 }
 
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
 
     #mainImage{
-        background: url("./../img/mobileBanner.jpg") no-repeat center;
-        background-size: cover;
-        
+       
     }
   
-}
+}  */

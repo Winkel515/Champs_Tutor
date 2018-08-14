@@ -185,16 +185,10 @@ label.light {
     margin-top: -10px;
 }
 
-.deleteButton {
-  position: absolute;
-  top: 8px;
-  right: 16px;
-}
-
  .home-button {
   position: absolute;
   top: 8px;
-  left: 16px; 
+  right: 16px; 
  }
 
 @media screen and (min-width: 480px) {

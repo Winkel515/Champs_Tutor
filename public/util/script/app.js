@@ -53,7 +53,8 @@ function tutorsVue(tutors){
         email:"",
         password:"",
         isSignedIn: false,
-        invalidCredentials: false
+        invalidCredentials: false,
+        screenSize: window.screen.width
       },
       methods: {
         signIn: function (e) {
@@ -83,7 +84,7 @@ function tutorsVue(tutors){
         },
         filterSubject: function(){
            /* Filter Subjects */ 
-          console.log(event);
+          console.log(this.screenSize);
           this.subject = event.target.value;
 
           console.log("Subject:", this.subject);
@@ -111,7 +112,6 @@ function tutorsVue(tutors){
             this.isSignedIn = true;
           }  
           console.log(localStorage.getItem('token'));
-          console.log(this.isSignedIn);
       
       }, 
       computed: {

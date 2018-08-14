@@ -29,11 +29,18 @@
           </div>
         </div>
         </nav> <!-- /NavBar -->
-      <!-- JumboTron ******* PROBLEM WITH MAKING BACKGROUND IMAGE NOT REPEATING. MUST BE FIXED **********-->
-    <div class="jumbotron text-white" id="tinted-image"> <!-- inserted backgroung img-->
+      <!-- JumboTron -->
+    <div class="jumbotron" id="tinted-image"> <!-- inserted backgroung img-->
         
-        <div class="container text-sm-center pt-5">  
-          <h1 class="display-3 text-light mt-0">Champlain Tutors</h1>
+        <div class="container text-white text-sm-center pt-5">  
+          <div>
+              
+                  <h1 v-show="screenSize > 380" class="display-3 text-light dont-break-out mt-0">Champlain Tutors</h1>
+                
+               
+                  <h1 v-show="screenSize < 380" class="display-4 text-light dont-break-out mt-0">Champlain Tutors</h1>
+              
+        </div>
           <p class="lead text-light pb-3">A platform to connect with your school's finest tutors</p>
           <div class="pt-3"> <!--wraps the sorting options-->
           <!-- Select the Subject -->
@@ -71,7 +78,7 @@
           || price === 'All Prices')">
               <!-- DIV for the Tutors Cards -->
               <div class="card mb-3">
-                  <img class="card-img-top profilePic" src="img/jay.png" alt="Profile Pic">
+                  <img class="card-img-top profilePic" src="img/daniel.jpg" alt="Profile Pic">
                   <div class="card-body">
                       <h5 class="card-title">{{tutor.name}}</h5>
                       <!-- span tags used to format the way the array of subjects is displayed. (comma + space) -->
