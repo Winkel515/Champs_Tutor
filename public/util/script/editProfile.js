@@ -1,20 +1,19 @@
 const pathName = jwt_decode(localStorage.getItem('token'))._id;
-document.addEventListener("DOMContentLoaded", getTutor(pathName));
+document.addEventListener("DOMContentLoaded", getTutor());
 
-function getTutor(pathName){ // Gets tutor from /tutors and sets it up for Vue
+function getTutor(){ // Gets tutor from /tutors and sets it up for Vue
   // *************************************** GET REQUEST TO /tutors ROUTE ****************************
-  
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", '/tutors/' + pathName, true);
-  xmlhttp.send();
-  xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          
-          var tutor = (JSON.parse(this.responseText).tutor);
-          
-          tutorInfo(tutor) // Injects the tutors array into the Vue object
-      };
-  };
+  fetch('/tutors/me', {
+    headers: {'x-auth': localStorage.getItem('token')}
+  }).then(checkStatus)
+  .then(response => {
+    console.log(response)
+    response.text().then(tutor => {
+      tutorInfo(JSON.parse(tutor).tutor);
+    })
+  }).catch(response => {
+    tutorInfo(null)
+  })
 };
 // btw were using fetch and ajax requests in same file, is that good practice???
 // ------------------------------------------
@@ -25,7 +24,7 @@ function checkStatus(response){
   if(response.ok){
      return Promise.resolve(response); 
   } else{
-   return Promise.reject(response.text()); 
+    return Promise.reject(response.text()); 
   }
  }
 
@@ -37,10 +36,8 @@ function tutorInfo(tutor){
     const app = new Vue({
         el: '#editProfile',
         data: {
-            tutor: tutor,
-            name: tutor.name,
+            tutor,
             nameError: false,
-            email: tutor.email,
             emailError: false,
             emailDuplicate : false,
             oldPassword: "",
@@ -48,11 +45,8 @@ function tutorInfo(tutor){
             oldPasswordIncorrect: false,
             password: "",
             passwordError: false,
-            description: tutor.description,
             descriptionError: false,
-            price: tutor.price,
             priceError: false,
-            subjects: tutor.subjects,
             subjectInput: "",
             subjectsError: false ,
             deletePassword: "",
@@ -62,31 +56,31 @@ function tutorInfo(tutor){
         submitChanges: function (e) { 
         if(this.password.trim() === "" && this.oldPassword.trim() === ""){
             var body = JSON.stringify({
-                name : this.name,
-                email : this.email,
-                description: this.description,
-                price: this.price,
-                subjects: this.subjects
+                name : this.tutor.name,
+                email : this.tutor.email,
+                description: this.tutor.description,
+                price: this.tutor.price,
+                subjects: this.tutor.subjects
               }) 
         } else {
             var body = JSON.stringify({
-                name : this.name,
-                email : this.email,
-                description: this.description,
+                name : this.tutor.name,
+                email : this.tutor.email,
+                description: this.tutor.description,
                 oldPassword: this.oldPassword,
                 password: this.password,
-                price: this.price,
-                subjects: this.subjects
+                price: this.tutor.price,
+                subjects: this.tutor.subjects
               }) 
         }
-        this.nameError = this.name.length === 0;
-        this.emailError = !this.validEmail(this.email);
+        this.nameError = this.tutor.name.length === 0;
+        this.emailError = !this.validEmail(this.tutor.email);
         this.emailDuplicate = false;
         this.passwordError = this.password.length < 8 && this.oldPassword.length !== 0;
-        this.descriptionError = this.description.length > 500;
-        this.priceError = this.price === "";
+        this.descriptionError = this.tutor.description.length > 500;
+        this.priceError = this.tutor.price === "";
         this.oldPasswordIncorrect = false;
-        // this.subjectsError = this.subjects.length === 0; // Set up later
+        this.subjectsError = this.tutor.subjects.length === 0;
         var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);  
         e.preventDefault();
         // Checks for error before actually making the POST request
@@ -142,7 +136,7 @@ function tutorInfo(tutor){
     },
     computed: {
       descRemaining: function() {
-        var remaining = 500 - this.description.length;
+        var remaining = 500 - this.tutor.description.length;
           if(remaining < 0)
             return 0
           else 
