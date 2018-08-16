@@ -28,7 +28,7 @@ app.use(express.static(publicPath));
 // Process GET /tutors request and responds with an array of tutors objects
 app.get('/tutors', (req, res) => {
 
-    Tutor.find({}, `${sharedProperties}`).then((tutors) => {
+    Tutor.find({showTutor: true}, `${sharedProperties}`).then((tutors) => {
         res.json({tutors});
     }).catch((e) => {
         res.status(404).json(errorJSON(404, 'Could not connect to the database'));
@@ -69,27 +69,6 @@ app.get('/:id', (req, res) => {
     })
 });
 
-// Process GET /tutors/:id request and responds with a single tutor's name and _id
-app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'email';
-    var id = req.params.id;
-
-    if(!ObjectID.isValid(id)) {
-        return res.status(400).json(errorJSON(400, 'ID is invalid'));
-    }
-    
-    Tutor.findOne({
-        _id: id
-    }, `${sharedProperties + profileProperties}`)
-        .populate('reviews')
-        .then((tutor) => {
-        if(!tutor){
-            return res.status(404).json(errorJSON(404, 'Tutor was not found'));
-        }
-        res.send({tutor});
-    }).catch(e => res.status(400).json(errorJSON(400, 'Error')));
-})
-
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
     var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode']) // On sign-up, tutors will input email, name and password.
@@ -105,6 +84,12 @@ app.post('/tutors/signup', (req, res) => {
         }
         res.status(400).send(errorJSON(400, e.message));
     })
+});
+
+// Route to get personal information for tutor profile
+app.get('/tutors/me', authenticate, (req, res) => {
+    var tutor = _.pick(req.tutor, ['price', 'showTutor', 'subjects', 'rating', '_id', 'name', 'email', 'description', 'reviewerCode']);
+    res.send({tutor});
 });
 
 // Route to allow tutors to edit their profile
@@ -216,6 +201,27 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
     }).catch(e => {
         res.status(400).send(errorJSON(400, e.message));
     })
+});
+
+// Process GET /tutors/:id request and responds with a single tutor's name and _id
+app.get('/tutors/:id', (req, res) => {
+    const profileProperties = 'email';
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id)) {
+        return res.status(400).json(errorJSON(400, 'ID is invalid'));
+    }
+    
+    Tutor.findOne({
+        _id: id
+    }, `${sharedProperties + profileProperties}`)
+        .populate('reviews')
+        .then((tutor) => {
+        if(!tutor){
+            return res.status(404).json(errorJSON(404, 'Tutor was not found'));
+        }
+        res.send({tutor});
+    }).catch(e => res.status(400).json(errorJSON(400, 'Error')));
 })
 
 app.listen(port, () => {

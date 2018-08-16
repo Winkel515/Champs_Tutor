@@ -22,7 +22,7 @@
                       <!-- Name INPUT -->
                         <div class="input-container">        
                           
-                          <input type="text" placeholder="Name" v-model="name" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
+                          <input type="text" placeholder="Name" v-model="name" @click="nameError=false" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''">
                           <i class="fa fa-user icon" v-bind:style="nameError ? 'border: 2px solid #d9534f' : ''" ></i>
             
                         </div>
@@ -30,28 +30,28 @@
 
                         <!-- EMAIL INPUT -->
                         <div class="input-container">                      
-                            <input type="email" id="mail" placeholder="Email" v-model="email" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
+                            <input type="email" id="mail" placeholder="Email" v-model="email" @click="emailError=false" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
                             <i class="fa fa-envelope icon" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
                         <p v-show="emailError" class="errorMessage">Invalid Email</p>
                         
                         <!-- PASSWORD INPUT -->
                         <div class="input-container">                      
-                            <input type="password" placeholder="Type your password" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
+                            <input type="password" placeholder="Type your password" @click="passwordError=false" v-model="password" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''">
                             <i class="fa fa-lock icon" v-bind:style="passwordError ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
                         <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
 
                         <!-- CONFIRM PASSWORD INPUT -->
                         <div class="input-container">                      
-                                <input type="password" placeholder="Confirm password" v-model="confirmPassword" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''">
+                                <input type="password" placeholder="Confirm password" @click="passwordMatchError=false" v-model="confirmPassword" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''">
                                 <i class="fa fa-lock icon" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''"></i>  
                             </div>
                             <p v-show="passwordMatchError" class="errorMessage">Passwords do not match</p>
                       
                         <!-- DESCRIPTION INPUT -->
                         <div class="input-container">                      
-                            <textarea placeholder="Describe yourself here..." v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></textarea>
+                            <textarea placeholder="Describe yourself here..." @click="descriptionError=false" v-model="description" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></textarea>
                             <i class="fa fa-align-left icon" v-bind:style="descriptionError ? 'border: 2px solid #d9534f' : ''" ></i>  
                         </div>
                         <p class="errorMessage" style="color: grey; text-align: right; margin-top: -10px;">{{descRemaining}} characters remaining</p>
@@ -59,14 +59,14 @@
             
                         <!-- PRICE INPUT -->
                         <div class="input-container">                      
-                            <input type="number"  placeholder="price in $ per hour" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
+                            <input type="number"  placeholder="price in $ per hour" @click="priceError=false" v-model="price" min="0" v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''">
                             <i class="fa fa-dollar icon"  v-bind:style="priceError ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
                         <p v-show="priceError" class="errorMessage">Please input a price</p>
                         
                         <!-- SUBJECT INPUT / CALL TO MODAL -->
                         <div class="input-container">                      
-                            <button type="button" class="subjectButton" data-toggle="modal" data-target="#subjectsModal" v-bind:style="subjectsError ? 'border: 2px solid #d9534f' : ''">Choose Subjects</button>
+                            <button type="button" class="subjectButton" @click="subjectsError=false" data-toggle="modal" data-target="#subjectsModal" v-bind:style="subjectsError ? 'border: 2px solid #d9534f' : ''">Choose Subjects</button>
                             <i class="fa fa-flask icon" v-bind:style="subjectsError ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
                         <p v-show="subjectsError" class="errorMessage">Please choose a subject</p>
