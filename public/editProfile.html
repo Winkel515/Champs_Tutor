@@ -19,7 +19,6 @@
     <body>
      <div id="editProfile">
         <button  class="home-button btn btn-outline-light" onclick="location.href = '/'"> <i class="fa fa-home "></i></button>
-        <div v-if="tutor !== null">
         <button class="deleteButton btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash "></i></button> 
       <div  id="form">
           <h1>Edit Your Tutor Profile</h1>
@@ -130,8 +129,6 @@
                     </div>
                 </div>
         </div>
-        </div>
-        <h1 v-else style="font-size: 50px; margin-top: 8vh">401 Unauthorized Access</h1>
      </div>   
    <!-- Optional JavaScript -->
    <script src="../script/libs/vue.js"></script>
