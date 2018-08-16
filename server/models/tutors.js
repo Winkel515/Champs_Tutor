@@ -46,9 +46,6 @@ var TutorSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    program: { // Stores tutor's field of study (e.g. Pure & Applied)
-        // Should have to validate if program
-    },
     subjects: {
         type: Array,
         of: String,
@@ -64,25 +61,17 @@ var TutorSchema = new mongoose.Schema({
         min: 0,
         default: 0,
         required:true
+    },
+    reviewerCode: {
+        type: String,
+        required: true,
+        default: "hi"
     }
-    // tokens: [{
-    //     access: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     token: {
-    //         type: String,
-    //         required: true
-    //     }
-    // }]
 })
 
-TutorSchema.methods.generateAuthToken = function() { // Generated token gets saved in the databased. Can be problematic as it adds up. Could solved by deleting on closing app.
+TutorSchema.methods.generateAuthToken = function() {
     var tutor = this;
     var token = jwt.sign({_id: tutor._id.toHexString(), name: tutor.name}, secret);
-
-    // tutor.tokens.push({access, token}); // Gets pushed in the tutor object...
-    // tutor.save(); // Then it gets saved. Might want to change that!
 
     return token;
 }
