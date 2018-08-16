@@ -45,6 +45,8 @@ function tutorsVue(tutor){
         ratingComment: "",
         reviewPosted: true,
         ratingError: false,
+        reviewerCode: "",
+        reviewerCodeError: false,
         commentError: false,
       },
       methods: {
@@ -71,6 +73,7 @@ function tutorsVue(tutor){
         },
         postReview: function(e){
           e.preventDefault();
+          console.log(this.reviewerCode);
           
           this.ratingError = this.rating === null;
           this.commentError = this.ratingComment.length > 200;
@@ -85,19 +88,23 @@ function tutorsVue(tutor){
                 body: JSON.stringify({ 
                   reviewer : this.reviewer,
                   rating: this.rating, 
-                  text: this.ratingComment
+                  text: this.ratingComment,
+                  reviewerCode: this.reviewerCode
                 }) 
             };
+            console.log(config);
             fetch(`/tutors${pathName}/reviews`, config).then(checkStatus)
             .then(response => { // Runs when all inputs are good
                 console.log(response);
+                document.location.reload();
             }).catch(response => { // Runs when there's an invalid input
               response.then(e => {
                 console.log(JSON.parse(e));
+                this.reviewerCodeError = true;
               })
             });
             
-            document.location.reload();
+           
 
             
              

@@ -140,7 +140,8 @@
                         <div class="form-group" >
                           <input type="text" placeholder="Enter Your Name (Optional)" v-model="reviewer" class="form-control" id="name">
                           
-                          
+                          <input type="text" placeholder="Enter Code (Provided by Tutor)" v-model="reviewerCode" v-bind:style="reviewerCodeError ? 'border: 1px solid red' : ''" class="form-control mt-3">
+                          <p v-show="reviewerCodeError" style="color: red; text-align: center;">Wrong Code</p>
                         </div>
                         
                         <div class="form-group">
