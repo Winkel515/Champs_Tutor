@@ -26,7 +26,9 @@ const app = new Vue({
       priceError: false,
       subjects: [],
       subjectInput: "",
-      subjectsError: false
+      subjectsError: false,
+      confirmPassword: "",
+      passwordMatchError: false
     },
     methods: {
       submitForm: function (e) {
@@ -38,8 +40,9 @@ const app = new Vue({
         this.descriptionError = this.description.length > 250;
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
+        this.passwordMatchError = this.password != this.confirmPassword;
         
-        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
+        var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
 
         e.preventDefault();
         // Checks for error before actually making the POST request
