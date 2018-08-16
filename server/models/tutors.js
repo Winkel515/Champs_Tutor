@@ -38,7 +38,7 @@ var TutorSchema = new mongoose.Schema({
     },
     description: { // Tutor can make a short description of themselves which will be visible on the main page
         type: String,
-        maxlength: 250,
+        maxlength: 500,
         required: true,
         trim: true
     },
@@ -65,7 +65,6 @@ var TutorSchema = new mongoose.Schema({
     reviewerCode: {
         type: String,
         required: true,
-        default: "hi"
     }
 })
 

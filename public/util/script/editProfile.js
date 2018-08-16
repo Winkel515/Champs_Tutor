@@ -83,7 +83,7 @@ function tutorInfo(tutor){
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
         this.passwordError = this.password.length < 8 && this.oldPassword.length !== 0;
-        this.descriptionError = this.description.length > 250;
+        this.descriptionError = this.description.length > 500;
         this.priceError = this.price === "";
         this.oldPasswordIncorrect = false;
         // this.subjectsError = this.subjects.length === 0; // Set up later
@@ -142,7 +142,7 @@ function tutorInfo(tutor){
     },
     computed: {
       descRemaining: function() {
-        var remaining = 250 - this.description.length;
+        var remaining = 500 - this.description.length;
           if(remaining < 0)
             return 0
           else 
