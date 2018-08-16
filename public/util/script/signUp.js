@@ -37,7 +37,7 @@ const app = new Vue({
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
         this.passwordError = this.password.length < 8;
-        this.descriptionError = this.description.length > 250;
+        this.descriptionError = this.description.length > 500;
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
         this.passwordMatchError = this.password != this.confirmPassword;
@@ -91,7 +91,7 @@ const app = new Vue({
     },
     computed: {
       descRemaining: function() {
-        var remaining = 250 - this.description.length;
+        var remaining = 500 - this.description.length;
           if(remaining < 0)
             return "Exceeded character limit"
           else 

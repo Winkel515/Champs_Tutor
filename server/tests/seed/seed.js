@@ -74,6 +74,10 @@ const tutors = [
       },
 ];
 
+for (let tutor of tutors) {
+    tutor.reviewerCode = 'code';
+}
+
 const populateTutor = (done) => {
     Tutor.remove({}).then(() => {
         var savedTutors = [];

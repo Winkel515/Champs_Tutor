@@ -92,7 +92,7 @@ app.get('/tutors/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
-    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects']) // On sign-up, tutors will input email, name and password.
+    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode']) // On sign-up, tutors will input email, name and password.
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
@@ -109,7 +109,7 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor']; // Array to store properies that can be edited by the tutor
+    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor', 'reviewerCode']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){
@@ -171,7 +171,7 @@ app.post('/tutors/login', (req, res) => {
 });
 
 app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
-    var body = _.pick(req.body, ["reviewer", "rating", "text"]);
+    var body = _.pick(req.body, ["reviewer", "rating", "text", 'reviewerCode']);
     var tutorId = req.params.tutorId;
     body._id = ObjectID();
     var review = new Review(body);
@@ -192,6 +192,13 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
                 message: "Invalid Tutor ID"
             });
         }
+
+        if (body.reviewerCode !== tutor.reviewerCode) {
+            return Promise.reject({
+                message: "Incorrect reviewer code"
+            })
+        }
+
         var rating = review.rating;
         for(var i = 0; i < tutor.reviews.length; i++){
             rating += tutor.reviews[i].rating;

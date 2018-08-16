@@ -17,6 +17,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  height: 100vh
 }
 
 #form {
@@ -83,7 +84,7 @@ select {
 textarea {  
   margin-bottom: 0;  
   resize: none;
-  min-height: 80px;
+  min-height: 120px;
   margin-bottom: 15px;
 }
 
