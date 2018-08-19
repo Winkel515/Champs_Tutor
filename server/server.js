@@ -43,19 +43,8 @@ app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname + '/../public/signUp.html'));
 });
 
-app.get('/editProfile/:id', (req, res) => {
-    var id = req.params.id;
-
-    Tutor.findById(id).then(tutor => {
-        if(!tutor){
-            return Promise.reject();
-        }
-        else {
-            res.sendFile(path.join(__dirname + '/../public/editProfile.html'))
-        }
-    }).catch(e => {
-        res.send(`Could not find tutor ${id}`)
-    })
+app.get('/editProfile', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../public/editProfile.html'));
 })
 
 app.get('/:id', (req, res) => {
