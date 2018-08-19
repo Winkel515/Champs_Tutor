@@ -20,7 +20,7 @@ const port = process.env.PORT || 3000;
 const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
-const sharedProperties = 'name _id rating price subjects description reviews '; // Edit shared properties here
+const sharedProperties = 'name _id rating price subjects description '; // Edit shared properties here
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -205,7 +205,7 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
 
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'email';
+    const profileProperties = 'email reviews';
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {
