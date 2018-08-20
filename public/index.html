@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="style/style.css">
   </head>
   <body>
-    <div id="tutorList">
+    <div>
+      <div id="navbar">
       <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -23,13 +24,65 @@
             <div class="navbar-nav navbar-right">
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
-              <a class="nav-item nav-link text-right" v-show="isSignedIn" onclick="redirectEdit()">Edit Profile<span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
             </div>
           </div>
         </div>
         </nav> <!-- /NavBar -->
+        <!---================================== 
+    FORM MODAL
+    =====================================-->
+
+        <!-- Log Out modal -->
+            
+
+        <div class="modal fade bd-example-modal-sm" id="logOut" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Log Out of Tutor Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  <button type="button" v-on:click="logOut" class="btn text-center btn-dark">Log Out</button>
+                  </div>
+            </div>
+          </div>
+        </div>
+
+    <!-- Modal Sign In-->
+    <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="register form" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign In to Tutor Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Form -->
+            <p v-show="invalidCredentials" style="color: red">Your username or password is incorrect.</p>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" v-on:click="invalidCredentials = false;" v-model="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" v-on:click="invalidCredentials = false;" v-model="password" class="form-control" id="passwordInput">
+              </div>
+              <button type="button" v-on:click="signIn" class="btn  btn-dark">Sign In</button>
+            <!-- /Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
       <!-- JumboTron -->
+      <div id="tutorList">
     <div class="jumbotron" id="tinted-image"> <!-- inserted backgroung img-->
         
         <div class="container text-white text-sm-center pt-5">  
@@ -66,7 +119,7 @@
       <div class="container">
       <!-- <h2 id="tutors" class="display-4 text-center my-5 text-dark">Tutors</h2> -->
       
-      <div id="tutorList" class="row">
+      <div class="row">
         
           <div class="col-md-6 col-lg-4" v-for="tutor in tutors" 
           v-show="(tutor.subjects.indexOf(subject) > -1 
@@ -90,58 +143,8 @@
          
         </div>
     </div> <!--End of Tutor List -->
-
-   <!---================================== 
-    FORM MODAL
-    =====================================-->
-
-        <!-- Log Out modal -->
-            
-
-            <div class="modal fade bd-example-modal-sm" id="logOut" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Log Out of Tutor Account</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                      <button type="button" v-on:click="logOut" class="btn text-center btn-dark">Log Out</button>
-                      </div>
-                </div>
-              </div>
-            </div>
- 
-        <!-- Modal Sign In-->
-        <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="register form" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sign In to Tutor Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <!-- Form -->
-                <p v-show="invalidCredentials" style="color: red">Your username or password is incorrect.</p>
-                <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" v-on:click="invalidCredentials = false;" v-model="email" class="form-control" id="email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" v-on:click="invalidCredentials = false;" v-model="password" class="form-control" id="passwordInput">
-                  </div>
-                  <button type="button" v-on:click="signIn" class="btn  btn-dark">Sign In</button>
-                <!-- /Form -->
-              </div>
-            </div>
-          </div>
-        </div>
  </div>
+</div>
 
      <!-- Footer -->
      <footer class="py-5 bg-dark">
