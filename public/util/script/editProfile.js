@@ -1,4 +1,9 @@
-const pathName = jwt_decode(localStorage.getItem('token'))._id;
+try{
+  const pathName = jwt_decode(localStorage.getItem('token'))._id;
+} catch (e) {
+  localStorage.removeItem('token');
+  location.href="/";
+}
 document.addEventListener("DOMContentLoaded", getTutor());
 
 function getTutor(){ // Gets tutor from /tutors and sets it up for Vue
@@ -11,8 +16,9 @@ function getTutor(){ // Gets tutor from /tutors and sets it up for Vue
     response.text().then(tutor => {
       tutorInfo(JSON.parse(tutor).tutor);
     })
-  }).catch(response => {
-    tutorInfo(null)
+  }).catch(() => {
+    localStorage.removeItem('token');
+    location.href="/";
   })
 };
 // btw were using fetch and ajax requests in same file, is that good practice???
@@ -37,7 +43,9 @@ function tutorInfo(tutor){
         el: '#editProfile',
         data: {
             tutor,
+            name: tutor.name,
             nameError: false,
+            email: tutor.email,
             emailError: false,
             emailDuplicate : false,
             oldPassword: "",
@@ -45,43 +53,51 @@ function tutorInfo(tutor){
             oldPasswordIncorrect: false,
             password: "",
             passwordError: false,
+            description: tutor.description,
             descriptionError: false,
+            price: tutor.price,
             priceError: false,
+            subjects: tutor.subjects,
             subjectInput: "",
             subjectsError: false ,
             deletePassword: "",
-            deletePasswordError: false
+            deletePasswordError: false,
+            reviewerCode: tutor.reviewerCode,
+            reviewerCodeError: false
         }, 
         methods: {    
         submitChanges: function (e) { 
         if(this.password.trim() === "" && this.oldPassword.trim() === ""){
             var body = JSON.stringify({
-                name : this.tutor.name,
-                email : this.tutor.email,
-                description: this.tutor.description,
-                price: this.tutor.price,
-                subjects: this.tutor.subjects
+                name : this.name,
+                email : this.email,
+                description: this.description,
+                price: this.price,
+                subjects: this.subjects,
+                reviewerCode: this.reviewerCode
               }) 
         } else {
             var body = JSON.stringify({
-                name : this.tutor.name,
-                email : this.tutor.email,
-                description: this.tutor.description,
+                name : this.name,
+                email : this.email,
+                description: this.description,
                 oldPassword: this.oldPassword,
                 password: this.password,
-                price: this.tutor.price,
-                subjects: this.tutor.subjects
+                price: this.price,
+                subjects: this.subjects,
+                reviewerCode: this.reviewerCode
               }) 
         }
-        this.nameError = this.tutor.name.length === 0;
-        this.emailError = !this.validEmail(this.tutor.email);
+        this.nameError = this.name.trim().length === 0;
+        this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
-        this.passwordError = this.password.length < 8 && this.oldPassword.length !== 0;
-        this.descriptionError = this.tutor.description.length > 500;
-        this.priceError = this.tutor.price === "";
+        this.passwordError = this.password.trim().length < 8 && this.oldPassword.trim().length !== 0;
+        this.descriptionError = this.description.trim().length > 500;
+        this.priceError = this.price === "";
         this.oldPasswordIncorrect = false;
-        this.subjectsError = this.tutor.subjects.length === 0;
-        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);  
+        this.subjectsError = this.subjects.length === 0;
+        this.reviewerCodeError = this.reviewerCode.trim().length === 0;
+        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCodeError);  
         e.preventDefault();
         // Checks for error before actually making the POST request
         if(!signupError){
@@ -136,7 +152,7 @@ function tutorInfo(tutor){
     },
     computed: {
       descRemaining: function() {
-        var remaining = 500 - this.tutor.description.length;
+        var remaining = 500 - this.description.trim().length;
           if(remaining < 0)
             return 0
           else 

@@ -28,35 +28,39 @@ const app = new Vue({
       subjectInput: "",
       subjectsError: false,
       confirmPassword: "",
-      passwordMatchError: false
+      passwordMatchError: false,
+      reviewerCode: "",
+      reviewerCodeError: false
     },
     methods: {
       submitForm: function (e) {
          
-        this.nameError = this.name.length === 0;
+        this.nameError = this.name.trim().length === 0;
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
-        this.passwordError = this.password.length < 8;
-        this.descriptionError = this.description.length > 500;
+        this.passwordError = this.password.trim().length < 8;
+        this.descriptionError = this.description.trim().length > 500;
         this.priceError = this.price === null;
         this.subjectsError = this.subjects.length === 0;
         this.passwordMatchError = this.password != this.confirmPassword;
+        this.reviewerCodeError = this.reviewerCode.trim().length === 0;
         
         var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
 
         e.preventDefault();
-        // Checks for error before actually making the POST request
+        // Checks for errors before actually making the POST request
         if(!signupError){
           const config = {
               method: 'POST' ,
               headers: {'Content-type': 'application/json'},
               body: JSON.stringify({
-                name : this.name,
+                name : this.name.trim(),
                 email : this.email,
-                password : this.password,
-                description: this.description,
+                password : this.password.trim(),
+                description: this.description.trim(),
                 price: this.price,
-                subjects: this.subjects
+                subjects: this.subjects,
+                reviewerCode: this.reviewerCode.trim()
               }) 
           };
           fetch('/tutors/signup', config).then(checkStatus)

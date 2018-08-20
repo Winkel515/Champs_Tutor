@@ -20,7 +20,7 @@ const port = process.env.PORT || 3000;
 const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
-const sharedProperties = 'name _id rating price subjects description reviews '; // Edit shared properties here
+const sharedProperties = 'name _id rating price subjects description '; // Edit shared properties here
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -43,19 +43,8 @@ app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname + '/../public/signUp.html'));
 });
 
-app.get('/editProfile/:id', (req, res) => {
-    var id = req.params.id;
-
-    Tutor.findById(id).then(tutor => {
-        if(!tutor){
-            return Promise.reject();
-        }
-        else {
-            res.sendFile(path.join(__dirname + '/../public/editProfile.html'))
-        }
-    }).catch(e => {
-        res.send(`Could not find tutor ${id}`)
-    })
+app.get('/editProfile', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../public/editProfile.html'));
 })
 
 app.get('/:id', (req, res) => {
@@ -205,7 +194,7 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
 
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'email';
+    const profileProperties = 'email reviews';
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {
