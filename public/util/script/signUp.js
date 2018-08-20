@@ -63,20 +63,29 @@ const app = new Vue({
         e.preventDefault();
         // Checks for errors before actually making the POST request
         if(!signupError){
+          var formData = new FormData();
+          const data = JSON.stringify({
+            name : this.name.trim(),
+            email : this.email,
+            password : this.password.trim(),
+            description: this.description.trim(),
+            price: this.price,
+            subjects: this.subjects,
+            reviewerCode: this.reviewerCode.trim(),
+            facebook: this.facebook.trim(),
+            phone: phoneNumber
+          })
+          for(var key in data){
+            formData.append(key, data[key]);
+          }
+          // formData.append('profileImage', GET IMAGE FROM FORM);
           const config = {
               method: 'POST' ,
-              headers: {'Content-type': 'application/json'},
-              body: JSON.stringify({
-                name : this.name.trim(),
-                email : this.email,
-                password : this.password.trim(),
-                description: this.description.trim(),
-                price: this.price,
-                subjects: this.subjects,
-                reviewerCode: this.reviewerCode.trim(),
-                facebook: this.facebook.trim(),
-                phone: phoneNumber
-              }) 
+              headers: {
+                'Content-type': 'application/json',
+                'email': this.email.trim()
+              },
+              body: formData
           };
           fetch('/tutors/signup', config).then(checkStatus)
           .then(response => { // Runs when all inputs are good

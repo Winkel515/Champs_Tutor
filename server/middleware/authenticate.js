@@ -8,7 +8,7 @@ var authenticate = (req, res, next) => {
 
     Tutor.findByToken(token).then((tutor) => {
         if(!tutor){
-            console.log('No tutor found');
+            console.log('Authentication Error');
             return Promise.reject();
         }
 

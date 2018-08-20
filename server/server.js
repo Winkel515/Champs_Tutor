@@ -5,13 +5,14 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 const _ = require ('lodash');
 const path = require('path');
-const jwt = require('jsonwebtoken');
 
 const {Tutor} = require('./models/tutors');
 const {Review} = require('./models/reviews')
 const {mongoose} = require('./db/mongoose');
-const publicPath = path.join(__dirname, '../public/util');
+const publicPath = path.join(__dirname, '/../public/util');
 const {authenticate} = require('./middleware/authenticate')
+const { upload } = require('./middleware/upload');
+const {checkEmail} = require('./middleware/checkEmail');
 
 var app = express();
 const port = process.env.PORT || 3000;
@@ -20,7 +21,7 @@ const port = process.env.PORT || 3000;
 const errorJSON = (status, message) => {return {status, message}};
 
 //List of tutor properties shared in both MAIN and PROFILE page
-const sharedProperties = 'name _id rating price subjects description '; // Edit shared properties here
+const sharedProperties = 'name _id rating price subjects description profileImage '; // Edit shared properties here
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -59,8 +60,10 @@ app.get('/:id', (req, res) => {
 });
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
-app.post('/tutors/signup', (req, res) => {
+app.post('/tutors/signup', checkEmail, upload.single('profileImage'), (req, res) => {
+    console.log(req.file);
     var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode', 'phone', 'facebook']) // On sign-up, tutors will input email, name and password.
+    body.profileImage = req.file.path.replace('public\\util\\', '');
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
@@ -68,9 +71,6 @@ app.post('/tutors/signup', (req, res) => {
     }).then((token) => {
         res.status(201).header('x-auth', token).send(); // Sending back nothing in response body
     }).catch((e) => {
-        if(e.message === `E11000 duplicate key error collection: TutorMeTest.tutors index: email_1 dup key: { : "${body.email}" }`){
-            e.message = 'Email is already in use';
-        }
         res.status(400).send(errorJSON(400, e.message));
     })
 });

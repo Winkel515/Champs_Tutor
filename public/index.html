@@ -96,10 +96,10 @@
           <!-- Select the Subject -->
           <select v-on:change="filterSubject" class="custom-select custom-select-lg mb-3 input-group">
             <option selected>All Subjects</option>
-                <optgroup label="Mathematics">
+                <optgroup label="Mathematics" style="color: black;">
                   <option v-for="(item,index) in subjectList" v-if="index < 3">{{ item }}</option>
                 </optgroup> 
-                <optgroup label="Physics">
+                <optgroup label="Physics" style="color: black;">
                     <option v-for="item in subjectList.slice(3)">{{ item }}</option>
                 </optgroup>
               </select>
@@ -107,7 +107,7 @@
               <!-- Select the Price Range  -->
             <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3 input-group">
                     <option selected>All Prices</option>
-                    <option v-for="(price, index) in priceList" v-bind:value="index">{{ price + "$/h"}}</option>
+                    <option v-for="(price, index) in priceList" v-bind:value="index" style="color: black">{{ price + "$/h" }}</option>
 
                   </select>   
             </div>
@@ -128,14 +128,17 @@
           || price === 'All Prices')">
               <!-- DIV for the Tutors Cards -->
               <div class="card mb-3">
-                  <img class="card-img-top profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="Profile Pic">
+                  <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="Profile Pic">
                   <div class="card-body">
                     <div class="same-line">
                       <h4 class="card-title">{{tutor.name}}</h4>
                       <!-- span tags used to format the way the array of subjects is displayed. (comma + space) -->
-                      <h4 class="card-title ">
+                      <h4 v-if="tutor.price > 0" class="card-title ">
                         {{tutor.price + "$/h"}} 
                       </h4>
+                      <h4 class="card-title" v-else>
+                          FREE
+                        </h4>
                       </div>
                       <h5 class="card-subtitle mb-3 text-muted">
                       Subjects: <span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>

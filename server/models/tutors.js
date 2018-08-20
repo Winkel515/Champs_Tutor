@@ -89,6 +89,12 @@ var TutorSchema = new mongoose.Schema({
             message: "{VALUE} is not a valid facebook link"
         },
         default: ""
+    },
+    profileImage: {
+        type: String,
+        default: 'img/profile/Default.png',
+        require: true,
+        
     }
 })
 
