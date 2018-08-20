@@ -15,7 +15,7 @@ function getTutor(pathName){ // Gets tutor from /tutors and sets it up for Vue
       };
   };
 };
-// btw were using fetch and ajax requests in same file, is that good practice???
+
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
@@ -48,10 +48,13 @@ function tutorsVue(tutor){
         reviewerCode: "",
         reviewerCodeError: false,
         commentError: false,
+        isSignedIn: false,
+        invalidCredentials: false
       },
       methods: {
         signIn: function (e) {
           e.preventDefault();
+          this.invalidCredentials = false;
           
             const config = {
                 method: 'POST' ,
@@ -65,15 +68,17 @@ function tutorsVue(tutor){
             .then(response => { // Runs when all inputs are good
               localStorage.setItem('token', response.headers.get('x-auth'));
               console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
+              this.isSignedIn = true;
+              $('#signIn').modal('hide');
             }).catch(response => { // Runs when there's an invalid input
               response.then(e => {
                 console.log(JSON.parse(e));
+                this.invalidCredentials = true;
               })
             });
         },
         postReview: function(e){
           e.preventDefault();
-          console.log(this.reviewerCode);
           
           this.ratingError = this.rating === null;
           this.commentError = this.ratingComment.length > 200;
@@ -92,7 +97,7 @@ function tutorsVue(tutor){
                   reviewerCode: this.reviewerCode
                 }) 
             };
-            console.log(config);
+            
             fetch(`/tutors${pathName}/reviews`, config).then(checkStatus)
             .then(response => { // Runs when all inputs are good
                 console.log(response);
@@ -102,15 +107,9 @@ function tutorsVue(tutor){
                 console.log(JSON.parse(e));
                 this.reviewerCodeError = true;
               })
-            });
-            
-           
-
-            
-             
+            });   
           }
         },
-
         formatDate: function(date){        
           var day = date.getDate();
           var month = date.getMonth()+1;
@@ -125,7 +124,14 @@ function tutorsVue(tutor){
           }
         
           return day + '/' + month + '/' + year;
-        }
+        },
+        beforeCreate() { // Called right before the mounting begins: the render function is about to be called for the first time.this checks local storage
+          if (localStorage.getItem('token')) {
+            this.isSignedIn = true;
+          }  
+          console.log(localStorage.getItem('token'));
+      
+      },
       },
       
       computed: {

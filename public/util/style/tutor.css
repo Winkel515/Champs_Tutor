@@ -5,6 +5,40 @@ fieldset, label {
   padding: 0; 
 }
 
+.star-color {
+  color: rgb(250, 191, 64);
+  font-size: 1.5rem;
+}
+
+.card-header {
+  /* background-color: #3e4444;
+  color: white; */
+}
+.icon {
+  color:  #3e4444;
+  font-size: 1.25rem;
+ 
+}
+
+.profilePic {
+  box-shadow:0 0 10px rgba(0,0,0,0.63);
+  border-radius: 2.5%;
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
+.content {
+  width: auto;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.content img {
+  margin-right: 15px;
+  float: left;
+}
+
 /****** Style Star Rating Widget *****/
 
 .rating { 
@@ -69,10 +103,23 @@ tutor profile page
 
 
   
-  @media (min-width: 992px) {
+  @media (max-width: 992px) {
     body {
       padding-top: 56px;
     }
+    .content {
+      padding-bottom: 0px;
+    }
+    
+    .content img {
+      margin-right: 50%;
+      float: none;
+    }
+    .center {
+      margin: auto;
+     
+      text-align: center;
+  }
     
   }
 
@@ -84,6 +131,7 @@ tutor profile page
       margin-top: 2px;
       padding-bottom: 0;
     }
+    
     
   }
 
