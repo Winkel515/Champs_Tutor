@@ -129,6 +129,15 @@ select {
  
 }
 
+#profilePic {
+  height: 150px;
+  width: 150px !important;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid white;
+}
+
 .subjectButton {
   text-align: left;
   background: rgba(255,255,255,0.1);
