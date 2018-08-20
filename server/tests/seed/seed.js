@@ -5,7 +5,6 @@ const {Tutor} = require('./../../models/tutors');
 const {Review} = require('./../../models/reviews')
 
 const userOneId = new ObjectID('5b660ec56cd13a2b98cebeb0');
-const userTwoId = new ObjectID();
 
 const reviewId = [];
 const reviewers = ['John', 'Sam', 'Stephanie']
@@ -34,7 +33,9 @@ const tutors = [
         _id: userOneId,
         subjects: ['Calculus I', 'Waves and Optics'],
         reviews: reviewId,
-        rating: danielRatingAvrg
+        rating: danielRatingAvrg,
+        phone: "5141234567",
+        facebook: "https://www.facebook.com/daniel.bucci.125"
       },
       {
         name: 'Winkel Yin', 

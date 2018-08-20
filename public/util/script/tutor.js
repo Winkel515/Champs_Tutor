@@ -37,7 +37,7 @@ function tutorsVue(tutor){
   const app = new Vue({
       el: '#tutorProfile',
       data: {
-        tutor: tutor,
+        tutor,
         email: "",
         password: "",
         reviewer: "",
@@ -49,7 +49,7 @@ function tutorsVue(tutor){
         reviewerCodeError: false,
         commentError: false,
         isSignedIn: false,
-        invalidCredentials: false
+        invalidCredentials: false,
       },
       methods: {
         signIn: function (e) {
@@ -141,6 +141,9 @@ function tutorsVue(tutor){
             return "Exceeded character limit"
           else 
             return remaining;
+        },
+        formattedPhone: function(){
+          return `(${this.tutor.phone.substring(0,3)}) ${tutor.phone.substring(3,6)}-${tutor.phone.substring(6,10)}`
         }
       }
   });

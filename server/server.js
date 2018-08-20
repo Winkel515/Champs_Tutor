@@ -60,7 +60,7 @@ app.get('/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', (req, res) => {
-    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode']) // On sign-up, tutors will input email, name and password.
+    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode', 'phone', 'facebook']) // On sign-up, tutors will input email, name and password.
     var tutor = new Tutor(body);
 
     tutor.save().then(() => {
@@ -77,13 +77,13 @@ app.post('/tutors/signup', (req, res) => {
 
 // Route to get personal information for tutor profile
 app.get('/tutors/me', authenticate, (req, res) => {
-    var tutor = _.pick(req.tutor, ['price', 'showTutor', 'subjects', 'rating', '_id', 'name', 'email', 'description', 'reviewerCode']);
+    var tutor = _.pick(req.tutor, ['price', 'showTutor', 'subjects', 'rating', '_id', 'name', 'email', 'description', 'reviewerCode', 'facebook', 'phone']);
     res.send({tutor});
 });
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor', 'reviewerCode']; // Array to store properies that can be edited by the tutor
+    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor', 'reviewerCode', 'phone', 'facebook']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){
@@ -194,7 +194,7 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
 
 // Process GET /tutors/:id request and responds with a single tutor's name and _id
 app.get('/tutors/:id', (req, res) => {
-    const profileProperties = 'email reviews';
+    const profileProperties = 'email reviews facebook phone';
     var id = req.params.id;
 
     if(!ObjectID.isValid(id)) {

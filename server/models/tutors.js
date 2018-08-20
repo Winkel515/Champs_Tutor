@@ -65,6 +65,30 @@ var TutorSchema = new mongoose.Schema({
     reviewerCode: {
         type: String,
         required: true,
+    },
+    phone: {
+        type: String,
+        validate: {
+            validator: function(number) {
+                const areaCode = number.substring(0,3);
+                const validCode = (areaCode === '514'|| areaCode === '438' || areaCode === '450');
+                const validLength = number.length === 10;
+                return validCode && validLength || number === "";
+            },
+            message: '{VALUE} is not a valid phone number'
+        },
+        default: ""
+    },
+    facebook: {
+        type: String,
+        validate: {
+            validator: function(link){
+                const index = link.indexOf("facebook.com/");
+                return index !== -1 || link === "";
+            },
+            message: "{VALUE} is not a valid facebook link"
+        },
+        default: ""
     }
 })
 

@@ -30,7 +30,11 @@ const app = new Vue({
       confirmPassword: "",
       passwordMatchError: false,
       reviewerCode: "",
-      reviewerCodeError: false
+      reviewerCodeError: false,
+      facebook: "",
+      facebookError: false,
+      phone: "",
+      phoneError: false
     },
     methods: {
       submitForm: function (e) {
@@ -44,8 +48,16 @@ const app = new Vue({
         this.subjectsError = this.subjects.length === 0;
         this.passwordMatchError = this.password != this.confirmPassword;
         this.reviewerCodeError = this.reviewerCode.trim().length === 0;
-        
-        var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError);
+        this.facebookError = this.facebook.indexOf("facebook.com/") === -1;
+        this.phoneError = validateNumber(this.phone);
+        function validateNumber(number) {
+          const areaCode = number.substring(0,3);
+          const validCode = (areaCode === '514'|| areaCode === '438' || areaCode === '450');
+          const validLength = number.length === 10;
+          return validCode && validLength;
+        }
+
+        var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCode || this.facebookError || this.phoneError);
 
         e.preventDefault();
         // Checks for errors before actually making the POST request
@@ -76,7 +88,6 @@ const app = new Vue({
               }
             })
           });
-          
         }
       },
       validEmail: function (email) {
