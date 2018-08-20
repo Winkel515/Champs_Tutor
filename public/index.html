@@ -77,12 +77,17 @@
               <div class="card mb-3">
                   <img class="card-img-top profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="Profile Pic">
                   <div class="card-body">
-                      <h5 class="card-title">{{tutor.name}}</h5>
+                    <div class="same-line">
+                      <h4 class="card-title">{{tutor.name}}</h4>
                       <!-- span tags used to format the way the array of subjects is displayed. (comma + space) -->
-                      <h6 class="card-subtitle mb-1 text-muted">
-                        {{tutor.price + "$/h for "}}<span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
-                      </h6>
-                      <p class="card-text">{{tutor.description}}</p>
+                      <h4 class="card-title ">
+                        {{tutor.price + "$/h"}} 
+                      </h4>
+                      </div>
+                      <h5 class="card-subtitle mb-3 text-muted">
+                      Subjects: <span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
+                        </h5>
+     
                       <a v-bind:href="'/' + tutor._id"><button type="button" class="btn btn-dark">View Profile</button></a>
                   </div>
                 </div>

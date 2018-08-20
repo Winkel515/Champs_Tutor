@@ -41,11 +41,14 @@
     <div class="container">
 
       
-    <!-- Main Info Card -->
+    
         <div class="mx-auto">
-          <div class="card-deck i-am-centered">
-
-          <div class="card border-secondary col-lg-5 mt-4">
+          <div class="i-am-centered">
+          <div class="row">
+          
+            <!-- MAIN INFO -->
+            <div class="col-md-5">
+          <div class="card border-secondary  mt-4">
             <div class="content center">
             <img class="card-img-top profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="">
             <h3 class="card-title mt-3">{{tutor.name}}</h3>
@@ -56,13 +59,17 @@
               <h4 class="center mb-3">
                    Subjects: <span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
               </h4>
+              <div class="center">
               <i v-for='n in Math.trunc(Math.round(tutor.rating*2)/2)' class="fas fa-star star-color"></i><i v-if='Math.round(tutor.rating*2)/2 % 1 === 0.5' class="fas fa-star-half-alt star-color"></i><i v-for='n in 5-Math.round(Math.round(tutor.rating*2)/2)' class="far fa-star star-color"></i>
               <span v-if="tutor.reviews.length > 0">{{tutor.rating.toFixed(1)}} stars</span>
               <span v-else>(No reviews)</span>
+              </div>
               
             </div>
           </div>
+          </div>
           <!-- SECONDARY INFO CARD -->
+          <div class="col-md-7">
           <div class="card border-secondary mt-4 " >
               <ul class="list-group list-group-flush">
                   <div class="card-header">Description</div>
@@ -70,12 +77,13 @@
                 <div class="card-header">Contact Info</div>
                     <li class="list-group-item"><i class="fa fa-envelope icon"> </i> {{ tutor.email }}</li>
                     <li class="list-group-item" v-if="tutor.phone !== ''"> <i class="fa fa-mobile-alt icon">  </i> <a v-bind:href="'tel:+1' + tutor.phone"> {{formattedPhone}} </a> </li>
-                    <li class="list-group-item" v-if="tutor.facebook !== ''"> <i class="fab fa-facebook-f"></i> <a target="blank" v-bind:href="tutor.facebook"> {{tutor.facebook}}</a></li>
+                    <li class="list-group-item" v-if="tutor.facebook !== ''"> <i class="fab fa-facebook-f"></i> <a target="blank" v-bind:href="tutor.facebook"> Click Here</a></li>
                 </div>
                </ul>
-          </div> <!-- /row -->
+          </div>
+        </div> <!-- /row -->
           <!-- /.card -->
-
+        </div>
           <div class="card card-outline-secondary border-secondary my-4 pb-3 mx-3">
             <div class="card-header text-center font-weight-bold">
               Tutor Reviews
@@ -96,7 +104,7 @@
           <!-- /.card -->
 
         </div>
-        <!-- /.col-lg-6 -->
+        
 
         <!-- Modal Sign In-->
         <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="register form" aria-hidden="true">
