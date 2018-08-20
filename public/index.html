@@ -129,19 +129,6 @@
           || price === 'All Prices')">
               <!-- DIV for the Tutors Cards -->
               <div class="card mb-3">
-<<<<<<< HEAD
-                  <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="Profile Pic">
-                  <div class="card-body">
-                    <div class="same-line">
-                      <h4 class="card-title">{{tutor.name}}</h4>
-                      <!-- span tags used to format the way the array of subjects is displayed. (comma + space) -->
-                      <h4 v-if="tutor.price > 0" class="card-title ">
-                        {{tutor.price + "$/h"}} 
-                      </h4>
-                      <h4 class="card-title" v-else>
-                          FREE
-                        </h4>
-=======
                   <div class="card border-secondary">
                       <div class="content center">
                       <img class="card-img-top mb-3 profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="">
@@ -164,7 +151,6 @@
                             <a v-bind:href="'/' + tutor._id"><button type="button" class="btn mt-3 center-block btn-dark">View Profile</button></a>
                         </div>
                         
->>>>>>> 7fca745b77d474de49d1e0815dd9c6f6fd80cc79
                       </div>
                     </div>
           </div>
