@@ -122,17 +122,19 @@
       
       <div class="row">
         
-          <div class="col-md-6 col-lg-4 " v-for="tutor in tutors" 
+          <div class="col-sm-6 col-lg-4 " v-for="tutor in tutors" 
           v-show="(tutor.subjects.indexOf(subject) > -1 
           || subject === 'All Subjects')
           && (price >= tutor.price
           || price === 'All Prices')">
               <!-- DIV for the Tutors Cards -->
               <div class="card mb-3">
-                  <div class="card border-secondary ">
+                  <div class="card border-secondary">
                       <div class="content center">
-                      <img class="card-img-top profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="">
-                      <h3 class="card-title mt-3">{{tutor.name}}</h3>
+                      <img class="card-img-top mb-3 profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="">
+                    </div>
+                    <div class="content center mt-0"> 
+                      <h3 class="card-title">{{tutor.name}}</h3>
                       <h4> {{tutor.price + "$/h"}}</h4>
                     </div>
                       <div class="card-body pt-0">
