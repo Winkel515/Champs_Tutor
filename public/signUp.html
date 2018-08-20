@@ -47,7 +47,7 @@
                                 <input type="password" placeholder="Confirm password" @click="passwordMatchError=false" v-model="confirmPassword" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''">
                                 <i class="fa fa-lock icon" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
-                            <p v-show="passwordMatchError" class="errorMessage">Passwords do not match</p>
+                        <p v-show="passwordMatchError" class="errorMessage">Passwords do not match</p>
                       
                         <!-- DESCRIPTION INPUT -->
                         <div class="input-container">                      
@@ -77,6 +77,23 @@
                             <i class="fa fa-lock icon" v-bind:style="reviewerCodeError ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
                         <p v-show="reviewerCodeError" class="errorMessage">Please enter a review code</p>
+
+                        <!-- Optional Inputs -->
+                        <label>Optional Information:</label>
+
+                        <!-- Phone Number Input -->
+                        <div class="input-container">                      
+                            <input type="text" placeholder="e.g. 514 123 4567" @click="phoneError=false" v-model="phone" v-bind:style="phoneError ? 'border: 2px solid #d9534f' : ''">
+                            <i class="fa fa-phone icon" v-bind:style="phoneError ? 'border: 2px solid #d9534f' : ''"></i>  
+                        </div>
+                        <p v-show="phoneError" class="errorMessage">Please enter a valid phone number</p>
+
+                        <!-- Facebook Link Input -->
+                        <div class="input-container">                      
+                            <input type="text" placeholder="e.g. www.facebook.com/name" @click="facebookError=false" v-model="facebook" v-bind:style="facebookError ? 'border: 2px solid #d9534f' : ''">
+                            <i class="fa fa-facebook icon" v-bind:style="facebookError ? 'border: 2px solid #d9534f' : ''"></i>  
+                        </div>
+                        <p v-show="facebookError" class="errorMessage">Please enter a valid facebook profile url</p>
                         
                         <!-- Create Account Button -->
                         <div class="text-center">

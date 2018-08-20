@@ -53,6 +53,8 @@ function tutorInfo(tutor){
             oldPasswordIncorrect: false,
             password: "",
             passwordError: false,
+            confirmPassword: "",
+            passwordMatchError: false,
             description: tutor.description,
             descriptionError: false,
             price: tutor.price,
@@ -63,10 +65,15 @@ function tutorInfo(tutor){
             deletePassword: "",
             deletePasswordError: false,
             reviewerCode: tutor.reviewerCode,
-            reviewerCodeError: false
+            reviewerCodeError: false,
+            phone: tutor.phone,
+            phoneError: false,
+            facebook: tutor.facebook,
+            facebookError: false
         }, 
         methods: {    
         submitChanges: function (e) { 
+        const phoneNumber = this.phone.replace(/\s+/g, '');
         if(this.password.trim() === "" && this.oldPassword.trim() === ""){
             var body = JSON.stringify({
                 name : this.name,
@@ -74,7 +81,9 @@ function tutorInfo(tutor){
                 description: this.description,
                 price: this.price,
                 subjects: this.subjects,
-                reviewerCode: this.reviewerCode
+                reviewerCode: this.reviewerCode,
+                phone: phoneNumber,
+                facebook: this.facebook
               }) 
         } else {
             var body = JSON.stringify({
@@ -85,20 +94,32 @@ function tutorInfo(tutor){
                 password: this.password,
                 price: this.price,
                 subjects: this.subjects,
-                reviewerCode: this.reviewerCode
+                reviewerCode: this.reviewerCode,
+                phone: phoneNumber,
+                facebook: this.facebook
               }) 
         }
         this.nameError = this.name.trim().length === 0;
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
         this.passwordError = this.password.trim().length < 8 && this.oldPassword.trim().length !== 0;
+        this.passwordMatchError = this.password != this.confirmPassword;
         this.descriptionError = this.description.trim().length > 500;
         this.priceError = this.price === "";
         this.oldPasswordIncorrect = false;
         this.subjectsError = this.subjects.length === 0;
         this.reviewerCodeError = this.reviewerCode.trim().length === 0;
-        var signupError = (this.nameError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCodeError);  
+        this.facebookError = this.facebook.indexOf("facebook.com/") === -1 && this.facebook !== '';
+        this.phoneError = !validateNumber(phoneNumber);
+        function validateNumber(number) {
+          const areaCode = number.substring(0,3);
+          const validCode = (areaCode === '514'|| areaCode === '438' || areaCode === '450');
+          const validLength = number.length === 10;
+          return (validCode && validLength) || number.trim() === '';
+        }
+        const signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCodeError || this.facebookError || this.phoneError);
         e.preventDefault();
+        console.log('signupError:', signupError);
         // Checks for error before actually making the POST request
         if(!signupError){
           const config = {

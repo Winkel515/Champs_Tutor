@@ -22,7 +22,7 @@
         <button class="deleteButton btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash "></i></button> 
       <div  id="form">
           <h1>Edit Your Tutor Profile</h1>
-            
+            <label>Change your basic information:</label>
           <!-- Name INPUT -->
             <div class="input-container">        
               
@@ -57,13 +57,35 @@
                 <i class="fa fa-flask icon"></i>  
             </div>
             
+            <!-- Optional Inputs -->
+            <label>Change your contact information:</label>
 
+            <!-- Phone Number Input -->
+            <div class="input-container">                      
+                <input type="text" placeholder="e.g. 514 123 4567" @click="phoneError=false" v-model="phone" v-bind:style="phoneError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-phone icon" v-bind:style="phoneError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="phoneError" class="errorMessage">Please enter a valid phone number</p>
+
+            <!-- Facebook Link Input -->
+            <div class="input-container">                      
+                <input type="text" placeholder="e.g. www.facebook.com/name" @click="facebookError=false" v-model="facebook" v-bind:style="facebookError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-facebook icon" v-bind:style="facebookError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="facebookError" class="errorMessage">Please enter a valid facebook profile url</p>
+            
+            <!-- Reviewer Code Input -->
+            <label>Change your review code</label>
+            <div class="input-container">                      
+                <input type="text" placeholder="Enter a review code" @click="reviewerCodeError=false" v-model="reviewerCode" v-bind:style="reviewerCodeError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="reviewerCodeError ? 'border: 2px solid #d9534f' : ''"></i>  
+            </div>
+            <p v-show="reviewerCodeError" class="errorMessage">Please enter a review code</p>
             
             <!-- OLD PASSWORD INPUT -->
-            <br />
             <label>Change your password:</label>
             <div class="input-container">                      
-                <input type="password" placeholder="Enter Old Password" @click="oldPasswordIncorrectError=false" v-model="oldPassword" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''">
+                <input type="password" placeholder="Enter Old Password" @click="oldPasswordIncorrect=false" v-model="oldPassword" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''">
                 <i class="fa fa-lock icon" v-bind:style="oldPasswordIncorrect ? 'border: 2px solid #d9534f' : ''"></i>  
             </div>
             <p v-show="oldPasswordIncorrect" class="errorMessage">Incorrect Password</p>
@@ -75,13 +97,12 @@
             </div>
             <p v-show="passwordError" class="errorMessage">Invalid Password (Must have at least 8 characters)</p>
 
-            <!-- Reviewer Code Input -->
-            <label>Change your review code</label>
+            <!-- CONFIRM PASSWORD INPUT -->
             <div class="input-container">                      
-                <input type="text" placeholder="Enter a review code" @click="reviewerCodeError=false" v-model="reviewerCode" v-bind:style="reviewerCodeError ? 'border: 2px solid #d9534f' : ''">
-                <i class="fa fa-lock icon" v-bind:style="reviewerCodeError ? 'border: 2px solid #d9534f' : ''"></i>  
+                <input type="password" placeholder="Confirm password" @click="passwordMatchError=false" v-model="confirmPassword" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''">
+                <i class="fa fa-lock icon" v-bind:style="passwordMatchError ? 'border: 2px solid #d9534f' : ''"></i>  
             </div>
-            <p v-show="reviewerCodeError" class="errorMessage">Please enter a review code</p>
+            <p v-show="passwordMatchError" class="errorMessage">Passwords do not match</p>
 
             <!-- Submit Changes Button -->
             <div class="text-center">

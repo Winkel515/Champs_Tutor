@@ -38,7 +38,8 @@ const app = new Vue({
     },
     methods: {
       submitForm: function (e) {
-         
+        const phoneNumber = this.phone.replace(/\s+/g, '');
+
         this.nameError = this.name.trim().length === 0;
         this.emailError = !this.validEmail(this.email);
         this.emailDuplicate = false;
@@ -48,16 +49,16 @@ const app = new Vue({
         this.subjectsError = this.subjects.length === 0;
         this.passwordMatchError = this.password != this.confirmPassword;
         this.reviewerCodeError = this.reviewerCode.trim().length === 0;
-        this.facebookError = this.facebook.indexOf("facebook.com/") === -1;
-        this.phoneError = validateNumber(this.phone);
+        this.facebookError = this.facebook.indexOf("facebook.com/") === -1 && this.facebook !== '';
+        this.phoneError = !validateNumber(phoneNumber);
         function validateNumber(number) {
           const areaCode = number.substring(0,3);
           const validCode = (areaCode === '514'|| areaCode === '438' || areaCode === '450');
           const validLength = number.length === 10;
-          return validCode && validLength;
+          return (validCode && validLength) || number.trim() === '';
         }
 
-        var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCode || this.facebookError || this.phoneError);
+        var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCodeError || this.facebookError || this.phoneError);
 
         e.preventDefault();
         // Checks for errors before actually making the POST request
@@ -72,7 +73,9 @@ const app = new Vue({
                 description: this.description.trim(),
                 price: this.price,
                 subjects: this.subjects,
-                reviewerCode: this.reviewerCode.trim()
+                reviewerCode: this.reviewerCode.trim(),
+                facebook: this.facebook.trim(),
+                phone: phoneNumber
               }) 
           };
           fetch('/tutors/signup', config).then(checkStatus)
