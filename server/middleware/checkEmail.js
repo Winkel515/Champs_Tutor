@@ -11,7 +11,7 @@ var checkEmail = (req, res, next) => {
         }
         next();
     }).catch(() => {
-        res.status(401).send(errorJSON(401, 'Email is already in use'));
+        res.status(400).send(errorJSON(400, 'Email is already in use'));
     })
 }
 

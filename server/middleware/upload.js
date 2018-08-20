@@ -5,11 +5,13 @@ const storage = multer.diskStorage({
         callback(null, 'public/util/img/profile')
     },
     filename: function (req, file, callback){
-        callback(null, `${new Date().toLocaleDateString()} ${file.originalname}`);
+        if(file.originalname !== "Default.png") {
+            file.originalname = `${new Date().toLocaleDateString()} ${(Math.random()*100).toFixed(0)} ${file.originalname}`
+        }
+        callback(null, file.originalname);
     }
 })
 const fileFilter = (req, file, callback) => {
-    console.log(req.params);
     if(file.mimetype === "image/jpeg"|| file.mimetype === "image/png"){
         callback(null, true);
     } else {

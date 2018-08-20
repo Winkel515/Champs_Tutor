@@ -34,7 +34,8 @@ const app = new Vue({
       facebook: "",
       facebookError: false,
       phone: "",
-      phoneError: false
+      phoneError: false,
+      image: ''
     },
     methods: {
       submitForm: function (e) {
@@ -64,7 +65,7 @@ const app = new Vue({
         // Checks for errors before actually making the POST request
         if(!signupError){
           var formData = new FormData();
-          const data = JSON.stringify({
+          const data = {
             name : this.name.trim(),
             email : this.email,
             password : this.password.trim(),
@@ -74,15 +75,15 @@ const app = new Vue({
             reviewerCode: this.reviewerCode.trim(),
             facebook: this.facebook.trim(),
             phone: phoneNumber
-          })
+          }
           for(var key in data){
+            console.log(key, data[key]);
             formData.append(key, data[key]);
           }
-          // formData.append('profileImage', GET IMAGE FROM FORM);
+          formData.append('profileImage', $('input[type=file]')[0].files[0]);
           const config = {
               method: 'POST' ,
               headers: {
-                'Content-type': 'application/json',
                 'email': this.email.trim()
               },
               body: formData
@@ -94,6 +95,7 @@ const app = new Vue({
             location.href = '/';
           }).catch(response => { // Runs when there's an invalid input
             response.then(e => {
+              console.log(e);
               console.log(JSON.parse(e));
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
                     this.emailDuplicate = true; // Boolean used to show error message on signUp page
@@ -114,7 +116,23 @@ const app = new Vue({
       },
       deleteSubject: function(index){
         this.subjects.splice(index, 1);
-      }
+      },
+      onFileChange(e) {
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createImage(files[0]);
+      },
+      createImage(file) {
+        var image = new Image();
+        var reader = new FileReader();
+        var vm = this;
+  
+        reader.onload = (e) => {
+          vm.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      },
     },
     computed: {
       descRemaining: function() {
