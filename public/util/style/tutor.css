@@ -8,11 +8,11 @@ body {
   display: flex;
   flex-direction: column;
 }
-#tutorProfile {
-  flex: 1 0 auto;
+#content {
+  flex: 30;
 }
-.footer {
-  flex-shrink: 0;
+footer {
+  flex: 1;
 }
 /* END OF RESPONSIVE FOOTER CODE */
 
