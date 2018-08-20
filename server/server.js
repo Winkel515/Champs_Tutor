@@ -29,7 +29,7 @@ app.use(express.static(publicPath));
 // Process GET /tutors request and responds with an array of tutors objects
 app.get('/tutors', (req, res) => {
 
-    Tutor.find({showTutor: true}, `${sharedProperties}`).then((tutors) => {
+    Tutor.find({showTutor: true}, `${sharedProperties}`+ "reviews").then((tutors) => {
         res.json({tutors});
     }).catch((e) => {
         res.status(404).json(errorJSON(404, 'Could not connect to the database'));

@@ -7,6 +7,7 @@
     <title>Tutor Me</title>
     <link rel="shortcut icon" href="img/logo.png" />
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="style/bootstrap.min.css">
     <link rel="stylesheet" href="style/style.css">
   </head>
@@ -121,13 +122,14 @@
       
       <div class="row">
         
-          <div class="col-md-6 col-lg-4" v-for="tutor in tutors" 
+          <div class="col-sm-6 col-lg-4 " v-for="tutor in tutors" 
           v-show="(tutor.subjects.indexOf(subject) > -1 
           || subject === 'All Subjects')
           && (price >= tutor.price
           || price === 'All Prices')">
               <!-- DIV for the Tutors Cards -->
               <div class="card mb-3">
+<<<<<<< HEAD
                   <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="Profile Pic">
                   <div class="card-body">
                     <div class="same-line">
@@ -139,14 +141,32 @@
                       <h4 class="card-title" v-else>
                           FREE
                         </h4>
+=======
+                  <div class="card border-secondary">
+                      <div class="content center">
+                      <img class="card-img-top mb-3 profilePic" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" alt="">
+                    </div>
+                    <div class="content center mt-0"> 
+                      <h3 class="card-title">{{tutor.name}}</h3>
+                      <h4> {{tutor.price + "$/h"}}</h4>
+                    </div>
+                      <div class="card-body pt-0">
+                        <!-- <h3 class="card-title">{{tutor.name}}</h3> -->
+                        <h4 class="center mb-3">
+                              <span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
+                        </h4>
+                        <div class="center">
+                        <i v-for='n in Math.trunc(Math.round(tutor.rating*2)/2)' class="fas fa-star star-color"></i><i v-if='Math.round(tutor.rating*2)/2 % 1 === 0.5' class="fas fa-star-half-alt star-color"></i><i v-for='n in 5-Math.round(Math.round(tutor.rating*2)/2)' class="far fa-star star-color"></i>
+                        <span v-if="tutor.reviews.length > 0">{{tutor.rating.toFixed(1)}} stars</span>
+                        <span v-else>(No reviews)</span>
+                        </div>
+                        <div class="text-center"> 
+                            <a v-bind:href="'/' + tutor._id"><button type="button" class="btn mt-3 center-block btn-dark">View Profile</button></a>
+                        </div>
+                        
+>>>>>>> 7fca745b77d474de49d1e0815dd9c6f6fd80cc79
                       </div>
-                      <h5 class="card-subtitle mb-3 text-muted">
-                      Subjects: <span v-for="(subject, index) in tutor.subjects">{{subject}}<span v-if="index + 1 < tutor.subjects.length">, </span></span>
-                        </h5>
-     
-                      <a v-bind:href="'/' + tutor._id"><button type="button" class="btn btn-dark">View Profile</button></a>
-                  </div>
-                </div>
+                    </div>
           </div>
          
         </div>
