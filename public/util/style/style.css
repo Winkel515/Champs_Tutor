@@ -4,6 +4,23 @@
    
 } */
 
+/* THIS CODE IS ONLY FOR THE RESPONSIVE FOOTER */
+html, body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  #tutorProfile {
+    flex: 1 0 auto;
+  }
+  .footer {
+    flex-shrink: 0;
+  }
+  /* END OF RESPONSIVE FOOTER CODE */
+   
+  
 .dont-break-out {
     word-wrap: break-word;
 }
@@ -33,6 +50,8 @@
     height: 250px;
     object-fit: cover;
 }
+
+
 
 /* @media screen and (max-width: 1000px) {
 
