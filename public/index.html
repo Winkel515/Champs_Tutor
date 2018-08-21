@@ -95,24 +95,29 @@
           <div class="pt-3"> <!--wraps the sorting options-->
           <!-- Select the Subject -->
           <select v-on:change="filterSubject" class="custom-select custom-select-lg mb-3 input-group">
-            <option selected>All Subjects</option>
-                <optgroup label="Mathematics" style="color: black;">
-                  <option v-for="(item,index) in subjectList" v-if="index < 8">{{ item }}</option>
-                </optgroup> 
-                <optgroup label="Physics" style="color: black;">
-                    <option v-for="item in subjectList.slice(8,11)">{{ item }}</option>
+            <option selected style="color: black;">All Subjects</option>
+                <optgroup label="Biology" style="color: black;">
+                  <option v-for="item in biology">{{ item }}</option>
+                </optgroup>
+                <optgroup label="Commerce" style="color: black;">
+                  <option v-for="item in commerce">{{ item }}</option>
                 </optgroup>
                 <optgroup label="Chemistry" style="color: black;">
-                  <option v-for="item in subjectList.slice(11,14)">{{ item }}</option>
-               </optgroup>
-               <optgroup label="Biology" style="color: black;">
-                 <option v-for="item in subjectList.slice(14)">{{ item }}</option>
-               </optgroup>
+                  <option v-for="item in chemistry">{{ item }}</option>
+                </optgroup>
+                <optgroup label="Mathematics" style="color: black;">
+                  <option v-for="item in math">{{ item }}</option>
+                </optgroup> 
+                <optgroup label="Physics" style="color: black;">
+                    <option v-for="item in physics">{{ item }}</option>
+                </optgroup>
+                
+               
               </select>
               
               <!-- Select the Price Range  -->
             <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3 input-group">
-                    <option selected>All Prices</option>
+                    <option selected style="color: black;">All Prices</option>
                     <option v-for="(price, index) in priceList" v-bind:value="index" style="color: black">{{ price + "$/h" }}</option>
 
                   </select>   

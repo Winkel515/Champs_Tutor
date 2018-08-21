@@ -33,6 +33,15 @@ h1 {
   text-align: center;
 }
 
+.subjectLabel {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#exampleModalLabel {
+  font-size: 30px;
+  margin: 0 auto;
+}
 
 .icon {
   padding: 10px;
@@ -90,7 +99,7 @@ textarea {
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 0 4px 10px 0;
+  margin: 0 4px 10px 5%;
 }
 
 ::placeholder { /* this works with Chrome, Firefox, Opera, Safari 10.1+ */
@@ -140,7 +149,8 @@ select {
 
 .subjectButton {
   text-align: left;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255, 0.8) !important;
+  color: black !important;
   border: 1px solid white;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -152,8 +162,12 @@ select {
   width: 100%;
   background-color: transparent;
   color: white;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  box-shadow: 0 0 5px rgba(0,0,0) inset !important;
   margin-bottom: 15px;
+}
+
+.subjectButton:hover {
+  box-shadow: 0 0 12px rgba(0,0,0) inset !important;
 }
 
 legend {

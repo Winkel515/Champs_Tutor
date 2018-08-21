@@ -179,9 +179,29 @@ function tutorInfo(tutor){
           else 
             return remaining;
       },
-      subjectList:function() {
-        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics', 'Macroeconomics', 'Microeconomics', 'Quantitative Methods', 'Mechanics', 'Electricity & Magnetism','Waves & Optics', 'General Chemistry I', 'General Chemistry II', 'Organic Chemistry I', 'General Biology I', 'General Biology II']
-    },
+      math:function() {
+        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics'];
+      },
+
+      physics:function() {
+        return  ['Mechanics', 'Electricity & Magnetism','Waves & Optics'];
+      },
+
+      chemistry:function() {
+        return  ['General Chemistry I', 'General Chemistry II', 'Organic Chemistry I'];
+      },
+
+      biology:function() {
+        return  ['General Biology I', 'General Biology II'];
+      },
+
+      commerce:function() {
+        return  ['Macroeconomics', 'Microeconomics', 'Quantitative Methods'];
+      },
+
+      priceList:function() {
+        return  [10,20,30,40,50];
+      }
     }
   })
 
