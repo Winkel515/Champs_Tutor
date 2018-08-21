@@ -62,9 +62,9 @@ app.get('/:id', (req, res) => {
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', checkEmail, upload.single('profileImage'), (req, res) => {
     var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode', 'phone', 'facebook']) // On sign-up, tutors will input email, name and password.
-    console.log(body);
     if(req.file){
-    body.profileImage = req.file.path.replace('public\\util\\', '');
+        body.profileImage = req.file.path.replace('public\\util\\', '');
+        body.profileImage = body.profileImage.replace('public/util/', '')
     }
     var tutor = new Tutor(body);
 
