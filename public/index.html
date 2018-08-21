@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Tutor Me</title>
+    <title>Champs Tutors</title>
     <link rel="shortcut icon" href="img/logo.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -16,7 +16,7 @@
       <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-0" href="/">Tutor Me</a>
+          <a class="navbar-brand mr-0" href="/">Champs Tutors</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -91,17 +91,23 @@
                   <h1 v-bind:class="screenSize > 380 ? 'display-3' : 'display-4'" class="text-light dont-break-out mt-0">Champlain Tutors</h1>
      
         </div>
-          <p class="lead text-light pb-3">A platform to connect with your school's finest tutors</p>
+          <p class="lead text-light pb-3">A platform to connect with our school's finest tutors</p>
           <div class="pt-3"> <!--wraps the sorting options-->
           <!-- Select the Subject -->
           <select v-on:change="filterSubject" class="custom-select custom-select-lg mb-3 input-group">
             <option selected>All Subjects</option>
                 <optgroup label="Mathematics" style="color: black;">
-                  <option v-for="(item,index) in subjectList" v-if="index < 3">{{ item }}</option>
+                  <option v-for="(item,index) in subjectList" v-if="index < 8">{{ item }}</option>
                 </optgroup> 
                 <optgroup label="Physics" style="color: black;">
-                    <option v-for="item in subjectList.slice(3)">{{ item }}</option>
+                    <option v-for="item in subjectList.slice(8,11)">{{ item }}</option>
                 </optgroup>
+                <optgroup label="Chemistry" style="color: black;">
+                  <option v-for="item in subjectList.slice(11,14)">{{ item }}</option>
+               </optgroup>
+               <optgroup label="Biology" style="color: black;">
+                 <option v-for="item in subjectList.slice(14)">{{ item }}</option>
+               </optgroup>
               </select>
               
               <!-- Select the Price Range  -->
