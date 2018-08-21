@@ -134,7 +134,8 @@
                     </div>
                     <div class="content center mt-0"> 
                       <h3 class="card-title">{{tutor.name}}</h3>
-                      <h4> {{tutor.price + "$/h"}}</h4>
+                      <h4 v-if="tutor.price > 0"> {{tutor.price + "$/h"}}</h4>
+                      <h4 v-else>FREE</h4>
                     </div>
                       <div class="card-body pt-0">
                         <!-- <h3 class="card-title">{{tutor.name}}</h3> -->

@@ -17,11 +17,13 @@
                     <button  class="home-button btn btn-outline-light" onclick="location.href = '/'"> <i class="fa fa-home "></i></button>
                   <div  id="form">
                       <h1>Become A Tutor</h1>
-                    
-                      <img v-if="image !== ''" id="profilePic" :src="image" style="width: 100%"/>
-                      <input type="file" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
-                      <br />
-                      <br />
+
+                      <!-- Input for Profile Picture -->
+                      <!-- <img v-if="image !== ''" id="profilePic" :src="image" style="width: 100%"/>
+                      <div class="input-container">
+                        <input type="file" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
+                      </div>
+                      <br /> -->
 
                       <!-- Name INPUT -->
                         <div class="input-container">
