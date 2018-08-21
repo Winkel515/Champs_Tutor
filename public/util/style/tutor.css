@@ -39,6 +39,16 @@ fieldset, label {
   float: left;
 }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#tutorInfo{
+  flex: 1;
+}
+
 /****** Style Star Rating Widget *****/
 
 .rating { 

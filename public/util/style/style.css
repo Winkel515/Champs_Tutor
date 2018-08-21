@@ -4,6 +4,16 @@
    
 } */
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#tutorList{
+  flex: 1;
+}
+
 .star-color {
     color: rgb(250, 191, 64);
     font-size: 1.5rem;
