@@ -180,7 +180,7 @@ function tutorInfo(tutor){
             return remaining;
       },
       subjectList:function() {
-        return  ['Calculus I', 'Calculus II', 'Calculus III','Mechanics', 'Electricity & Magnetism','Waves and Optics']
+        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics', 'Macroeconomics', 'Microeconomics', 'Quantitative Methods', 'Mechanics', 'Electricity & Magnetism','Waves & Optics', 'General Chemistry I', 'General Chemistry II', 'Organic Chemistry I', 'General Biology I', 'General Biology II']
     },
     }
   })
