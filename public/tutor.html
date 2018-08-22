@@ -102,13 +102,10 @@
             <div class="col-md-5">
           <div class="card border-secondary  mt-4">
             <div class="content center">
-              <img class="card-img-top mb-3 profilePic" v-bind:src="tutor.profileImage" alt="Profile Image">
-            </div>
-            <div class="content center mt-0"> 
-              <h3 class="card-title">{{tutor.name}}</h3>
-              <h4 v-if="tutor.price > 0"> {{tutor.price + "$/h"}}</h4>
-              <h4 v-else>FREE</h4>
-            </div>  
+            <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="">
+            <h3 class="card-title mt-3">{{tutor.name}}</h3>
+            <h4> {{tutor.price + "$/h"}}</h4>
+          </div>
             <div class="card-body pt-0">
               <!-- <h3 class="card-title">{{tutor.name}}</h3> -->
               <h4 class="center mb-3">
@@ -221,7 +218,7 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="bg-dark">
+    <footer class=" py-5 footer bg-dark">
       <div class="container">
         <p class="mt-3 text-center text-white">Copyright &copy; TutorMe 2018</p>
       </div>
