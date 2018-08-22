@@ -104,7 +104,8 @@
             <div class="content center">
               <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="">
               <h3 class="card-title mt-3">{{tutor.name}}</h3>
-              <h4> {{tutor.price + "$/h"}}</h4>
+              <h4 v-if="tutor.price > 0"> {{tutor.price + "$/h"}}</h4>
+              <h4 v-else>FREE</h4>
             </div>
             <div class="card-body pt-0">
               <!-- <h3 class="card-title">{{tutor.name}}</h3> -->
