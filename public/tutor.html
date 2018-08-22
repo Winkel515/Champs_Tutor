@@ -29,10 +29,10 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                   <div class="navbar-nav navbar-right">
-                    <a href="/signup"><button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></button></a>
-                    <button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</button>
-                    <a href="/editProfile"><button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="isSignedIn">Edit Profile<span class="sr-only">(current)</span></button></a>
-                    <button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
+                    <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
+                    <button id="signinButton" class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</button>
+                    <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
                   </div>
                 </div>
               </div>
