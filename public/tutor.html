@@ -126,7 +126,7 @@
           <div class="card border-secondary mt-4 " >
               <ul class="list-group list-group-flush">
                   <div class="card-header">Description</div>
-                <li class="list-group-item">{{tutor.description}}</li>
+                <li class="list-group-item" style="white-space: pre-wrap">{{tutor.description}}</li>
                 <div class="card-header">Contact Info</div>
                     <li class="list-group-item"><i class="fa fa-envelope icon"> </i> {{ tutor.email }}</li>
                     <li class="list-group-item" v-if="tutor.phone !== ''"> <i class="fa fa-mobile-alt icon">  </i> <a v-bind:href="'tel:+1' + tutor.phone"> {{formattedPhone}} </a> </li>
