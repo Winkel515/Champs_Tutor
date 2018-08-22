@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                   <div class="navbar-nav navbar-right">
                     <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
+                    <button id="signinButton" class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</button>
                     <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
                   </div>
@@ -102,10 +102,11 @@
             <div class="col-md-5">
           <div class="card border-secondary  mt-4">
             <div class="content center">
-            <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="">
-            <h3 class="card-title mt-3">{{tutor.name}}</h3>
-            <h4> {{tutor.price + "$/h"}}</h4>
-          </div>
+              <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="">
+              <h3 class="card-title mt-3">{{tutor.name}}</h3>
+              <h4 v-if="tutor.price > 0"> {{tutor.price + "$/h"}}</h4>
+              <h4 v-else>FREE</h4>
+            </div>
             <div class="card-body pt-0">
               <!-- <h3 class="card-title">{{tutor.name}}</h3> -->
               <h4 class="center mb-3">
@@ -125,7 +126,7 @@
           <div class="card border-secondary mt-4 " >
               <ul class="list-group list-group-flush">
                   <div class="card-header">Description</div>
-                <li class="list-group-item">{{tutor.description}}</li>
+                <li class="list-group-item" style="white-space: pre-wrap">{{tutor.description}}</li>
                 <div class="card-header">Contact Info</div>
                     <li class="list-group-item"><i class="fa fa-envelope icon"> </i> {{ tutor.email }}</li>
                     <li class="list-group-item" v-if="tutor.phone !== ''"> <i class="fa fa-mobile-alt icon">  </i> <a v-bind:href="'tel:+1' + tutor.phone"> {{formattedPhone}} </a> </li>

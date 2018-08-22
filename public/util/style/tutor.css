@@ -71,6 +71,16 @@ body {
   content: "\f005";
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+#signinButton{
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+
 .rating > .half:before { 
   content: "\f089";
   position: absolute;
@@ -133,8 +143,10 @@ tutor profile page
       margin: auto;
      
       text-align: center;
-  }
-    
+    }
+    img {
+      margin: 0 auto !important;
+    }
   }
 
   @media (max-width: 510px) {
