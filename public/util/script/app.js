@@ -78,6 +78,10 @@ function tutorsVue(tutors){
             return  ['Macroeconomics', 'Microeconomics', 'Quantitative Methods'];
           },
 
+          languages:function() {
+            return  ['English', 'French', 'Spanish', 'Italian'];
+          },
+
           priceList:function() {
             return  [10,20,30,40,50];
           }

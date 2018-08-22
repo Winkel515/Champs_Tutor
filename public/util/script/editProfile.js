@@ -209,8 +209,8 @@ function tutorInfo(tutor){
         return  ['Macroeconomics', 'Microeconomics', 'Quantitative Methods'];
       },
 
-      priceList:function() {
-        return  [10,20,30,40,50];
+      languages:function() {
+        return  ['English', 'French', 'Spanish', 'Italian'];
       },
       previewImageURL: function() {
         var profileImageURL;
