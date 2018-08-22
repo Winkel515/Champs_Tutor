@@ -54,6 +54,10 @@ body {
     box-shadow:0 0 10px rgba(0,0,0,0.13);
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .profilePic {
     box-shadow:0 0 10px rgba(0,0,0,0.63);
     border-radius: 2.5%;

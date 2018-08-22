@@ -29,10 +29,10 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                   <div class="navbar-nav navbar-right">
-                    <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</a>
-                    <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
+                    <a href="/signup"><button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></button></a>
+                    <button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</button>
+                    <a href="/editProfile"><button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="isSignedIn">Edit Profile<span class="sr-only">(current)</span></button></a>
+                    <button style="border: none; background-color: transparent;" class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
                   </div>
                 </div>
               </div>
@@ -102,13 +102,10 @@
             <div class="col-md-5">
           <div class="card border-secondary  mt-4">
             <div class="content center">
-              <img class="card-img-top mb-3 profilePic" v-bind:src="tutor.profileImage" alt="Profile Image">
+              <img class="card-img-top profilePic" v-bind:src="tutor.profileImage" alt="">
+              <h3 class="card-title mt-3">{{tutor.name}}</h3>
+              <h4> {{tutor.price + "$/h"}}</h4>
             </div>
-            <div class="content center mt-0"> 
-              <h3 class="card-title">{{tutor.name}}</h3>
-              <h4 v-if="tutor.price > 0"> {{tutor.price + "$/h"}}</h4>
-              <h4 v-else>FREE</h4>
-            </div>  
             <div class="card-body pt-0">
               <!-- <h3 class="card-title">{{tutor.name}}</h3> -->
               <h4 class="center mb-3">

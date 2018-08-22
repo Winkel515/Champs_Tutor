@@ -71,6 +71,10 @@ body {
   content: "\f005";
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .rating > .half:before { 
   content: "\f089";
   position: absolute;
@@ -133,7 +137,7 @@ tutor profile page
       margin: auto;
      
       text-align: center;
-  }
+    }
     
   }
 
