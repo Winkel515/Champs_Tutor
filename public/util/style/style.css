@@ -61,6 +61,11 @@ body {
     width: 150px;
     object-fit: cover;
   }
+
+footer {
+  padding: 40px 0;
+}
+
 .content {
     width: auto;
     padding: 20px;

@@ -20,6 +20,10 @@ fieldset, label {
  
 }
 
+footer {
+  padding: 25px 0;
+}
+
 .profilePic {
   box-shadow:0 0 10px rgba(0,0,0,0.63);
   border-radius: 2.5%;
