@@ -61,7 +61,7 @@ app.get('/:id', (req, res) => {
 
 // Process POST /tutors/signup requests and responds with the tutor's name and _id. Also gives the tutor a JSON web token.
 app.post('/tutors/signup', checkEmail, upload.single('profileImage'), (req, res) => {
-    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode', 'phone', 'facebook']) // On sign-up, tutors will input email, name and password.
+    var body = _.pick(req.body, ['email', 'name', 'password', 'description', 'price', 'subjects', 'reviewerCode', 'phone', 'facebook', 'profileImage']); // On sign-up, tutors will input email, name and password.
     body.subjects = body.subjects.split(',');
     if(req.file){
         body.profileImage = req.file.path.replace('public\\util\\', '');
@@ -80,13 +80,13 @@ app.post('/tutors/signup', checkEmail, upload.single('profileImage'), (req, res)
 
 // Route to get personal information for tutor profile
 app.get('/tutors/me', authenticate, (req, res) => {
-    var tutor = _.pick(req.tutor, ['price', 'showTutor', 'subjects', 'rating', '_id', 'name', 'email', 'description', 'reviewerCode', 'facebook', 'phone']);
+    var tutor = _.pick(req.tutor, ['price', 'showTutor', 'subjects', 'rating', '_id', 'name', 'email', 'description', 'reviewerCode', 'facebook', 'phone', 'profileImage']);
     res.send({tutor});
 });
 
 // Route to allow tutors to edit their profile
 app.patch('/tutors/me', authenticate, (req, res) => {
-    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor', 'reviewerCode', 'phone', 'facebook']; // Array to store properies that can be edited by the tutor
+    const editList = ['name', 'price', 'password', 'oldPassword', 'subjects', 'description', 'showTutor', 'reviewerCode', 'phone', 'facebook', 'profileImage']; // Array to store properies that can be edited by the tutor
     const body = _.pick(req.body, editList);
 
     if(!body.password){

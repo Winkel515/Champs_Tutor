@@ -69,11 +69,19 @@ function tutorInfo(tutor){
             phone: tutor.phone,
             phoneError: false,
             facebook: tutor.facebook,
-            facebookError: false
+            facebookError: false,
+            profileImage: tutor.profileImage
         }, 
         methods: {    
         submitChanges: function (e) { 
         const phoneNumber = this.phone.replace(/\s+/g, '');
+
+        if(this.profileImage.trim() === ""){
+          profileImageURL = 'img/profile/Default.png';
+        } else {
+          profileImageURL = this.profileImage.trim();
+        }
+
         if(this.password.trim() === "" && this.oldPassword.trim() === ""){
             var body = JSON.stringify({
                 name : this.name,
@@ -83,7 +91,8 @@ function tutorInfo(tutor){
                 subjects: this.subjects,
                 reviewerCode: this.reviewerCode,
                 phone: phoneNumber,
-                facebook: this.facebook
+                facebook: this.facebook,
+                profileImage: profileImageURL
               }) 
         } else {
             var body = JSON.stringify({
@@ -96,7 +105,8 @@ function tutorInfo(tutor){
                 subjects: this.subjects,
                 reviewerCode: this.reviewerCode,
                 phone: phoneNumber,
-                facebook: this.facebook
+                facebook: this.facebook,
+                profileImage: profileImageURL
               }) 
         }
         this.nameError = this.name.trim().length === 0;
@@ -201,6 +211,15 @@ function tutorInfo(tutor){
 
       priceList:function() {
         return  [10,20,30,40,50];
+      },
+      previewImageURL: function() {
+        var profileImageURL;
+        if(this.profileImage.trim() === ''){
+          profileImageURL = 'img/profile/Default.png';
+        } else {
+          profileImageURL = this.profileImage.trim();
+        }
+        return profileImageURL;
       }
     }
   })

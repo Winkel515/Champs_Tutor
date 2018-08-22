@@ -40,7 +40,8 @@ var TutorSchema = new mongoose.Schema({
         type: String,
         maxlength: 500,
         required: true,
-        trim: true
+        trim: true,
+        default: ''
     },
     showTutor: {
         type: Boolean,

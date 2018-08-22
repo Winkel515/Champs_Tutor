@@ -35,11 +35,18 @@ const app = new Vue({
       facebookError: false,
       phone: "",
       phoneError: false,
-      image: ''
+      image: '',
+      profileImageURL : '' // Temporary solution for profile picture
     },
     methods: {
       submitForm: function (e) {
         const phoneNumber = this.phone.replace(/\s+/g, '');
+        var profileImageURL;
+        if(this.profileImageURL.trim() === ''){
+          profileImageURL = 'img/profile/Default.png';
+        } else {
+          profileImageURL = this.profileImageURL.trim();
+        }
 
         this.nameError = this.name.trim().length === 0;
         this.emailError = !this.validEmail(this.email);
@@ -74,13 +81,17 @@ const app = new Vue({
             subjects: this.subjects,
             reviewerCode: this.reviewerCode.trim(),
             facebook: this.facebook.trim(),
-            phone: phoneNumber
+            phone: phoneNumber,
+            profileImage: profileImageURL
           }
+
+          console.log(data);
+
           for(var key in data){
             console.log(key, data[key]);
             formData.append(key, data[key]);
           }
-          formData.append('profileImage', $('input[type=file]')[0].files[0]);
+          // formData.append('profileImage', $('input[type=file]')[0].files[0]);
           const config = {
               method: 'POST' ,
               headers: {
@@ -164,6 +175,15 @@ const app = new Vue({
 
       priceList:function() {
         return  [10,20,30,40,50];
+      },
+      previewImageURL: function() {
+        var profileImageURL;
+        if(this.profileImageURL.trim() === ''){
+          profileImageURL = 'img/profile/Default.png';
+        } else {
+          profileImageURL = this.profileImageURL.trim();
+        }
+        return profileImageURL;
       }
     }
   })

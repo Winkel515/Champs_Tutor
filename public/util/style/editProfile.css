@@ -19,6 +19,15 @@
     background-size: cover;
   }
   
+  #profilePic {
+    height: 150px;
+    width: 150px !important;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid white;
+  }
+
   #form {
     max-width: 425px;
     margin: 10px auto;
