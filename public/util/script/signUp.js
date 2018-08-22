@@ -36,12 +36,17 @@ const app = new Vue({
       phone: "",
       phoneError: false,
       image: '',
-      profileImageURL : '' // Temporary solution for profile picture
+      profileImageURL : '', // Temporary solution for profile picture
+      storageRef: null, // Reference in Firebase Storage
+      fileName: null, // Name of file uploaded
+      file: null, // File that's getting stored in Firebase
     },
     methods: {
       submitForm: function (e) {
+
         const phoneNumber = this.phone.replace(/\s+/g, '');
         var profileImageURL;
+
         if(this.profileImageURL.trim() === ''){
           profileImageURL = 'img/profile/Default.png';
         } else {
@@ -103,13 +108,31 @@ const app = new Vue({
           .then(response => { // Runs when all inputs are good
             localStorage.setItem('token', response.headers.get('x-auth'));
             console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
+            if(this.file){
+              this.storageRef.put(this.file).then(snapshot => {
+                this.storageRef.put(this.file).then(snapshot => {
+                  snapshot.ref.getDownloadURL().then(url => {
+                    axios.patch('tutors/me', {
+                        profileImage: url
+                      }, {
+                      headers: {
+                        'x-auth': response.headers.get('x-auth')
+                      }
+                    });
+                  })
+                }).catch(e => {
+                  console.log('Could not upload image to firebase');
+                })
+              });
+            }
             location.href = '/';
           }).catch(response => { // Runs when there's an invalid input
+            console.log(response);
             response.then(e => {
               console.log(e);
               console.log(JSON.parse(e));
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
-                    this.emailDuplicate = true; // Boolean used to show error message on signUp page
+                this.emailDuplicate = true; // Boolean used to show error message on signUp page
               }
             })
           });
@@ -128,22 +151,12 @@ const app = new Vue({
       deleteSubject: function(index){
         this.subjects.splice(index, 1);
       },
-      onFileChange(e) {
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-          return;
-        this.createImage(files[0]);
-      },
-      createImage(file) {
-        var image = new Image();
-        var reader = new FileReader();
-        var vm = this;
-  
-        reader.onload = (e) => {
-          vm.image = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      },
+      updateImageVar: function() {
+        console.log($('#fileInput').get(0).files[0]);
+        this.file = $('#fileInput').get(0).files[0];
+        this.fileName = `${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
+        this.storageRef = firebase.storage().ref(`profile_pictures/${this.fileName}`);
+      }
     },
     computed: {
       descRemaining: function() {
