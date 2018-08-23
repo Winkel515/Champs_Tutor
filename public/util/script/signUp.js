@@ -36,10 +36,9 @@ const app = new Vue({
       phone: "",
       phoneError: false,
       image: '',
-      storageRef: null, // Reference in Firebase Storage
-      filePath: null, // Name of file uploaded
       file: null, // File that's getting stored in Firebase
       showSpinner: false,
+      previewImageURL: 'img/profile/Default.png'
     },
     methods: {
       submitForm: function (e) {
@@ -101,11 +100,13 @@ const app = new Vue({
             localStorage.setItem('token', response.headers.get('x-auth'));
             console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
             if(this.file){
-              this.storageRef.put(this.file).then(snapshot => {
+              const filePath = `profile_pictures/${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
+              const storageRef = firebase.storage().ref(filePath);
+              storageRef.put(this.file).then(snapshot => {
                 snapshot.ref.getDownloadURL().then(url => {
                   axios.patch('tutors/me', {
                       profileImage: url,
-                      filePath: this.filePath
+                      filePath
                     }, {
                     headers: {
                       'x-auth': response.headers.get('x-auth')
@@ -149,8 +150,16 @@ const app = new Vue({
       updateImageVar: function() {
         console.log($('#fileInput').get(0).files[0]);
         this.file = $('#fileInput').get(0).files[0];
-        this.filePath = `profile_pictures/${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
-        this.storageRef = firebase.storage().ref(this.filePath);
+        var reader  = new FileReader();
+        const vm = this
+        reader.addEventListener("load", function () {
+          vm.previewImageURL = reader.result;
+        }, false);
+        if (this.file) {
+          reader.readAsDataURL(this.file);
+        } else {
+          this.previewImageURL = 'img/profile/Default.png'
+        }
       }
     },
     computed: {

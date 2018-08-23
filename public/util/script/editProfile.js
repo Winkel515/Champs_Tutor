@@ -66,9 +66,8 @@ function tutorInfo(tutor){
             facebookError: false,
             profileImage: tutor.profileImage,
             showSpinner: false,
-            storageRef: null, // Reference in Firebase Storage
-            filePath: null, // Name of file uploaded
             file: null, // File that's getting stored in Firebase
+            previewImageURL: tutor.profileImage
         }, 
         methods: {
         submitChanges: function (e) { 
@@ -132,13 +131,14 @@ function tutorInfo(tutor){
           fetch('/tutors/me', config).then(checkStatus)
           .then(() => { // Runs when all inputs are good
             if(this.file){
-              console.log(this.tutor.filePath);
-              this.storageRef.put(this.file).then(snapshot => {
+              const filePath = `profile_pictures/${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
+              const storageRef = firebase.storage().ref(filePath);
+              storageRef.put(this.file).then(snapshot => {
                 snapshot.ref.getDownloadURL().then(url => {
                   console.log(url);
                   axios.patch('tutors/me', {
                       profileImage: url,
-                      filePath: this.filePath
+                      filePath
                     }, {
                     headers: {
                       'x-auth': localStorage.getItem('token')
@@ -198,8 +198,16 @@ function tutorInfo(tutor){
       updateImageVar: function() {
         console.log($('#fileInput').get(0).files[0]);
         this.file = $('#fileInput').get(0).files[0];
-        this.filePath = `profile_pictures/${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
-        this.storageRef = firebase.storage().ref(this.filePath);
+        var reader  = new FileReader();
+        const vm = this
+        reader.addEventListener("load", function () {
+          vm.previewImageURL = reader.result;
+        }, false);
+        if (this.file) {
+          reader.readAsDataURL(this.file);
+        } else {
+          this.previewImageURL = this.tutor.profileImage;
+        }
       }
     },
     computed: {
@@ -233,7 +241,11 @@ function tutorInfo(tutor){
       languages:function() {
         return  ['English', 'French', 'Spanish', 'Italian'];
       },
-      // previewImageURL: function() {}
+      // previewImageURL: function() {
+      //   if(tutor.profileImage !== ''){
+      //     return 
+      //   }
+      // }
     }
   })
 
