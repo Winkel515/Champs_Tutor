@@ -95,13 +95,10 @@
                         </div>
                         <p v-show="facebookError" class="errorMessage">Please enter a valid facebook profile url</p>
 
-                        <label>Profile Picture URL:</label>
-                        <div class="input-container">                      
-                                <input type="text" placeholder="e.g. https://i.imgur.com/hqndNGA.jpg" v-model="profileImageURL">
-                                <i class="fa fa-camera icon"></i>  
-                        </div>
+                        <label>Profile Picture:</label>
 
-                        <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+                        <!-- CHANGE THIS TO PREVIEW INPUT IMAGE -->
+                        <!-- <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/> -->
 
                         <!-- Input for Profile Picture -->
                         <div class="input-container">
@@ -112,7 +109,8 @@
                         
                         <!-- Create Account Button -->
                         <div class="text-center">
-                            <button @click="submitForm" class="btn btn-lg mt-3 txt-center btn-light">Create Account</button>
+                            <div v-if="showSpinner" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            <button v-else @click="submitForm" class="btn btn-lg mt-3 txt-center btn-light">Create Account</button>
                         </div>
                         <!-- Button trigger modal -->
             

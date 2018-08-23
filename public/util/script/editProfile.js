@@ -1,9 +1,3 @@
-try{
-  const pathName = jwt_decode(localStorage.getItem('token'))._id;
-} catch (e) {
-  localStorage.removeItem('token');
-  location.href="/";
-}
 document.addEventListener("DOMContentLoaded", getTutor());
 
 function getTutor(){ // Gets tutor from /tutors and sets it up for Vue
@@ -70,17 +64,15 @@ function tutorInfo(tutor){
             phoneError: false,
             facebook: tutor.facebook,
             facebookError: false,
-            profileImage: tutor.profileImage
+            profileImage: tutor.profileImage,
+            showSpinner: false,
+            storageRef: null, // Reference in Firebase Storage
+            filePath: null, // Name of file uploaded
+            file: null, // File that's getting stored in Firebase
         }, 
-        methods: {    
+        methods: {
         submitChanges: function (e) { 
         const phoneNumber = this.phone.replace(/\s+/g, '');
-
-        if(this.profileImage.trim() === ""){
-          profileImageURL = 'img/profile/Default.png';
-        } else {
-          profileImageURL = this.profileImage.trim();
-        }
 
         if(this.password.trim() === "" && this.oldPassword.trim() === ""){
             var body = JSON.stringify({
@@ -92,7 +84,6 @@ function tutorInfo(tutor){
                 reviewerCode: this.reviewerCode,
                 phone: phoneNumber,
                 facebook: this.facebook,
-                profileImage: profileImageURL
               }) 
         } else {
             var body = JSON.stringify({
@@ -106,7 +97,6 @@ function tutorInfo(tutor){
                 reviewerCode: this.reviewerCode,
                 phone: phoneNumber,
                 facebook: this.facebook,
-                profileImage: profileImageURL
               }) 
         }
         this.nameError = this.name.trim().length === 0;
@@ -132,6 +122,7 @@ function tutorInfo(tutor){
         console.log('signupError:', signupError);
         // Checks for error before actually making the POST request
         if(!signupError){
+          this.showSpinner = true;
           const config = {
               method: 'PATCH' ,
               headers: {'Content-type': 'application/json', 'x-auth': localStorage.getItem('token')},
@@ -139,21 +130,45 @@ function tutorInfo(tutor){
               
           }; 
           fetch('/tutors/me', config).then(checkStatus)
-          .then(response => { // Runs when all inputs are good
-            location.href = '/';
+          .then(() => { // Runs when all inputs are good
+            if(this.file){
+              console.log(this.tutor.filePath);
+              this.storageRef.put(this.file).then(snapshot => {
+                snapshot.ref.getDownloadURL().then(url => {
+                  console.log(url);
+                  axios.patch('tutors/me', {
+                      profileImage: url,
+                      filePath: this.filePath
+                    }, {
+                    headers: {
+                      'x-auth': localStorage.getItem('token')
+                    }
+                  }).then(() => {
+                    firebase.storage().ref().child(this.tutor.filePath).delete().then(() => {
+                      location.href = '/';
+                    });
+                  });
+                })
+              }).catch(e => {
+                console.log('Could not upload image to firebase');
+              });
+            } else {
+              location.href = '/';
+            }
           }).catch(response => { // Runs when there's an invalid input 
-            
+            console.log(response);
             response.then(e => { 
               console.log(JSON.parse(e));
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
                     this.emailDuplicate = true; // Boolean used to show error message on signUp page
+                    this.showSpinner = false;
               }
               if(JSON.parse(e).message === "Wrong password"){
                 this.oldPasswordIncorrect = true;
+                this.showSpinner = false;
               }
             })
           });
-          
         }
       },
       validEmail: function (email) {
@@ -179,6 +194,12 @@ function tutorInfo(tutor){
             console.log(JSON.parse(message))
           })
         })
+      },
+      updateImageVar: function() {
+        console.log($('#fileInput').get(0).files[0]);
+        this.file = $('#fileInput').get(0).files[0];
+        this.filePath = `profile_pictures/${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
+        this.storageRef = firebase.storage().ref(this.filePath);
       }
     },
     computed: {
@@ -212,15 +233,7 @@ function tutorInfo(tutor){
       languages:function() {
         return  ['English', 'French', 'Spanish', 'Italian'];
       },
-      previewImageURL: function() {
-        var profileImageURL;
-        if(this.profileImage.trim() === ''){
-          profileImageURL = 'img/profile/Default.png';
-        } else {
-          profileImageURL = this.profileImage.trim();
-        }
-        return profileImageURL;
-      }
+      // previewImageURL: function() {}
     }
   })
 
