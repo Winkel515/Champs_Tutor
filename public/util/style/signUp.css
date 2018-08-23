@@ -92,7 +92,7 @@ select {
 
 textarea {
   resize: none;
-  min-height: 120px;
+  min-height: 160px;
   margin-bottom: 15px;
 }
 
