@@ -18,13 +18,6 @@
                   <div  id="form">
                       <h1>Become A Tutor</h1>
 
-                      <!-- Input for Profile Picture -->
-                      <!-- <img v-if="image !== ''" id="profilePic" :src="image" style="width: 100%"/>
-                      <div class="input-container">
-                        <input type="file" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
-                      </div>
-                      <br /> -->
-
                       <!-- Name INPUT -->
                         <div class="input-container">
                         
@@ -36,10 +29,11 @@
 
                         <!-- EMAIL INPUT -->
                         <div class="input-container">                      
-                            <input type="email" id="mail" placeholder="Email" v-model="email" @click="emailError=false" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''">
-                            <i class="fa fa-envelope icon" v-bind:style="emailError ? 'border: 2px solid #d9534f' : ''"></i>  
+                            <input type="email" id="mail" placeholder="Email" v-model="email" @click="emailError=false; emailDuplicate=false" v-bind:style="emailError || emailDuplicate ? 'border: 2px solid #d9534f' : ''">
+                            <i class="fa fa-envelope icon" v-bind:style="emailError || emailDuplicate ? 'border: 2px solid #d9534f' : ''"></i>  
                         </div>
                         <p v-show="emailError" class="errorMessage">Invalid Email</p>
+                        <p v-show="emailDuplicate" class="errorMessage">Email is already in use</p>
                         
                         <!-- PASSWORD INPUT -->
                         <div class="input-container">                      
@@ -101,17 +95,22 @@
                         </div>
                         <p v-show="facebookError" class="errorMessage">Please enter a valid facebook profile url</p>
 
-                        <label>Profile Picture URL:</label>
-                        <div class="input-container">                      
-                                <input type="text" placeholder="e.g. https://i.imgur.com/hqndNGA.jpg" v-model="profileImageURL">
-                                <i class="fa fa-camera icon"></i>  
+                        <label>Profile Picture:</label>
+
+                        <!-- CHANGE THIS TO PREVIEW INPUT IMAGE -->
+                        <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+
+                        <!-- Input for Profile Picture -->
+                        <div class="input-container">
+                            <input @change="updateImageVar" type="file" value="upload" id="fileInput" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
                         </div>
 
-                        <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+                        
                         
                         <!-- Create Account Button -->
                         <div class="text-center">
-                        <button v-on:click="submitForm" class="btn btn-lg mt-3 txt-center btn-light">Create Account</button>
+                            <div v-if="showSpinner" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            <button v-else @click="submitForm" class="btn btn-lg mt-3 txt-center btn-light">Create Account</button>
                         </div>
                         <!-- Button trigger modal -->
             
@@ -171,8 +170,24 @@
    <script src="../script/libs/jquery-3.3.1.min.js"></script>
    <script src="../script/libs/popper.min.js"></script>
    <script src="../script/libs/jwt-decode.min.js"></script>
+   <script src="script/libs/axios.min.js"></script>
    <script type="text/javascript" src="../script/libs/validator.min.js"></script>
    <script src="../script/libs/bootstrap.min.js"></script>
+   
+   <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDZr12rScVv9aomysgidOeRmleQ82prMyk",
+        authDomain: "champs-tutors.firebaseapp.com",
+        databaseURL: "https://champs-tutors.firebaseio.com",
+        projectId: "champs-tutors",
+        storageBucket: "champs-tutors.appspot.com",
+        messagingSenderId: "1091581140565"
+    };
+    firebase.initializeApp(config);
+    </script>
+
    <script src="../script/signUp.js"></script>
 
     </body>

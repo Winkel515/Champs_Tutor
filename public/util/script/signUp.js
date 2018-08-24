@@ -36,17 +36,14 @@ const app = new Vue({
       phone: "",
       phoneError: false,
       image: '',
-      profileImageURL : '' // Temporary solution for profile picture
+      file: null, // File that's getting stored in Firebase
+      showSpinner: false,
+      previewImageURL: 'img/profile/Default.png'
     },
     methods: {
       submitForm: function (e) {
+
         const phoneNumber = this.phone.replace(/\s+/g, '');
-        var profileImageURL;
-        if(this.profileImageURL.trim() === ''){
-          profileImageURL = 'img/profile/Default.png';
-        } else {
-          profileImageURL = this.profileImageURL.trim();
-        }
 
         this.nameError = this.name.trim().length === 0;
         this.emailError = !this.validEmail(this.email);
@@ -71,6 +68,7 @@ const app = new Vue({
         e.preventDefault();
         // Checks for errors before actually making the POST request
         if(!signupError){
+          this.showSpinner = true;
           var formData = new FormData();
           const data = {
             name : this.name.trim(),
@@ -82,7 +80,6 @@ const app = new Vue({
             reviewerCode: this.reviewerCode.trim(),
             facebook: this.facebook.trim(),
             phone: phoneNumber,
-            profileImage: profileImageURL
           }
 
           console.log(data);
@@ -91,7 +88,6 @@ const app = new Vue({
             console.log(key, data[key]);
             formData.append(key, data[key]);
           }
-          // formData.append('profileImage', $('input[type=file]')[0].files[0]);
           const config = {
               method: 'POST' ,
               headers: {
@@ -103,13 +99,36 @@ const app = new Vue({
           .then(response => { // Runs when all inputs are good
             localStorage.setItem('token', response.headers.get('x-auth'));
             console.log(response.headers.get('x-auth')); // Logging the JWT for now. Can be stored in sessionStorage or localStorage
-            location.href = '/';
+            if(this.file){
+              const filePath = `profile_pictures/${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}_${(Math.random()*1000).toFixed(0)}_${this.file.name}`
+              const storageRef = firebase.storage().ref(filePath);
+              storageRef.put(this.file).then(snapshot => {
+                snapshot.ref.getDownloadURL().then(url => {
+                  axios.patch('tutors/me', {
+                      profileImage: url,
+                      filePath
+                    }, {
+                    headers: {
+                      'x-auth': response.headers.get('x-auth')
+                    }
+                  }).then(() => {
+                    location.href = '/';
+                  });
+                })
+              }).catch(e => {
+                console.log('Could not upload image to firebase');
+              });
+            } else {
+              location.href = '/';
+            }
           }).catch(response => { // Runs when there's an invalid input
+            console.log(response);
             response.then(e => {
               console.log(e);
               console.log(JSON.parse(e));
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
-                    this.emailDuplicate = true; // Boolean used to show error message on signUp page
+                this.emailDuplicate = true; // Boolean used to show error message on signUp page
+                this.showSpinner = false;
               }
             })
           });
@@ -128,22 +147,20 @@ const app = new Vue({
       deleteSubject: function(index){
         this.subjects.splice(index, 1);
       },
-      onFileChange(e) {
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-          return;
-        this.createImage(files[0]);
-      },
-      createImage(file) {
-        var image = new Image();
-        var reader = new FileReader();
-        var vm = this;
-  
-        reader.onload = (e) => {
-          vm.image = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      },
+      updateImageVar: function() {
+        console.log($('#fileInput').get(0).files[0]);
+        this.file = $('#fileInput').get(0).files[0];
+        var reader  = new FileReader();
+        const vm = this
+        reader.addEventListener("load", function () {
+          vm.previewImageURL = reader.result;
+        }, false);
+        if (this.file) {
+          reader.readAsDataURL(this.file);
+        } else {
+          this.previewImageURL = 'img/profile/Default.png'
+        }
+      }
     },
     computed: {
       descRemaining: function() {
@@ -176,14 +193,6 @@ const app = new Vue({
       languages:function() {
         return  ['English', 'French', 'Spanish', 'Italian'];
       },
-      previewImageURL: function() {
-        var profileImageURL;
-        if(this.profileImageURL.trim() === ''){
-          profileImageURL = 'img/profile/Default.png';
-        } else {
-          profileImageURL = this.profileImageURL.trim();
-        }
-        return profileImageURL;
-      }
+      // previewImageURL: function() {}
     }
   })

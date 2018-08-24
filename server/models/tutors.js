@@ -39,9 +39,7 @@ var TutorSchema = new mongoose.Schema({
     description: { // Tutor can make a short description of themselves which will be visible on the main page
         type: String,
         maxlength: 500,
-        required: true,
-        trim: true,
-        default: ''
+        trim: true
     },
     showTutor: {
         type: Boolean,
@@ -95,7 +93,10 @@ var TutorSchema = new mongoose.Schema({
         type: String,
         default: 'img/profile/Default.png',
         require: true,
-        
+    },
+    filePath: {
+        type: String,
+        default: ''
     }
 })
 

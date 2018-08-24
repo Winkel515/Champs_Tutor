@@ -83,14 +83,17 @@
             <p v-show="reviewerCodeError" class="errorMessage">Please enter a review code</p>
 
             <label>Update your profile picture:</label>
-            <div class="input-container">                      
-                    <input type="text" placeholder="e.g. https://i.imgur.com/hqndNGA.jpg" v-model="profileImage">
-                    <i class="fa fa-camera icon"></i>  
+
+            <!-- CHANGE THIS TO PREVIEW SELECTED IMAGE FROM INPUT -->
+            <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+            
+            <!-- Input for Profile Picture -->
+            <div class="input-container">
+                <input @change="updateImageVar" type="file" value="upload" id="fileInput" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
             </div>
 
-            <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
             <br />
-            
+
             <!-- OLD PASSWORD INPUT -->
             <label>Change your password:</label>
             <div class="input-container">                      
@@ -115,7 +118,8 @@
 
             <!-- Submit Changes Button -->
             <div class="text-center">
-            <button v-on:click="submitChanges" class="btn btn-lg mt-3 txt-center btn-light">Submit Changes</button>
+            <div v-if="showSpinner" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            <button v-else v-on:click="submitChanges" class="btn btn-lg mt-3 txt-center btn-light">Submit Changes</button>
             </div>
             <!-- Button trigger modal -->
 
@@ -195,15 +199,30 @@
                 </div>
         </div>
      </div>   
-   <!-- Optional JavaScript -->
-   <script src="../script/libs/vue.js"></script>
+    <!-- Optional JavaScript -->
+    <script src="../script/libs/vue.js"></script>
 
-   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="../script/libs/jquery-3.3.1.min.js"></script>
-   <script src="../script/libs/popper.min.js"></script>
-   <script src="../script/libs/jwt-decode.min.js"></script>
-   <script type="text/javascript" src="../script/libs/validator.min.js"></script>
-   <script src="../script/libs/bootstrap.min.js"></script>
-   <script src="../script/editProfile.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDZr12rScVv9aomysgidOeRmleQ82prMyk",
+        authDomain: "champs-tutors.firebaseapp.com",
+        databaseURL: "https://champs-tutors.firebaseio.com",
+        projectId: "champs-tutors",
+        storageBucket: "champs-tutors.appspot.com",
+        messagingSenderId: "1091581140565"
+    };
+    firebase.initializeApp(config);
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../script/libs/jquery-3.3.1.min.js"></script>
+    <script src="../script/libs/popper.min.js"></script>
+    <script src="script/libs/axios.min.js"></script>
+    <script src="../script/libs/jwt-decode.min.js"></script>
+    <script type="text/javascript" src="../script/libs/validator.min.js"></script>
+    <script src="../script/libs/bootstrap.min.js"></script>
+    <script src="../script/editProfile.js"></script>
   </body>
 </html>
