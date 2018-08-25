@@ -5,10 +5,12 @@ new Vue({
         email:"",
         password:"",
         invalidCredentials: false,
+        showSpinner: false
     },
     methods: {
         signIn: function (e) {
             e.preventDefault();
+            this.showSpinner = true;
             this.invalidCredentials = false;
             
               const config = {
@@ -29,6 +31,7 @@ new Vue({
                 response.then(e => {
                   console.log(JSON.parse(e));
                   this.invalidCredentials = true;
+                  this.showSpinner = false;
                 })
               });
           },
@@ -41,7 +44,6 @@ new Vue({
     beforeMount() { // Called right before the mounting begins: the render function is about to be called for the first time.this checks local storage
         if (localStorage.getItem('token')) {
           this.isSignedIn = true;
-        }  
-        console.log(localStorage.getItem('token'));
+        }
     },
 })

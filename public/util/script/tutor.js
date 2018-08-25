@@ -94,7 +94,7 @@ function tutorsVue(tutor){
                   reviewer : this.reviewer,
                   rating: this.rating, 
                   text: this.ratingComment,
-                  reviewerCode: this.reviewerCode
+                  reviewerCode: this.reviewerCode.trim()
                 }) 
             };
             

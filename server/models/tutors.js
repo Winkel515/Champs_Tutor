@@ -64,6 +64,7 @@ var TutorSchema = new mongoose.Schema({
     reviewerCode: {
         type: String,
         required: true,
+        trim: true
     },
     phone: {
         type: String,
