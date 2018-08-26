@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 const _ = require ('lodash');
 const path = require('path');
+const sslRedirect = require('heroku-ssl-redirect');
 
 const {Tutor} = require('./models/tutors');
 const {Review} = require('./models/reviews')
@@ -23,6 +24,7 @@ const errorJSON = (status, message) => {return {status, message}};
 //List of tutor properties shared in both MAIN and PROFILE page
 const sharedProperties = 'name _id rating price subjects description profileImage '; // Edit shared properties here
 
+app.use(sslRedirect());
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
