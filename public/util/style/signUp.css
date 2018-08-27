@@ -111,6 +111,14 @@ input[type="password"] {
   color: grey;
 }
 
+#fileInput {
+  display: none;
+}
+
+#profilePicLabel {
+  margin: 10px auto;
+}
+
 input[type="password"],
   ::placeholder { /* this works with Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgb(202, 201, 201);
