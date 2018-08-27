@@ -32,7 +32,7 @@
                     <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
                     <button id="signinButton" class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</button>
                     <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
+                    <button id="signinButton" class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</button>
                   </div>
                 </div>
               </div>
@@ -81,7 +81,14 @@
                       <label for="password">Password:</label>
                       <input type="password" v-on:keyup.enter="signIn" v-on:click="invalidCredentials = false;" v-model="password" class="form-control" id="passwordInput">
                     </div>
-                    <button type="button" v-on:click="signIn" class="btn  btn-dark">Sign In</button>
+                    <button v-if="!showSpinner" type="button" v-on:click="signIn" class="btn btn-dark">Sign In</button>
+                    <div v-else class="spinner">
+                      <div class="rect1"></div>
+                      <div class="rect2"></div>
+                      <div class="rect3"></div>
+                      <div class="rect4"></div>
+                      <div class="rect5"></div>
+                    </div>
                   <!-- /Form -->
                 </div>
               </div>

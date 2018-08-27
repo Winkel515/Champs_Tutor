@@ -162,13 +162,17 @@ function tutorInfo(tutor){
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
                     this.emailDuplicate = true; // Boolean used to show error message on signUp page
                     this.showSpinner = false;
+                    $('html, body').animate({ scrollTop: 0 }, 400);
               }
               if(JSON.parse(e).message === "Wrong password"){
                 this.oldPasswordIncorrect = true;
                 this.showSpinner = false;
+                $('html, body').animate({ scrollTop: 0 }, 400);
               }
             })
           });
+        } else {
+          $('html, body').animate({ scrollTop: 0 }, 400);
         }
       },
       validEmail: function (email) {
@@ -219,7 +223,7 @@ function tutorInfo(tutor){
             return remaining;
       },
       math:function() {
-        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics'];
+        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics', 'Quantitative Methods'];
       },
 
       physics:function() {
@@ -235,7 +239,7 @@ function tutorInfo(tutor){
       },
 
       commerce:function() {
-        return  ['Macroeconomics', 'Microeconomics', 'Quantitative Methods'];
+        return  ['Macroeconomics', 'Microeconomics'];
       },
 
       languages:function() {

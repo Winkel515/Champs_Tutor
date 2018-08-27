@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 const _ = require ('lodash');
 const path = require('path');
+const sslRedirect = require('heroku-ssl-redirect');
 
 const {Tutor} = require('./models/tutors');
 const {Review} = require('./models/reviews')
@@ -23,6 +24,7 @@ const errorJSON = (status, message) => {return {status, message}};
 //List of tutor properties shared in both MAIN and PROFILE page
 const sharedProperties = 'name _id rating price subjects description profileImage '; // Edit shared properties here
 
+app.use(sslRedirect());
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
@@ -149,6 +151,9 @@ app.post('/tutors/login', (req, res) => {
 
 app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
     var body = _.pick(req.body, ["reviewer", "rating", "text", 'reviewerCode']);
+    if(body.reviewer === ''){
+        body.reviewer = 'Anonymous';
+    }
     var tutorId = req.params.tutorId;
     body._id = ObjectID();
     var review = new Review(body);
@@ -157,11 +162,7 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
         return res.status(400).send(errorJSON(400, "Invalid Tutor ID"));
     }
 
-    Tutor.findByIdAndUpdate(
-        tutorId,
-        {$push: {'reviews': body._id}},
-        {new: true}
-    )
+    Tutor.findById(tutorId)
     .populate('reviews')
     .then(tutor => {
         if(!tutor){
@@ -180,10 +181,12 @@ app.post('/tutors/:tutorId/reviews', (req, res) => { // Work in progress
         for(var i = 0; i < tutor.reviews.length; i++){
             rating += tutor.reviews[i].rating;
         }
-        rating /= tutor.reviews.length + 1;
+        rating /= tutor.reviews.length + 1; //Updating tutor's review
         tutor.rating = rating
 
-        return review.save().then(review => {
+        tutor.reviews.push(body._id); // Adding review to array
+
+        return review.save().then(() => {
             tutor.save().then(() => {
                 res.send();
             })

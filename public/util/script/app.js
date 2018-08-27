@@ -35,7 +35,7 @@ function tutorsVue(tutors){
         password:"",
         isSignedIn: false,
         invalidCredentials: false,
-        screenSize: window.screen.width
+        screenSize: window.screen.width,
       },
       methods: {
         filterSubject: function(){
@@ -56,30 +56,59 @@ function tutorsVue(tutors){
           console.log("Subject:", this.subject);
           console.log("Price:", this.price);
         },
+        scrollTutor: function(){
+          $('html, body').animate({ scrollTop: $('#tutor').offset().top }, 250);
+        },
+        filterList: function(subjectList){
+          var filteredList = [];
+          for(sub of subjectList){
+            if(this.tutorSubjects.indexOf(sub) !== -1 && filteredList.indexOf(sub) === -1){
+              filteredList.push(sub);
+            }
+          }
+          return filteredList;
+        }
       },
       computed: {
+          tutorSubjects: function() {
+            var tutorSubjects = []
+            for(tutor of this.tutors){
+              for(subject of tutor.subjects){
+                if(tutorSubjects.indexOf(subject) === -1)
+                  tutorSubjects.push(subject);
+              }
+            }
+            return tutorSubjects;
+          },
+
           math:function() {
-              return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics'];
+              var subjectList = ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics', 'Quantitative Methods'];
+              return this.filterList(subjectList);
           },
 
           physics:function() {
-            return  ['Mechanics', 'Electricity & Magnetism','Waves & Optics'];
+            var subjectList = ['Mechanics', 'Electricity & Magnetism','Waves & Optics'];
+            return this.filterList(subjectList);
           },
 
           chemistry:function() {
-            return  ['General Chemistry I', 'General Chemistry II', 'Organic Chemistry I'];
+            var subjectList = ['General Chemistry I', 'General Chemistry II', 'Organic Chemistry I'];
+            return this.filterList(subjectList);
           },
 
           biology:function() {
-            return  ['General Biology I', 'General Biology II'];
+            var subjectList = ['General Biology I', 'General Biology II'];
+            return this.filterList(subjectList);
           },
 
           commerce:function() {
-            return  ['Macroeconomics', 'Microeconomics', 'Quantitative Methods'];
+            var subjectList = ['Macroeconomics', 'Microeconomics', ];
+            return this.filterList(subjectList);
           },
 
           languages:function() {
-            return  ['English', 'French', 'Spanish', 'Italian'];
+            var subjectList = ['English', 'French', 'Spanish', 'Italian'];
+            return this.filterList(subjectList);
           },
 
           priceList:function() {

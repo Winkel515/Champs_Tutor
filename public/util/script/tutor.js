@@ -84,17 +84,14 @@ function tutorsVue(tutor){
           this.commentError = this.ratingComment.length > 200;
           
           if (!(this.ratingError || this.commentError)) {
-            if(this.reviewer.trim() === ""){
-              this.reviewer = "Anonymous";
-            }
             const config = {
                 method: 'POST' ,
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({ 
-                  reviewer : this.reviewer,
+                  reviewer : this.reviewer.trim(),
                   rating: this.rating, 
                   text: this.ratingComment,
-                  reviewerCode: this.reviewerCode
+                  reviewerCode: this.reviewerCode.trim()
                 }) 
             };
             

@@ -64,7 +64,7 @@ const app = new Vue({
         }
 
         var signupError = (this.nameError || this.passwordMatchError || this.emailError || this.passwordError || this.descriptionError || this.priceError || this.subjectsError || this.reviewerCodeError || this.facebookError || this.phoneError);
-
+        
         e.preventDefault();
         // Checks for errors before actually making the POST request
         if(!signupError){
@@ -129,9 +129,12 @@ const app = new Vue({
               if(JSON.parse(e).message === "Email is already in use"){ // Run if email is already in database
                 this.emailDuplicate = true; // Boolean used to show error message on signUp page
                 this.showSpinner = false;
+                $('html, body').animate({ scrollTop: 0 }, 400);
               }
             })
           });
+        } else {
+          $('html, body').animate({ scrollTop: 0 }, 400);
         }
       },
       validEmail: function (email) {
@@ -171,7 +174,7 @@ const app = new Vue({
             return remaining;
       },
       math:function() {
-        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics'];
+        return  ['Calculus I', 'Calculus II', 'Calculus III', 'Linear Algebra', 'Discrete Mathematics', 'Quantitative Methods'];
       },
 
       physics:function() {
@@ -187,7 +190,7 @@ const app = new Vue({
       },
 
       commerce:function() {
-        return  ['Macroeconomics', 'Microeconomics', 'Quantitative Methods'];
+        return  ['Macroeconomics', 'Microeconomics'];
       },
 
       languages:function() {

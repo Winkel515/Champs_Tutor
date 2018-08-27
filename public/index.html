@@ -25,7 +25,7 @@
               <a class="nav-item nav-link text-right" v-show="!isSignedIn" href="/signup">Become a Tutor <span class="sr-only">(current)</span></a>
               <button id="signinButton" class="nav-item nav-link text-right" v-show="!isSignedIn" data-toggle="modal" data-target="#signIn">Tutor Sign In</button>
               <a class="nav-item nav-link text-right" v-show="isSignedIn" href="/editProfile">Edit Profile<span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</a>
+              <button id="signinButton" class="nav-item nav-link text-right" v-show="isSignedIn" data-toggle="modal" data-target="#logOut">Tutor Sign Out</button>
             </div>
           </div>
         </div>
@@ -74,7 +74,14 @@
                 <label for="password">Password:</label>
                 <input type="password" v-on:keyup.enter="signIn" v-on:click="invalidCredentials = false;" v-model="password" class="form-control" id="passwordInput">
               </div>
-              <button type="button" v-on:click="signIn" class="btn  btn-dark">Sign In</button>
+              <button v-if="!showSpinner" type="button" v-on:click="signIn" class="btn btn-dark">Sign In</button>
+              <div v-else class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+              </div>
             <!-- /Form -->
           </div>
         </div>
@@ -96,22 +103,22 @@
           <!-- Select the Subject -->
           <select v-on:change="filterSubject" class="custom-select custom-select-lg mb-3 input-group">
             <option selected style="color: black;">All Subjects</option>
-                <optgroup label="Biology" style="color: black;">
+                <optgroup v-if="biology.length!==0" label="Biology">
                   <option v-for="item in biology">{{ item }}</option>
                 </optgroup>
-                <optgroup label="Commerce" style="color: black;">
+                <optgroup v-if="commerce.length!==0" label="Commerce">
                   <option v-for="item in commerce">{{ item }}</option>
                 </optgroup>
-                <optgroup label="Chemistry" style="color: black;">
+                <optgroup v-if="chemistry.length!==0" label="Chemistry">
                   <option v-for="item in chemistry">{{ item }}</option>
                 </optgroup>
-                <optgroup label="Languages" style="color: black;">
+                <optgroup v-if="languages.length!==0" label="Languages">
                   <option v-for="item in languages">{{ item }}</option>
                 </optgroup>
-                <optgroup label="Mathematics" style="color: black;">
+                <optgroup v-if="math.length!==0" label="Mathematics">
                   <option v-for="item in math">{{ item }}</option>
                 </optgroup> 
-                <optgroup label="Physics" style="color: black;">
+                <optgroup v-if="physics.length!==0" label="Physics">
                     <option v-for="item in physics">{{ item }}</option>
                 </optgroup>
                 
@@ -121,11 +128,13 @@
               <!-- Select the Price Range  -->
             <select v-on:change="filterPrice" class="custom-select custom-select-lg mb-3 input-group">
                     <option selected style="color: black;">All Prices</option>
-                    <option v-for="(price, index) in priceList" v-bind:value="index" style="color: black">{{ price + "$/h" }}</option>
+                    <optgroup label="Maximum price">
+                      <option v-for="(price, index) in priceList" v-bind:value="index" style="color: black">{{ price + "$/h" }}</option>
+                    </optgroup>
 
                   </select>   
             </div>
-          <button type="button" onclick="javascript:location.href='#tutor'" class="btn text-sm-center btn-outline-light">Search</button>
+          <button type="button" @click="scrollTutor" class="btn text-sm-center btn-outline-light">Search</button>
           <div id="tutor" ></div>
         </div>  
         </div> <!-- /JumboTron -->
@@ -191,6 +200,7 @@
     <script src="script/libs/jwt-decode.min.js"></script>
     <script src="script/libs/axios.min.js"></script>
     <script src="script/libs/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> Production Vuejs -->
     <script src="script/app.js"></script>
     <script src="script/navbar.js"></script>
 </body>
