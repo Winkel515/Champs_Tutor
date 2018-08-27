@@ -84,15 +84,14 @@
 
             <label>Update your profile picture:</label>
 
-            <!-- CHANGE THIS TO PREVIEW SELECTED IMAGE FROM INPUT -->
-            <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
-            
             <!-- Input for Profile Picture -->
             <div class="input-container">
+                <label for="fileInput" id="profilePicLabel">
+                    <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+                </label>
+
                 <input @change="updateImageVar" type="file" value="upload" id="fileInput" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
             </div>
-
-            <br />
 
             <!-- OLD PASSWORD INPUT -->
             <label>Change your password:</label>
