@@ -103,6 +103,14 @@
     border-bottom-right-radius: 4px;
     margin-bottom: 15px;
   }
+
+  #fileInput {
+    display: none;
+  }
+
+  #profilePicLabel {
+    margin: 0 auto 15px;
+  }
   
   input[type="text"],
   input[type="password"],
