@@ -272,12 +272,14 @@ label.light {
 /* Bottom right text */
 .bottom-right {
   position: absolute;
-  bottom: 1px;
-  background-color: grey;
-  padding: 5px;
-  right: 1px;
+  bottom: 0px;
+  height: 30px;
+  width: 100px;
+  font-size: 15px !important;
+  background-color: rgb(128,128,128,0.6);
+  right: 0px;
+  padding-top: 5px;
   font-size: .5rem;
-  
 }
 
 

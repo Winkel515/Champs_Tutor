@@ -87,7 +87,10 @@
             <!-- Input for Profile Picture -->
             <div class="input-container">
                 <label for="fileInput" id="profilePicLabel">
-                    <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+                    <div class="position">
+                        <img id="profilePic" :src="previewImageURL" alt=" Invalid URL"/>
+                        <div class="bottom-right"> Upload <i class="fa fa-camera"></i>  </div>
+                    </div>
                 </label>
 
                 <input @change="updateImageVar" type="file" value="upload" id="fileInput" accept="image/jpeg, image/png image/jpg"  @change="onFileChange" />
