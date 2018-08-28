@@ -116,7 +116,7 @@ input[type="password"] {
 }
 
 #profilePicLabel {
-  margin: 10px auto;
+  margin: 0 auto 10px auto;
 }
 
 input[type="password"],
@@ -261,6 +261,25 @@ label.light {
   top: 8px;
   right: 16px; 
  }
+
+ /* Container holding the image and the text */
+.position{
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Bottom right text */
+.bottom-right {
+  position: absolute;
+  bottom: 1px;
+  background-color: grey;
+  padding: 5px;
+  right: 1px;
+  font-size: .5rem;
+  
+}
+
 
 @media screen and (min-width: 480px) {
 
