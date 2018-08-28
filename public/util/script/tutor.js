@@ -28,6 +28,9 @@ function checkStatus(response){
   }
  }
 
+var footerText = $('<p class="m-0 text-center text-white">Copyright &copy; Champs Tutors </p>').append(new Date().getFullYear());
+$('#footerDiv').append(footerText);
+
 // ------------------------------------------
 //  Vue.js template
 // ------------------------------------------
