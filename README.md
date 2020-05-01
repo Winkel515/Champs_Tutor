@@ -9,3 +9,4 @@ It might take a while to load up. Please be patient.
 <img src="MainPage.png" />
 <img src="Edit1.png" />
 <img src="Edit2.png" />
+<img src="Edit3.png" />
